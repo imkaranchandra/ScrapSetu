@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ScrapSetu</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div id="login" class="login">
+    <h1>♻️ ScrapSetu</h1>
+    <p>Collector Portal</p>
+
+    <input id="mobile" placeholder="Mobile Number">
+    <input id="pass" type="password" placeholder="Password">
+
+    <button onclick="login()">Login</button>
+</div>
+
+
+<div id="app" class="hide">
+
+<header>
+    <b>♻️ ScrapSetu</b>
+    <button onclick="logout()">Logout</button>
+</header>
+
+<main>
+
+<h2>Welcome, Collector 👋</h2>
+
+<div class="grid">
+
+    <div class="card big" onclick="show('add')">
+        📷
+        <h3>Add Scrap</h3>
+        <p>Add scrap & get estimated value</p>
+    </div>
+
+    <div class="card" onclick="show('prices')">
+        💰<br><b>Prices</b>
+    </div>
+
+    <div class="card" onclick="show('history')">
+        📦<br><b>History</b>
+    </div>
+
+    <div class="card" onclick="show('profile')">
+        👤<br><b>Profile</b>
+    </div>
+
+</div>
+
+
+<!-- ADD SCRAP -->
+
+<section id="add" class="section hide">
+
+<h2>📷 Add Scrap</h2>
+
+<input type="file" accept="image/*">
+
+<div class="row">
+    <select id="material" onchange="calc()">
+        <option value="">Material</option>
+        <option>Plastic</option>
+        <option>Paper</option>
+        <option>Iron</option>
+        <option>Copper</option>
+        <option>Aluminium</option>
+        <option>Steel</option>
+        <option>E-Waste</option>
+    </select>
+
+    <input id="weight" type="number"
+           placeholder="Weight (kg)"
+           oninput="calc()">
+</div>
+
+<div class="price">
+    Estimated Value
+    <h2 id="price">₹0</h2>
+</div>
+
+<button onclick="add()">Submit Scrap</button>
+
+</section>
+
+
+<!-- PRICES -->
+
+<section id="prices" class="section hide">
+<h2>💰 Price Board</h2>
+
+<div class="prices">
+    <span>Plastic <b>₹20/kg</b></span>
+    <span>Paper <b>₹15/kg</b></span>
+    <span>Iron <b>₹35/kg</b></span>
+    <span>Copper <b>₹600/kg</b></span>
+    <span>Aluminium <b>₹120/kg</b></span>
+    <span>Steel <b>₹45/kg</b></span>
+    <span>E-Waste <b>₹80/kg</b></span>
+</div>
+</section>
+
+
+<!-- HISTORY -->
+
+<section id="history" class="section hide">
+<h2>📦 Collection History</h2>
+<div id="list">No collections yet.</div>
+</section>
+
+
+<!-- PROFILE -->
+
+<section id="profile" class="section hide">
+<h2>👤 Profile</h2>
+<p><b>Role:</b> Scrap Collector</p>
+<p><b>Status:</b> Active</p>
+</section>
+
+</main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
