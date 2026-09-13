@@ -1,0 +1,126 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f8f5;
+    color: #222;
+}
+
+.login {
+    width: 330px;
+    margin: 100px auto;
+    padding: 30px;
+    text-align: center;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px #ccc;
+}
+
+.login h1 {
+    color: #198754;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 12px;
+    margin: 7px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+button {
+    border: 0;
+    padding: 11px 18px;
+    border-radius: 8px;
+    background: #198754;
+    color: white;
+    cursor: pointer;
+}
+
+header {
+    background: white;
+    padding: 18px 8%;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 2px 8px #ddd;
+}
+
+main {
+    max-width: 850px;
+    margin: 35px auto;
+    padding: 0 20px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.card,
+.section {
+    background: white;
+    padding: 22px;
+    border-radius: 14px;
+    box-shadow: 0 3px 12px #ddd;
+}
+
+.card {
+    text-align: center;
+    cursor: pointer;
+}
+
+.card.big {
+    grid-column: span 2;
+    text-align: left;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+}
+
+.section {
+    margin-top: 25px;
+}
+
+.row {
+    display: flex;
+    gap: 10px;
+}
+
+.price {
+    text-align: center;
+    margin: 15px 0;
+    padding: 15px;
+    background: #e9f7ef;
+    border-radius: 10px;
+}
+
+.prices span {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+.hide {
+    display: none;
+}
+
+@media (max-width: 600px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card.big {
+        grid-column: span 1;
+    }
+
+    .row {
+        display: block;
+    }
+}
