@@ -1,187 +1,776 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+
     <title>ScrapSetu - Recycler</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+
     <link rel="stylesheet" href="style.css">
+
 </head>
+
 
 <body>
 
-<!-- LOGIN -->
-<div id="login" class="login">
-    <h1>♻️ ScrapSetu</h1>
-    <p>Recycler Portal</p>
 
-    <input id="mobile" placeholder="Mobile Number">
-    <input id="pass" type="password" placeholder="Password">
+<!-- ================= LOGIN ================= -->
 
-    <button onclick="login()">Login</button>
+<div id="login" class="login-page">
+
+    <div class="login-card">
+
+        <div class="logo">
+            ♻️
+        </div>
+
+        <h1>ScrapSetu</h1>
+
+        <p class="portal">
+            Recycler Portal
+        </p>
+
+        <input
+            id="mobile"
+            type="text"
+            placeholder="📱 Mobile Number"
+        >
+
+        <input
+            id="pass"
+            type="password"
+            placeholder="🔒 Password"
+        >
+
+        <button
+            class="login-btn"
+            onclick="login()">
+
+            Login →
+
+        </button>
+
+        <p class="login-note">
+            Connect • Collect • Recycle
+        </p>
+
+    </div>
+
 </div>
 
 
-<!-- APP -->
+
+<!-- ================= APP ================= -->
+
 <div id="app" class="hide">
 
+
+<!-- HEADER -->
+
 <header>
-    <b>♻️ ScrapSetu</b>
-    <button onclick="location.reload()">Logout</button>
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            ♻️
+        </div>
+
+        <div>
+
+            <b>ScrapSetu</b>
+
+            <small>
+                Recycler
+            </small>
+
+        </div>
+
+    </div>
+
+
+    <button
+        class="logout-btn"
+        onclick="logout()">
+
+        Logout
+
+    </button>
+
 </header>
+
+
+
+<!-- MAIN -->
 
 <main>
 
-<h2>Recycler Dashboard 👋</h2>
+
+<!-- ================= WELCOME ================= -->
+
+<section class="welcome">
+
+    <div>
+
+        <p class="small-title">
+            RECYCLER DASHBOARD
+        </p>
+
+        <h2>
+            Welcome back! 👋
+        </h2>
+
+        <p>
+            Manage scrap lots and recycling
+            transactions.
+        </p>
+
+    </div>
+
+
+    <div class="welcome-icon">
+        ♻️
+    </div>
+
+</section>
+
+
+
+<!-- ================= DASHBOARD CARDS ================= -->
 
 <div class="grid">
 
-    <div class="card big" onclick="show('lots')">
-        📦
-        <h3>Incoming Lots</h3>
-        <p>View and manage available scrap</p>
+
+    <!-- INCOMING LOTS -->
+
+    <div
+        class="card add-card"
+        onclick="openModal('lotsModal')">
+
+        <div class="card-icon green">
+            📦
+        </div>
+
+        <div class="card-content">
+
+            <h3>
+                Incoming Lots
+            </h3>
+
+            <p>
+                View and manage scrap submitted
+                by collectors.
+            </p>
+
+        </div>
+
+        <span class="arrow">
+            →
+        </span>
+
     </div>
 
-    <div class="card" onclick="show('materials')">
-        ♻️<br><b>Materials</b>
+
+
+    <!-- MATERIALS -->
+
+    <div
+        class="card"
+        onclick="openModal('materialsModal')">
+
+        <div class="card-icon green">
+            ♻️
+        </div>
+
+        <h3>
+            Materials
+        </h3>
+
+        <p>
+            View accepted materials
+        </p>
+
+        <span class="arrow">
+            →
+        </span>
+
     </div>
 
-    <div class="card" onclick="show('rates')">
-        💰<br><b>Rates</b>
+
+
+    <!-- RATES -->
+
+    <div
+        class="card"
+        onclick="openModal('ratesModal')">
+
+        <div class="card-icon yellow">
+            💰
+        </div>
+
+        <h3>
+            Offered Rates
+        </h3>
+
+        <p>
+            Check current rates
+        </p>
+
+        <span class="arrow">
+            →
+        </span>
+
     </div>
 
-    <div class="card" onclick="show('pickup')">
-        🚚<br><b>Pickup</b>
+
+
+    <!-- PICKUP -->
+
+    <div
+        class="card"
+        onclick="openModal('pickupModal')">
+
+        <div class="card-icon orange">
+            🚚
+        </div>
+
+        <h3>
+            Pickup
+        </h3>
+
+        <p>
+            Track pickup status
+        </p>
+
+        <span class="arrow">
+            →
+        </span>
+
     </div>
 
-    <div class="card" onclick="show('history')">
-        📜<br><b>History</b>
+
+
+    <!-- HISTORY -->
+
+    <div
+        class="card"
+        onclick="openModal('historyModal')">
+
+        <div class="card-icon blue">
+            📜
+        </div>
+
+        <h3>
+            History
+        </h3>
+
+        <p>
+            View transactions
+        </p>
+
+        <span class="arrow">
+            →
+        </span>
+
     </div>
 
-    <div class="card" onclick="show('profile')">
-        👤<br><b>Profile</b>
+
+
+    <!-- PROFILE -->
+
+    <div
+        class="card"
+        onclick="openModal('profileModal')">
+
+        <div class="card-icon purple">
+            👤
+        </div>
+
+        <h3>
+            Profile
+        </h3>
+
+        <p>
+            Recycler information
+        </p>
+
+        <span class="arrow">
+            →
+        </span>
+
     </div>
 
 </div>
-
-
-<!-- INCOMING LOTS -->
-
-<section id="lots" class="section hide">
-
-<h2>📦 Incoming Lots</h2>
-
-<div class="lot">
-    <b>🔩 Iron</b>
-    <p>10 kg · ₹350</p>
-    <button onclick="accept('Iron',10,350)">Accept</button>
-    <button class="reject" onclick="reject('Iron')">Reject</button>
-</div>
-
-<div class="lot">
-    <b>🥫 Aluminium</b>
-    <p>5 kg · ₹600</p>
-    <button onclick="accept('Aluminium',5,600)">Accept</button>
-    <button class="reject" onclick="reject('Aluminium')">Reject</button>
-</div>
-
-<div class="lot">
-    <b>📱 E-Waste</b>
-    <p>8 kg · ₹640</p>
-    <button onclick="accept('E-Waste',8,640)">Accept</button>
-    <button class="reject" onclick="reject('E-Waste')">Reject</button>
-</div>
-
-</section>
-
-
-<!-- MATERIALS -->
-
-<section id="materials" class="section hide">
-
-<h2>♻️ Materials Accepted</h2>
-
-<p>✓ Plastic</p>
-<p>✓ Paper</p>
-<p>✓ Iron</p>
-<p>✓ Copper</p>
-<p>✓ Aluminium</p>
-<p>✓ Steel</p>
-<p>✓ E-Waste</p>
-
-</section>
-
-
-<!-- RATES -->
-
-<section id="rates" class="section hide">
-
-<h2>💰 Current Offered Rates</h2>
-
-<p>Plastic <b>₹20/kg</b></p>
-<p>Paper <b>₹15/kg</b></p>
-<p>Iron <b>₹35/kg</b></p>
-<p>Copper <b>₹600/kg</b></p>
-<p>Aluminium <b>₹120/kg</b></p>
-<p>Steel <b>₹45/kg</b></p>
-<p>E-Waste <b>₹80/kg</b></p>
-
-</section>
-
-
-<!-- PICKUP -->
-
-<section id="pickup" class="section hide">
-
-<h2>🚚 Pickup Status</h2>
-
-<div id="pickupStatus">
-    No active pickup.
-</div>
-
-</section>
-
-
-<!-- HISTORY -->
-
-<section id="history" class="section hide">
-
-<h2>📜 Transaction History</h2>
-
-<div id="historyList">
-    No transactions yet.
-</div>
-
-</section>
-
-
-<!-- PROFILE -->
-
-<section id="profile" class="section hide">
-
-<h2>👤 Recycler Profile</h2>
-
-<p><b>Business:</b> Green Recycling Centre</p>
-<p><b>Role:</b> Recycler</p>
-<p><b>Status:</b> Active 🟢</p>
-
-</section>
-
-
-<!-- HANDOVER -->
-
-<section id="handover" class="section hide">
-
-<h2>🤝 Handover Confirmation</h2>
-
-<p>Confirm that the scrap has been received.</p>
-
-<button onclick="handover()">Confirm Handover</button>
-
-</section>
 
 </main>
+
+
+
+<!-- ================= INCOMING LOTS MODAL ================= -->
+
+<div id="lotsModal" class="modal">
+
+    <div class="modal-box large-modal">
+
+        <button
+            class="close"
+            onclick="closeModal('lotsModal')">
+
+            ×
+
+        </button>
+
+
+        <div class="modal-heading">
+
+            <div class="modal-icon green">
+                📦
+            </div>
+
+            <div>
+
+                <h2>
+                    Incoming Lots
+                </h2>
+
+                <p>
+                    Scrap submitted by collectors
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- JavaScript will add lots here -->
+
+        <div id="incomingLots">
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    📦
+                </div>
+
+                <h3>
+                    No incoming lots
+                </h3>
+
+                <p>
+                    New collector submissions
+                    will appear here.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
+
+
+
+<!-- ================= MATERIALS MODAL ================= -->
+
+<div id="materialsModal" class="modal">
+
+    <div class="modal-box">
+
+        <button
+            class="close"
+            onclick="closeModal('materialsModal')">
+
+            ×
+
+        </button>
+
+
+        <div class="modal-heading">
+
+            <div class="modal-icon green">
+                ♻️
+            </div>
+
+            <div>
+
+                <h2>
+                    Materials
+                </h2>
+
+                <p>
+                    Materials accepted by recycler
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="material-grid">
+
+            <div>✓ Plastic</div>
+
+            <div>✓ Paper</div>
+
+            <div>✓ Iron</div>
+
+            <div>✓ Copper</div>
+
+            <div>✓ Aluminium</div>
+
+            <div>✓ Steel</div>
+
+            <div>✓ E-Waste</div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= RATES MODAL ================= -->
+
+<div id="ratesModal" class="modal">
+
+    <div class="modal-box">
+
+        <button
+            class="close"
+            onclick="closeModal('ratesModal')">
+
+            ×
+
+        </button>
+
+
+        <div class="modal-heading">
+
+            <div class="modal-icon yellow">
+                💰
+            </div>
+
+            <div>
+
+                <h2>
+                    Offered Rates
+                </h2>
+
+                <p>
+                    Current recycler rates
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="prices">
+
+            <div class="price-row">
+                <span>Plastic</span>
+                <b>₹20/kg</b>
+            </div>
+
+            <div class="price-row">
+                <span>Paper</span>
+                <b>₹15/kg</b>
+            </div>
+
+            <div class="price-row">
+                <span>Iron</span>
+                <b>₹35/kg</b>
+            </div>
+
+            <div class="price-row">
+                <span>Copper</span>
+                <b>₹600/kg</b>
+            </div>
+
+            <div class="price-row">
+                <span>Aluminium</span>
+                <b>₹120/kg</b>
+            </div>
+
+            <div class="price-row">
+                <span>Steel</span>
+                <b>₹45/kg</b>
+            </div>
+
+            <div class="price-row">
+                <span>E-Waste</span>
+                <b>₹80/kg</b>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= PICKUP MODAL ================= -->
+
+<div id="pickupModal" class="modal">
+
+    <div class="modal-box">
+
+        <button
+            class="close"
+            onclick="closeModal('pickupModal')">
+
+            ×
+
+        </button>
+
+
+        <div class="modal-heading">
+
+            <div class="modal-icon orange">
+                🚚
+            </div>
+
+            <div>
+
+                <h2>
+                    Pickup Status
+                </h2>
+
+                <p>
+                    Track your active pickup
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="pickupStatus"
+            class="pickup-box">
+
+            <div class="pickup-empty">
+
+                🚚
+
+                <h3>
+                    No active pickup
+                </h3>
+
+                <p>
+                    Accept a lot to schedule
+                    a pickup.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <button
+            id="handoverButton"
+            class="handover-btn hide"
+            onclick="openModal('handoverModal')">
+
+            🤝 Confirm Handover
+
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= HISTORY MODAL ================= -->
+
+<div id="historyModal" class="modal">
+
+    <div class="modal-box large-modal">
+
+        <button
+            class="close"
+            onclick="closeModal('historyModal')">
+
+            ×
+
+        </button>
+
+
+        <div class="modal-heading">
+
+            <div class="modal-icon blue">
+                📜
+            </div>
+
+            <div>
+
+                <h2>
+                    Transaction History
+                </h2>
+
+                <p>
+                    Accepted and completed transactions
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div id="historyList">
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    📜
+                </div>
+
+                <h3>
+                    No transactions yet
+                </h3>
+
+                <p>
+                    Accepted lots will appear here.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= PROFILE MODAL ================= -->
+
+<div id="profileModal" class="modal">
+
+    <div class="modal-box">
+
+        <button
+            class="close"
+            onclick="closeModal('profileModal')">
+
+            ×
+
+        </button>
+
+
+        <div class="modal-heading">
+
+            <div class="modal-icon purple">
+                👤
+            </div>
+
+            <div>
+
+                <h2>
+                    Recycler Profile
+                </h2>
+
+                <p>
+                    Business information
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="profile-card">
+
+            <div class="profile-avatar">
+                ♻️
+            </div>
+
+            <div class="profile-info">
+
+                <h3>
+                    Green Recycling Centre
+                </h3>
+
+                <p>
+                    <b>Role:</b>
+                    Recycler
+                </p>
+
+                <p>
+                    <b>Status:</b>
+
+                    <span class="active">
+                        ● Active
+                    </span>
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= HANDOVER MODAL ================= -->
+
+<div id="handoverModal" class="modal">
+
+    <div class="modal-box small-modal">
+
+        <button
+            class="close"
+            onclick="closeModal('handoverModal')">
+
+            ×
+
+        </button>
+
+
+        <div class="handover-content">
+
+            <div class="handover-icon">
+                🤝
+            </div>
+
+            <h2>
+                Confirm Handover
+            </h2>
+
+            <p>
+                Confirm that the scrap has
+                been received successfully.
+            </p>
+
+
+            <button
+                class="submit-btn"
+                onclick="handover()">
+
+                ✓ Confirm Handover
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- JAVASCRIPT -->
 
 <script src="script.js"></script>
 
 </body>
+
 </html>
