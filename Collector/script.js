@@ -48,8 +48,90 @@ function updatePriceBoardUI() {
 }
 
 // ==========================================
-// LOGIN
+// AUTHENTICATION: LOGIN & SIGNUP
 // ==========================================
+
+function showSignup() {
+    const loginForm = document.getElementById("loginForm");
+    const signupForm = document.getElementById("signupForm");
+    const portal = document.querySelector(".login-card .portal");
+    if (loginForm && signupForm) {
+        loginForm.classList.add("hide");
+        signupForm.classList.remove("hide");
+        if (portal) portal.innerText = "Create Collector ID";
+    }
+}
+
+function showLogin() {
+    const loginForm = document.getElementById("loginForm");
+    const signupForm = document.getElementById("signupForm");
+    const portal = document.querySelector(".login-card .portal");
+    if (loginForm && signupForm) {
+        signupForm.classList.add("hide");
+        loginForm.classList.remove("hide");
+        if (portal) portal.innerText = "Collector Portal";
+    }
+}
+
+async function register() {
+    const name = document.getElementById("signupName");
+    const mobile = document.getElementById("signupMobile");
+    const pass = document.getElementById("signupPass");
+    const city = document.getElementById("signupCity");
+
+    if (!name || !mobile || !pass) return;
+
+    const nameVal = name.value.trim();
+    const mobileVal = mobile.value.trim();
+    const passVal = pass.value.trim();
+    const cityVal = city ? city.value.trim() : "";
+
+    if (nameVal === "" || mobileVal === "" || passVal === "") {
+        alert("Please enter full name, mobile number, and choose a password.");
+        return;
+    }
+
+    if (passVal.length < 4) {
+        alert("Password must be at least 4 characters long.");
+        return;
+    }
+
+    try {
+        const res = await fetch(`${API_BASE_URL}/auth/register`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                full_name: nameVal,
+                mobile: mobileVal,
+                password: passVal,
+                role: "collector",
+                city: cityVal
+            })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            alert(data.detail || "Registration failed.");
+            return;
+        }
+
+        // Save login information
+        localStorage.setItem("scrapsetu_token", data.access_token);
+        localStorage.setItem("scrapsetu_user", JSON.stringify(data.user));
+
+        alert(`🎉 Collector ID created successfully for ${nameVal}!`);
+
+        // Automatically go to Collector dashboard
+        window.location.href = "index.html";
+
+    } catch (err) {
+        console.error("Registration error:", err);
+        alert("Registration failed. Please check that the backend is running.");
+    }
+}
 
 async function login() {
     const mobile = document.getElementById("mobile");

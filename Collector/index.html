@@ -32,31 +32,79 @@
             Collector Portal
         </p>
 
-        <input
-            id="mobile"
-            type="text"
-            placeholder="📱 Mobile Number"
-        >
+        <!-- LOGIN FORM -->
+        <div id="loginForm">
+            <input
+                id="mobile"
+                type="text"
+                placeholder="📱 Mobile Number"
+            >
 
-        <input
-            id="pass"
-            type="password"
-            placeholder="🔒 Password"
-        >
+            <input
+                id="pass"
+                type="password"
+                placeholder="🔒 Password"
+            >
 
-        <button
-            class="login-btn"
-            onclick="login()">
-            Login →
-        </button>
+            <button
+                class="login-btn"
+                onclick="login()">
+                Login →
+            </button>
 
-        <p class="login-note">
-            Connect • Collect • Recycle
-        </p>
+            <div class="auth-toggle">
+                Don't have an ID? <a href="signup.html">Sign Up</a>
+            </div>
 
-        <p style="font-size:12px; color:#6b7280; margin-top:6px; text-align:center;">
-            <b>Default Login:</b> 9336864092 &bull; karancollector
-        </p>
+            <p class="login-note">
+                Connect • Collect • Recycle
+            </p>
+
+            <p style="font-size:12px; color:#6b7280; margin-top:6px; text-align:center;">
+                <b>Default Login:</b> 9336864092 &bull; karancollector
+            </p>
+        </div>
+
+        <!-- SIGNUP FORM -->
+        <div id="signupForm" class="hide">
+            <input
+                id="signupName"
+                type="text"
+                placeholder="👤 Full Name"
+            >
+
+            <input
+                id="signupMobile"
+                type="text"
+                placeholder="📱 Mobile Number"
+            >
+
+            <input
+                id="signupPass"
+                type="password"
+                placeholder="🔒 Choose Password"
+            >
+
+            <input
+                id="signupCity"
+                type="text"
+                placeholder="📍 City / Location"
+            >
+
+            <button
+                class="login-btn"
+                onclick="register()">
+                Create Collector ID →
+            </button>
+
+            <div class="auth-toggle">
+                Already have an ID? <a onclick="showLogin()">Login</a>
+            </div>
+
+            <p class="login-note">
+                Join the ScrapSetu Network
+            </p>
+        </div>
 
     </div>
 

@@ -232,6 +232,26 @@ select {
     font-size: 12px;
 }
 
+.auth-toggle {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.auth-toggle a {
+    color: #198754;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    margin-left: 4px;
+    transition: 0.2s;
+}
+
+.auth-toggle a:hover {
+    text-decoration: underline;
+    color: #13653f;
+}
+
 
 /* ==========================================
    HEADER
