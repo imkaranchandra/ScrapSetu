@@ -1,13 +1,11 @@
 // ==========================================
-// SCRAPSETU - COLLECTOR PORTAL
+// SCRAPSETU - COLLECTOR PORTAL (CONNECTED TO BACKEND)
 // ==========================================
 
+const API_BASE_URL = "http://127.0.0.1:8000/api";
 
-// ==========================================
-// SCRAP RATES
-// ==========================================
-
-const rates = {
+// Fallback rates if backend is unreachable
+let rates = {
     Plastic: 20,
     Paper: 15,
     Iron: 35,
@@ -17,13 +15,43 @@ const rates = {
     "E-Waste": 80
 };
 
+// ==========================================
+// INITIALIZATION & DYNAMIC RATES
+// ==========================================
+
+async function fetchRates() {
+    try {
+        const res = await fetch(`${API_BASE_URL}/rates/dict`);
+        if (res.ok) {
+            rates = await res.json();
+            updatePriceBoardUI();
+        }
+    } catch (err) {
+        console.warn("Backend offline, using fallback rates:", err.message);
+    }
+}
+
+function updatePriceBoardUI() {
+    const priceBoard = document.querySelector("#priceModal .prices");
+    if (!priceBoard) return;
+
+    let html = "";
+    for (const [mat, rate] of Object.entries(rates)) {
+        html += `
+            <div class="price-row">
+                <span>${mat}</span>
+                <b>₹${rate}/kg</b>
+            </div>
+        `;
+    }
+    priceBoard.innerHTML = html;
+}
 
 // ==========================================
 // LOGIN
 // ==========================================
 
-function login() {
-
+async function login() {
     const mobile = document.getElementById("mobile");
     const pass = document.getElementById("pass");
     const loginBox = document.getElementById("login");
@@ -33,114 +61,124 @@ function login() {
         return;
     }
 
-    if (
-        mobile.value.trim() !== "" &&
-        pass.value.trim() !== ""
-    ) {
+    const mobileVal = mobile.value.trim();
+    const passVal = pass.value.trim();
 
-        loginBox.classList.add("hide");
-        app.classList.remove("hide");
-
-    } else {
-
+    if (mobileVal === "" || passVal === "") {
         alert("Please enter mobile number and password.");
+        return;
+    }
 
+    // Attempt backend authentication
+    try {
+        const res = await fetch(`${API_BASE_URL}/auth/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                mobile: mobileVal,
+                password: passVal
+            })
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+            localStorage.setItem("scrapsetu_token", data.access_token);
+            localStorage.setItem("scrapsetu_user", JSON.stringify(data.user));
+            updateProfileUI(data.user);
+
+            // Access granted: switch to main app
+            loginBox.classList.add("hide");
+            app.classList.remove("hide");
+        } else {
+            alert(data.detail || "Invalid mobile number or password.");
+        }
+    } catch (err) {
+        // Fallback check if backend is offline
+        if (mobileVal === "9336864092" && passVal === "karancollector") {
+            loginBox.classList.add("hide");
+            app.classList.remove("hide");
+        } else {
+            alert("Login failed. Ensure backend is running or use credentials (Mobile: 9336864092, Password: karancollector).");
+        }
     }
 }
 
+function updateProfileUI(user) {
+    if (!user) return;
+    const profileCard = document.querySelector("#profileModal .profile-info");
+    if (profileCard) {
+        profileCard.innerHTML = `
+            <h3>${user.full_name || "Scrap Collector"}</h3>
+            <p><b>Mobile:</b> ${user.mobile}</p>
+            <p><b>Role:</b> Collector</p>
+            <p><b>Status:</b> <span class="active">● Active</span></p>
+            ${user.city ? `<p><b>City:</b> ${user.city}</p>` : ""}
+        `;
+    }
+}
 
 // ==========================================
 // LOGOUT
 // ==========================================
 
 function logout() {
-
+    localStorage.removeItem("scrapsetu_token");
+    localStorage.removeItem("scrapsetu_user");
     location.reload();
-
 }
 
-
 // ==========================================
-// OPEN MODAL
+// MODALS
 // ==========================================
 
 function openModal(id) {
-
     const modal = document.getElementById(id);
-
-    if (!modal) {
-        return;
-    }
+    if (!modal) return;
 
     modal.classList.add("show");
-
     document.body.classList.add("modal-open");
 
-
-    // Load history when history popup opens
-
     if (id === "historyModal") {
-
         load();
-
     }
 }
-
-
-// ==========================================
-// CLOSE MODAL
-// ==========================================
 
 function closeModal(id) {
-
     const modal = document.getElementById(id);
-
-    if (!modal) {
-        return;
-    }
+    if (!modal) return;
 
     modal.classList.remove("show");
-
     document.body.classList.remove("modal-open");
-
 }
 
-
-// ==========================================
-// CLOSE MODAL WHEN CLICKING OUTSIDE
-// ==========================================
-
 document.addEventListener("DOMContentLoaded", function () {
+    fetchRates();
 
     const modals = document.querySelectorAll(".modal");
-
     modals.forEach(function (modal) {
-
         modal.addEventListener("click", function (event) {
-
             if (event.target === modal) {
-
                 modal.classList.remove("show");
-
-                document.body.classList.remove(
-                    "modal-open"
-                );
-
+                document.body.classList.remove("modal-open");
             }
-
         });
-
     });
 
+    // Check if previously logged in
+    const savedUser = localStorage.getItem("scrapsetu_user");
+    if (savedUser) {
+        try {
+            updateProfileUI(JSON.parse(savedUser));
+        } catch (e) {}
+    }
 });
-
 
 // ==========================================
 // CALCULATE PRICE
 // ==========================================
 
 function calc() {
-
     const material = document.getElementById("material");
     const weight = document.getElementById("weight");
     const price = document.getElementById("price");
@@ -150,24 +188,18 @@ function calc() {
     }
 
     const selectedMaterial = material.value;
-
     const selectedWeight = Number(weight.value);
-
     const rate = rates[selectedMaterial] || 0;
-
     const total = rate * selectedWeight;
 
     price.innerText = "₹" + total;
-
 }
-
 
 // ==========================================
 // ADD SCRAP
 // ==========================================
 
-function add() {
-
+async function add() {
     const material = document.getElementById("material");
     const weight = document.getElementById("weight");
     const price = document.getElementById("price");
@@ -176,242 +208,156 @@ function add() {
         return;
     }
 
+    const matVal = material.value;
+    const weightVal = Number(weight.value);
 
-    // Check input
-
-    if (
-        material.value === "" ||
-        weight.value === "" ||
-        Number(weight.value) <= 0
-    ) {
-
-        alert(
-            "Please select material and enter a valid weight."
-        );
-
+    if (matVal === "" || weight.value === "" || weightVal <= 0) {
+        alert("Please select material and enter a valid weight.");
         return;
     }
 
+    const calculatedPrice = (rates[matVal] || 0) * weightVal;
+    const token = localStorage.getItem("scrapsetu_token");
 
-    // Get old scrap data
+    let submittedToBackend = false;
 
-    let data = [];
-
+    // 1. Submit to Backend API
     try {
+        const res = await fetch(`${API_BASE_URL}/scrap`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                ...(token ? { "Authorization": `Bearer ${token}` } : {})
+            },
+            body: JSON.stringify({
+                material: matVal,
+                weight: weightVal,
+                pickup_address: "Current Location"
+            })
+        });
 
-        data = JSON.parse(
-            localStorage.getItem("scrap") || "[]"
-        );
-
-    } catch (error) {
-
-        data = [];
-
+        if (res.ok) {
+            submittedToBackend = true;
+        }
+    } catch (err) {
+        console.warn("Backend not available, saving locally:", err.message);
     }
 
+    // 2. Also keep in localStorage for offline availability
+    let localData = [];
+    try {
+        localData = JSON.parse(localStorage.getItem("scrap") || "[]");
+    } catch (e) {
+        localData = [];
+    }
 
-    // Calculate price
-
-    const calculatedPrice =
-        (rates[material.value] || 0) *
-        Number(weight.value);
-
-
-    // Create scrap object
-
-    const scrap = {
-
-        material: material.value,
-
-        weight: Number(weight.value),
-
+    localData.push({
+        material: matVal,
+        weight: weightVal,
         price: calculatedPrice,
-
         status: "Pending"
+    });
 
-    };
+    localStorage.setItem("scrap", JSON.stringify(localData));
 
-
-    // Add scrap
-
-    data.push(scrap);
-
-
-    // Save scrap
-
-    localStorage.setItem(
-        "scrap",
-        JSON.stringify(data)
-    );
-
-
-    // Success message
-
-    alert("♻️ Scrap added successfully!");
-
+    // Success feedback
+    if (submittedToBackend) {
+        alert("♻️ Scrap added successfully to ScrapSetu cloud & saved!");
+    } else {
+        alert("♻️ Scrap added successfully (saved locally)!");
+    }
 
     // Clear form
-
     material.value = "";
-
     weight.value = "";
-
     price.innerText = "₹0";
 
-
-    // Close Add Scrap popup
-
     closeModal("addModal");
-
-
-    // Open History popup
-
     openModal("historyModal");
-
 }
-
 
 // ==========================================
 // LOAD HISTORY
 // ==========================================
 
-function load() {
-
+async function load() {
     const list = document.getElementById("list");
+    if (!list) return;
 
-    if (!list) {
-        return;
-    }
+    const token = localStorage.getItem("scrapsetu_token");
+    let items = null;
 
-
-    // Get data
-
-    let data = [];
-
+    // 1. Try fetching from Backend API
     try {
-
-        data = JSON.parse(
-            localStorage.getItem("scrap") || "[]"
-        );
-
-    } catch (error) {
-
-        data = [];
-
+        const res = await fetch(`${API_BASE_URL}/scrap/my-collections`, {
+            headers: token ? { "Authorization": `Bearer ${token}` } : {}
+        });
+        if (res.ok) {
+            items = await res.json();
+        }
+    } catch (err) {
+        console.warn("Failed to load from backend, using local storage:", err.message);
     }
 
+    // 2. Fallback to localStorage if backend failed
+    if (!items) {
+        try {
+            items = JSON.parse(localStorage.getItem("scrap") || "[]");
+        } catch (e) {
+            items = [];
+        }
+    }
 
-    // No data
-
-    if (
-        !Array.isArray(data) ||
-        data.length === 0
-    ) {
-
+    // 3. Render Empty State
+    if (!Array.isArray(items) || items.length === 0) {
         list.innerHTML = `
             <div class="empty">
-
-                <div style="font-size:40px;">
-                    📦
-                </div>
-
-                <h3>
-                    No collections yet
-                </h3>
-
-                <p>
-                    Your submitted scrap will
-                    appear here.
-                </p>
-
+                <div style="font-size:40px;">📦</div>
+                <h3>No collections yet</h3>
+                <p>Your submitted scrap will appear here.</p>
             </div>
         `;
-
         return;
     }
 
-
-    // Show data
-
+    // 4. Render Items
     let html = "";
-
-
-    data.forEach(function (item, index) {
-
-        const material =
-            item.material || "Unknown";
-
-        const weight =
-            item.weight || 0;
-
-        const itemPrice =
-            item.price || 0;
-
-        const status =
-            item.status || "Pending";
-
+    items.forEach(function (item, index) {
+        const material = item.material || "Unknown";
+        const weight = item.weight || 0;
+        const itemPrice = item.price || 0;
+        const status = item.status || "Pending";
+        const lotNumber = item.lot_number || `#${index + 1}`;
 
         html += `
-
             <div class="collection">
-
                 <div class="collection-top">
-
                     <div>
-
                         <span class="collection-number">
-                            #${index + 1}
+                            ${lotNumber}
                         </span>
-
                         <h3>
                             ${material}
                         </h3>
-
                     </div>
-
                     <span class="status">
                         ${status}
                     </span>
-
                 </div>
-
 
                 <div class="collection-details">
-
                     <div>
-
-                        <small>
-                            Weight
-                        </small>
-
-                        <b>
-                            ⚖️ ${weight} kg
-                        </b>
-
+                        <small>Weight</small>
+                        <b>⚖️ ${weight} kg</b>
                     </div>
-
-
                     <div>
-
-                        <small>
-                            Estimated Value
-                        </small>
-
-                        <b class="collection-price">
-                            ₹${itemPrice}
-                        </b>
-
+                        <small>Estimated Value</small>
+                        <b class="collection-price">₹${itemPrice}</b>
                     </div>
-
                 </div>
-
             </div>
-
         `;
-
     });
 
-
     list.innerHTML = html;
-
 }

@@ -1,0 +1,29 @@
+# Python virtual environment
+venv/
+.venv/
+env/
+ENV/
+
+# Python cache & artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+
+# SQLite databases
+*.db
+*.sqlite3
+
+# Uploads directory contents (keep folder)
+Backend/uploads/*
+!Backend/uploads/.gitkeep
+
+# Environment files
+.env
+.env.local
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
