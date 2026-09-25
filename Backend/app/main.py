@@ -26,10 +26,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title=settings.PROJECT_NAME,
     version=settings.VERSION,
-    docs_url="/api/docs",
-    redoc_url="/api/redoc",
-    openapi_url="/api/openapi.json",
-    description="""
+    description=""" 
     ## ScrapSetu REST API ♻️
     Backend service connecting Scrap Collectors and Recyclers seamlessly.
     
@@ -63,7 +60,7 @@ app.include_router(scrap.router, prefix=settings.API_V1_STR)
 app.include_router(pickups.router, prefix=settings.API_V1_STR)
 app.include_router(dashboard.router, prefix=settings.API_V1_STR)
 
-@app.get("/", tags=["Health"])
+@app.get("/api", tags=["Health"])
 def health_check():
     return {
         "status": "online",
