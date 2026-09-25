@@ -2,7 +2,7 @@
 // SCRAPSETU - RECYCLER PORTAL (CONNECTED TO BACKEND)
 // ==========================================
 
-const API_BASE_URL = "http://192.168.29.209:8000/api";
+const API_BASE_URL = "/api";
 
 // Cached memory for active lots
 let cachedIncomingLots = [];
