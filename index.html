@@ -2,78 +2,130 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ScrapSetu – Choose Role</title>
+    <title>ScrapSetu – Choose Your Role</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style.css">
     <style>
+        /* ---- Page layout ---- */
         body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            background: linear-gradient(135deg, #f3faf6, #eef7f2);
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #f3faf6, #eef7f2);
-            font-family: Arial, Helvetica, sans-serif;
-            margin: 0;
             padding-top: 40px;
         }
         .logo {
-            width: 78px;
-            height: 78px;
+            width: 80px;
+            height: 80px;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 24px;
             background: linear-gradient(135deg, #dff7e8, #edf9f1);
-            font-size: 40px;
+            font-size: 48px;
             box-shadow: 0 10px 25px rgba(25,135,84,0.10);
             margin-bottom: 20px;
         }
-        .role-card {
+        .hero {
+            max-width: 960px;
+            text-align: center;
             background: rgba(255,255,255,0.95);
-            padding: 30px 25px;
+            padding: 30px 20px;
             border-radius: 28px;
             box-shadow: 0 25px 70px rgba(25,135,84,0.15);
             border: 1px solid #e5f0e9;
-            text-align: center;
-            max-width: 380px;
         }
-        .role-card h1 {
+        .hero h1 {
             color: #198754;
-            margin: 0 0 8px;
+            margin: 0 0 10px;
         }
-        .role-card p {
+        .hero p {
+            color: #555;
             margin: 0 0 20px;
-            color: #7a8790;
+            line-height: 1.5;
         }
-        .role-buttons a {
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .buttons a {
             display: inline-block;
-            margin: 0.5rem 1rem;
-            padding: 0.75rem 1.5rem;
+            padding: 12px 24px;
             background: linear-gradient(135deg, #198754, #27a965);
             color: #fff;
             border-radius: 13px;
             text-decoration: none;
-            font-size: 1rem;
             font-weight: bold;
             transition: transform 0.2s, box-shadow 0.2s;
             box-shadow: 0 8px 20px rgba(25,135,84,0.20);
         }
-        .role-buttons a:hover {
-            transform: translateY(-2px);
+        .buttons a:hover {
+            transform: translateY(-3px);
             box-shadow: 0 12px 25px rgba(25,135,84,0.25);
+        }
+        .about {
+            max-width: 960px;
+            margin-top: 40px;
+            background: rgba(255,255,255,0.9);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+        }
+        .about h2 {
+            color: #198754;
+            margin-bottom: 15px;
+        }
+        .about p {
+            color: #444;
+            line-height: 1.6;
+        }
+        .about .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .about .grid img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            transition: transform 0.3s;
+        }
+        .about .grid img:hover {
+            transform: scale(1.04);
         }
     </style>
 </head>
 <body>
     <div class="logo">♻️</div>
-    <div class="role-card">
+    <section class="hero">
         <h1>Welcome to ScrapSetu</h1>
-        <p>Please select your portal</p>
-        <div class="role-buttons">
-            <a href="Collector/index.html">Collector</a>
-            <a href="Recycler/index.html">Recycler</a>
+        <p>Connecting collectors and recyclers on a single platform to make waste management simple, transparent, and rewarding.</p>
+        <div class="buttons">
+            <a href="Collector/index.html">Collector Portal</a>
+            <a href="Recycler/index.html">Recycler Portal</a>
         </div>
-    </div>
+        <img src="https://images.unsplash.com/photo-1581091870623-33b86c0a5ffa?auto=format&fit=crop&w=800&q=60" alt="Recycling illustration" style="width:100%;max-width:600px;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,0.1);">
+    </section>
+    <section class="about">
+        <h2>Our Idea</h2>
+        <p>ScrapSetu aims to close the loop between waste generators, collectors, and recyclers. By providing a digital marketplace, we enable:
+            <ul>
+                <li>Collectors to register scrap items quickly and get fair price estimates.</li>
+                <li>Recyclers to view incoming lots, schedule pickups and manage their inventory.</li>
+                <li>Transparent pricing based on current market rates for different materials.</li>
+                <li>Easy analytics for both parties to track volume, earnings and environmental impact.</li>
+            </ul>
+        </p>
+        <div class="grid">
+            <img src="https://images.unsplash.com/photo-1580910051073-dffbb7e5dd33?auto=format&fit=crop&w=400&q=60" alt="Collector with waste">
+            <img src="https://images.unsplash.com/photo-1556817411-31ae72b88a53?auto=format&fit=crop&w=400&q=60" alt="Recycler processing material">
+            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=400&q=60" alt="Circular economy illustration">
+        </div>
+    </section>
 </body>
 </html>
