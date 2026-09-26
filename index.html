@@ -1,1201 +1,1286 @@
 <!DOCTYPE html>
-
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ScrapSetu – Portal Selector</title>
 
-```
-<link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
 
-<style>
-    /* ==============================
-       SCRAPSETU PROFESSIONAL UI
-    ============================== */
+    <style>
+        /* ==============================
+           SCRAPSETU PROFESSIONAL UI
+        ============================== */
 
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    html {
-        scroll-behavior: smooth;
-    }
-
-    body {
-        min-height: 100vh;
-        font-family: "Segoe UI", Arial, sans-serif;
-        color: #173b2b;
-
-        background:
-            radial-gradient(
-                circle at top left,
-                rgba(55, 190, 120, 0.16),
-                transparent 32%
-            ),
-            radial-gradient(
-                circle at bottom right,
-                rgba(39, 145, 91, 0.12),
-                transparent 35%
-            ),
-            #f5faf7;
-
-        overflow-x: hidden;
-    }
-
-    /* ==============================
-       BACKGROUND GLOW
-    ============================== */
-
-    body::before {
-        content: "";
-        position: fixed;
-        width: 350px;
-        height: 350px;
-        border-radius: 50%;
-        background: rgba(46, 180, 105, 0.08);
-        filter: blur(60px);
-        top: 80px;
-        right: -100px;
-        z-index: -1;
-    }
-
-    body::after {
-        content: "";
-        position: fixed;
-        width: 300px;
-        height: 300px;
-        border-radius: 50%;
-        background: rgba(28, 124, 76, 0.07);
-        filter: blur(60px);
-        bottom: -100px;
-        left: -80px;
-        z-index: -1;
-    }
-
-    /* ==============================
-       LOGO
-    ============================== */
-
-    .logo {
-        display: block;
-        width: 150px;
-        height: 150px;
-        object-fit: contain;
-        margin: 28px auto 12px;
-        border-radius: 28px;
-
-        transition:
-            transform 0.4s ease,
-            filter 0.4s ease;
-
-        filter:
-            drop-shadow(
-                0 12px 22px rgba(20, 90, 52, 0.18)
-            );
-    }
-
-    .logo:hover {
-        transform: translateY(-5px) scale(1.03);
-
-        filter:
-            drop-shadow(
-                0 18px 28px rgba(20, 90, 52, 0.25)
-            );
-    }
-
-    /* ==============================
-       NAVIGATION
-    ============================== */
-
-    .tabs {
-        width: fit-content;
-        max-width: calc(100% - 30px);
-
-        margin: 15px auto 35px;
-        padding: 7px;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        gap: 5px;
-
-        background: rgba(255, 255, 255, 0.78);
-
-        backdrop-filter: blur(18px);
-        -webkit-backdrop-filter: blur(18px);
-
-        border: 1px solid rgba(255, 255, 255, 0.9);
-
-        border-radius: 18px;
-
-        box-shadow:
-            0 10px 35px rgba(25, 80, 50, 0.10);
-
-        position: sticky;
-        top: 15px;
-
-        z-index: 100;
-    }
-
-    .tabs a {
-        position: relative;
-
-        text-decoration: none;
-
-        color: #426253;
-
-        font-weight: 600;
-        font-size: 15px;
-
-        padding: 11px 19px;
-
-        border-radius: 13px;
-
-        transition:
-            color 0.3s ease,
-            background 0.3s ease,
-            transform 0.2s ease;
-
-        white-space: nowrap;
-    }
-
-    .tabs a:hover {
-        color: #137442;
-
-        background:
-            rgba(36, 164, 91, 0.09);
-
-        transform: translateY(-2px);
-    }
-
-    .tabs a:active {
-        transform: scale(0.94);
-    }
-
-    .tabs a.active {
-        color: white;
-
-        background:
-            linear-gradient(
-                135deg,
-                #1d8f50,
-                #39b96d
-            );
-
-        box-shadow:
-            0 7px 18px rgba(31, 143, 79, 0.25);
-    }
-
-    /* ==============================
-       MAIN CONTENT
-    ============================== */
-
-    .tab-content {
-        width: min(1050px, calc(100% - 30px));
-
-        margin: 0 auto 40px;
-
-        padding: 45px;
-
-        background:
-            rgba(255, 255, 255, 0.82);
-
-        backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
-
-        border:
-            1px solid rgba(255, 255, 255, 0.9);
-
-        border-radius: 28px;
-
-        box-shadow:
-            0 20px 55px rgba(22, 82, 48, 0.10);
-
-        display: none;
-
-        animation:
-            pageEnter 0.5s ease;
-    }
-
-    .tab-content.active {
-        display: block;
-    }
-
-    @keyframes pageEnter {
-
-        from {
-            opacity: 0;
-            transform: translateY(15px);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        to {
-            opacity: 1;
-            transform: translateY(0);
+        html {
+            scroll-behavior: smooth;
         }
 
-    }
-
-    /* ==============================
-       HERO
-    ============================== */
-
-    .hero {
-        text-align: center;
-    }
-
-    .hero h1 {
-        font-size:
-            clamp(2.2rem, 6vw, 4.2rem);
-
-        line-height: 1.1;
-
-        margin-bottom: 20px;
-
-        letter-spacing: -2px;
-
-        background:
-            linear-gradient(
-                135deg,
-                #125d38,
-                #2cb66b
-            );
-
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-    }
-
-    .hero > p {
-        max-width: 720px;
-
-        margin:
-            0 auto 30px;
-
-        color: #5b7166;
-
-        font-size: 18px;
-
-        line-height: 1.75;
-    }
-
-    /* ==============================
-       PORTAL BUTTONS
-    ============================== */
-
-    .buttons {
-        display: flex;
-
-        justify-content: center;
-
-        gap: 18px;
-
-        flex-wrap: wrap;
-
-        margin:
-            30px 0 38px;
-    }
-
-    .buttons a {
-        position: relative;
-
-        overflow: hidden;
-
-        min-width: 205px;
-
-        padding:
-            15px 25px;
-
-        border-radius: 14px;
-
-        text-decoration: none;
-
-        color: white;
-
-        font-size: 16px;
-
-        font-weight: 700;
-
-        letter-spacing: 0.2px;
-
-        background:
-            linear-gradient(
-                135deg,
-                #16844a,
-                #35b86b
-            );
-
-        box-shadow:
-            0 10px 24px
-            rgba(25, 137, 73, 0.25);
-
-        transition:
-            transform 0.25s ease,
-            box-shadow 0.25s ease,
-            filter 0.25s ease;
-    }
-
-    .buttons a::before {
-        content: "";
-
-        position: absolute;
-
-        top: 0;
-        left: -120%;
-
-        width: 80%;
-        height: 100%;
-
-        background:
-            linear-gradient(
-                100deg,
-                transparent,
-                rgba(255,255,255,0.35),
-                transparent
-            );
-
-        transform:
-            skewX(-20deg);
-
-        transition:
-            left 0.6s ease;
-    }
-
-    .buttons a:hover {
-        transform:
-            translateY(-5px);
-
-        box-shadow:
-            0 16px 30px
-            rgba(25, 137, 73, 0.32);
-
-        filter:
-            brightness(1.05);
-    }
-
-    .buttons a:hover::before {
-        left: 140%;
-    }
-
-    .buttons a:active {
-        transform:
-            translateY(1px) scale(0.97);
-
-        box-shadow:
-            0 6px 14px
-            rgba(25, 137, 73, 0.22);
-    }
-
-    /* ==============================
-       HERO IMAGE
-    ============================== */
-
-    .hero > img {
-        display: block;
-
-        width: 100%;
-
-        max-width: 680px;
-
-        height: 360px;
-
-        object-fit: cover;
-
-        margin:
-            10px auto 0;
-
-        border-radius:
-            22px !important;
-
-        box-shadow:
-            0 18px 40px
-            rgba(21, 76, 45, 0.16) !important;
-
-        transition:
-            transform 0.45s ease,
-            box-shadow 0.45s ease;
-    }
-
-    .hero > img:hover {
-        transform:
-            scale(1.015)
-            translateY(-4px);
-
-        box-shadow:
-            0 25px 50px
-            rgba(21, 76, 45, 0.21) !important;
-    }
-
-    /* ==============================
-       HEADINGS
-    ============================== */
-
-    h2 {
-        text-align: center;
-
-        color: #165f3a;
-
-        font-size:
-            clamp(1.8rem, 4vw, 2.5rem);
-
-        margin-bottom: 22px;
-    }
-
-    .about > p {
-        max-width: 800px;
-
-        margin:
-            0 auto 25px;
-
-        text-align: center;
-
-        color: #5d7167;
-
-        line-height: 1.7;
-
-        font-size: 16px;
-    }
-
-    /* ==============================
-       ABOUT LIST
-    ============================== */
-
-    .about ul {
-        list-style: none;
-
-        max-width:
-            800px !important;
-
-        margin:
-            25px auto 35px !important;
-
-        padding: 0;
-
-        display: grid;
-
-        gap: 12px;
-    }
-
-    .about li {
-        position: relative;
-
-        padding:
-            16px 20px 16px 48px;
-
-        background:
-            #f5faf7;
-
-        border:
-            1px solid #e0eee6;
-
-        border-radius: 14px;
-
-        color: #486357;
-
-        line-height: 1.5;
-
-        transition:
-            transform 0.25s ease,
-            box-shadow 0.25s ease,
-            border-color 0.25s ease;
-    }
-
-    .about li::before {
-        content: "✓";
-
-        position: absolute;
-
-        left: 17px;
-        top: 50%;
-
-        transform:
-            translateY(-50%);
-
-        width: 23px;
-        height: 23px;
-
-        display: flex;
-
-        align-items: center;
-        justify-content: center;
-
-        border-radius: 50%;
-
-        color: white;
-
-        background:
-            #2cad66;
-
-        font-size: 13px;
-
-        font-weight: bold;
-    }
-
-    .about li:hover {
-        transform:
-            translateX(5px);
-
-        border-color:
-            #a9d9bd;
-
-        box-shadow:
-            0 8px 20px
-            rgba(27, 116, 65, 0.09);
-    }
-
-    /* ==============================
-       IMAGE GRID
-    ============================== */
-
-    .grid {
-        display: grid;
-
-        grid-template-columns:
-            repeat(3, 1fr);
-
-        gap: 18px;
-
-        margin-top: 30px;
-    }
-
-    .grid img {
-        width: 100%;
-
-        height: 230px;
-
-        object-fit: cover;
-
-        border-radius: 18px;
-
-        box-shadow:
-            0 10px 25px
-            rgba(20, 70, 43, 0.12);
-
-        transition:
-            transform 0.4s ease,
-            box-shadow 0.4s ease;
-    }
-
-    .grid img:hover {
-        transform:
-            translateY(-8px)
-            scale(1.025);
-
-        box-shadow:
-            0 20px 35px
-            rgba(20, 70, 43, 0.20);
-    }
-
-    /* ==============================
-       FAQ
-    ============================== */
-
-    .faq ul {
-        max-width: 800px;
-
-        margin:
-            30px auto 0;
-
-        padding: 0;
-
-        list-style: none;
-
-        display: grid;
-
-        gap: 15px;
-    }
-
-    .faq li {
-        padding:
-            21px 24px;
-
-        background:
-            #f7fbf8;
-
-        border:
-            1px solid #dfede5;
-
-        border-radius: 16px;
-
-        color: #536a5e;
-
-        line-height: 1.6;
-
-        transition:
-            transform 0.25s ease,
-            background 0.25s ease,
-            box-shadow 0.25s ease;
-    }
-
-    .faq li strong {
-        display: block;
-
-        margin-bottom: 7px;
-
-        color: #17623b;
-
-        font-size: 17px;
-    }
-
-    .faq li:hover {
-        transform:
-            translateY(-4px);
-
-        background: white;
-
-        box-shadow:
-            0 12px 25px
-            rgba(22, 89, 52, 0.10);
-    }
-
-    /* ==============================
-       CONTACT
-    ============================== */
-
-    .contact {
-        text-align: center;
-    }
-
-    .contact > p {
-        color: #63766c;
-
-        font-size: 17px;
-
-        margin-bottom: 28px;
-    }
-
-    .social {
-        display: flex;
-
-        justify-content: center;
-
-        gap: 15px;
-    }
-
-    .social a {
-        width: 58px;
-        height: 58px;
-
-        display: flex;
-
-        align-items: center;
-        justify-content: center;
-
-        text-decoration: none;
-
-        font-size: 25px;
-
-        border-radius: 17px;
-
-        background:
-            #f2f8f4;
-
-        border:
-            1px solid #dcebe2;
-
-        box-shadow:
-            0 7px 18px
-            rgba(20, 75, 45, 0.08);
-
-        transition:
-            transform 0.3s ease,
-            background 0.3s ease,
-            box-shadow 0.3s ease;
-    }
-
-    .social a:hover {
-        transform:
-            translateY(-7px)
-            rotate(-3deg);
-
-        background: white;
-
-        box-shadow:
-            0 14px 28px
-            rgba(20, 75, 45, 0.16);
-    }
-
-    .social a:active {
-        transform:
-            scale(0.88);
-    }
-
-    /* ==============================
-       MOBILE
-    ============================== */
-
-    @media (max-width: 700px) {
+        body {
+            min-height: 100vh;
+            font-family: "Segoe UI", Arial, sans-serif;
+            color: #173b2b;
+            background:
+                radial-gradient(
+                    circle at top left,
+                    rgba(55, 190, 120, 0.16),
+                    transparent 32%
+                ),
+                radial-gradient(
+                    circle at bottom right,
+                    rgba(39, 145, 91, 0.12),
+                    transparent 35%
+                ),
+                #f5faf7;
+            overflow-x: hidden;
+        }
+
+        /* ==============================
+           BACKGROUND GLOW
+        ============================== */
+
+        body::before {
+            content: "";
+            position: fixed;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            background: rgba(46, 180, 105, 0.08);
+            filter: blur(60px);
+            top: 80px;
+            right: -100px;
+            z-index: -1;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: rgba(28, 124, 76, 0.07);
+            filter: blur(60px);
+            bottom: -100px;
+            left: -80px;
+            z-index: -1;
+        }
+
+        /* ==============================
+           LOGO
+        ============================== */
 
         .logo {
-            width: 115px;
-            height: 115px;
-
-            margin-top: 20px;
+            display: block;
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            margin: 28px auto 12px;
+            border-radius: 28px;
+            transition:
+                transform 0.4s ease,
+                filter 0.4s ease;
+            filter:
+                drop-shadow(
+                    0 12px 22px rgba(20, 90, 52, 0.18)
+                );
         }
 
-        /*
-           IMPORTANT:
-           Keep all navigation items
-           on ONE horizontal line.
-        */
+        .logo:hover {
+            transform: translateY(-5px) scale(1.03);
+            filter:
+                drop-shadow(
+                    0 18px 28px rgba(20, 90, 52, 0.25)
+                );
+        }
+
+        /* ==============================
+           NAVIGATION
+        ============================== */
 
         .tabs {
-            width:
-                calc(100% - 20px);
-
-            max-width: none;
-
+            width: fit-content;
+            max-width: calc(100% - 30px);
+            margin: 15px auto 35px;
+            padding: 7px;
             display: flex;
-
-            flex-wrap: nowrap;
-
-            overflow-x: auto;
-
-            justify-content:
-                space-between;
-
+            justify-content: center;
             align-items: center;
-
-            gap: 2px;
-
-            padding: 5px;
-
-            margin-bottom: 22px;
-
-            scrollbar-width: none;
-
-            -webkit-overflow-scrolling:
-                touch;
-        }
-
-        .tabs::-webkit-scrollbar {
-            display: none;
+            gap: 5px;
+            background: rgba(255, 255, 255, 0.78);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 18px;
+            box-shadow:
+                0 10px 35px rgba(25, 80, 50, 0.10);
+            position: sticky;
+            top: 15px;
+            z-index: 100;
         }
 
         .tabs a {
-            flex:
-                0 0 auto;
-
-            padding:
-                10px 12px;
-
-            font-size: 13px;
-
+            position: relative;
+            text-decoration: none;
+            color: #426253;
+            font-weight: 600;
+            font-size: 15px;
+            padding: 11px 19px;
+            border-radius: 13px;
+            transition:
+                color 0.3s ease,
+                background 0.3s ease,
+                transform 0.2s ease;
             white-space: nowrap;
         }
 
+        .tabs a:hover {
+            color: #137442;
+            background: rgba(36, 164, 91, 0.09);
+            transform: translateY(-2px);
+        }
+
+        .tabs a:active {
+            transform: scale(0.94);
+        }
+
+        .tabs a.active {
+            color: white;
+            background:
+                linear-gradient(
+                    135deg,
+                    #1d8f50,
+                    #39b96d
+                );
+            box-shadow:
+                0 7px 18px rgba(31, 143, 79, 0.25);
+        }
+
+        /* ==============================
+           MAIN CONTENT
+        ============================== */
+
         .tab-content {
-            width:
-                calc(100% - 20px);
+            width: min(1050px, calc(100% - 30px));
+            margin: 0 auto 40px;
+            padding: 45px;
+            background: rgba(255, 255, 255, 0.82);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 28px;
+            box-shadow:
+                0 20px 55px rgba(22, 82, 48, 0.10);
+            display: none;
+            animation: pageEnter 0.5s ease;
+        }
 
-            padding:
-                28px 20px;
+        .tab-content.active {
+            display: block;
+        }
 
-            border-radius: 22px;
+        @keyframes pageEnter {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ==============================
+           HERO
+        ============================== */
+
+        .hero {
+            text-align: center;
         }
 
         .hero h1 {
-            letter-spacing:
-                -1px;
+            font-size: clamp(2.2rem, 6vw, 4.2rem);
+            line-height: 1.1;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+            background:
+                linear-gradient(
+                    135deg,
+                    #125d38,
+                    #2cb66b
+                );
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .hero > p {
-            font-size:
-                16px;
+            max-width: 720px;
+            margin: 0 auto 30px;
+            color: #5b7166;
+            font-size: 18px;
+            line-height: 1.75;
         }
 
-        .buttons {
-            flex-direction:
-                column;
+        /* ==============================
+           PORTAL BUTTONS
+        ============================== */
 
-            align-items:
-                stretch;
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            margin: 30px 0 38px;
         }
 
         .buttons a {
-            width:
-                100%;
+            position: relative;
+            overflow: hidden;
+            min-width: 205px;
+            padding: 15px 25px;
+            border-radius: 14px;
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+            background:
+                linear-gradient(
+                    135deg,
+                    #16844a,
+                    #35b86b
+                );
+            box-shadow:
+                0 10px 24px rgba(25, 137, 73, 0.25);
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease,
+                filter 0.25s ease;
         }
+
+        .buttons a::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -120%;
+            width: 80%;
+            height: 100%;
+            background:
+                linear-gradient(
+                    100deg,
+                    transparent,
+                    rgba(255,255,255,0.35),
+                    transparent
+                );
+            transform: skewX(-20deg);
+            transition: left 0.6s ease;
+        }
+
+        .buttons a:hover {
+            transform: translateY(-5px);
+            box-shadow:
+                0 16px 30px rgba(25, 137, 73, 0.32);
+            filter: brightness(1.05);
+        }
+
+        .buttons a:hover::before {
+            left: 140%;
+        }
+
+        .buttons a:active {
+            transform: translateY(1px) scale(0.97);
+            box-shadow:
+                0 6px 14px rgba(25, 137, 73, 0.22);
+        }
+
+        /* ==============================
+           HERO IMAGE
+        ============================== */
 
         .hero > img {
-            height:
-                240px;
+            display: block;
+            width: 100%;
+            max-width: 680px;
+            height: 360px;
+            object-fit: cover;
+            margin: 10px auto 0;
+            border-radius: 22px !important;
+            box-shadow:
+                0 18px 40px rgba(21, 76, 45, 0.16) !important;
+            transition:
+                transform 0.45s ease,
+                box-shadow 0.45s ease;
         }
 
-        .grid {
-            grid-template-columns:
-                1fr;
+        .hero > img:hover {
+            transform: scale(1.015) translateY(-4px);
+            box-shadow:
+                0 25px 50px rgba(21, 76, 45, 0.21) !important;
         }
 
-        .grid img {
-            height:
-                220px;
+        /* ==============================
+           HEADINGS
+        ============================== */
+
+        h2 {
+            text-align: center;
+            color: #165f3a;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom: 22px;
+        }
+
+        .about > p {
+            max-width: 800px;
+            margin: 0 auto 25px;
+            text-align: center;
+            color: #5d7167;
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        /* ==============================
+           ABOUT LIST
+        ============================== */
+
+        .about ul {
+            list-style: none;
+            max-width: 800px !important;
+            margin: 25px auto 35px !important;
+            padding: 0;
+            display: grid;
+            gap: 12px;
         }
 
         .about li {
-            padding-right:
-                15px;
-        }
-    }
-
-    /* ==============================
-       VERY SMALL PHONES
-    ============================== */
-
-    @media (max-width: 380px) {
-
-        .tabs {
-            gap: 0;
-            padding: 4px;
+            position: relative;
+            padding: 16px 20px 16px 48px;
+            background: #f5faf7;
+            border: 1px solid #e0eee6;
+            border-radius: 14px;
+            color: #486357;
+            line-height: 1.5;
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease,
+                border-color 0.25s ease;
         }
 
-        .tabs a {
-            padding:
-                9px 9px;
-
-            font-size:
-                12px;
+        .about li::before {
+            content: "✓";
+            position: absolute;
+            left: 17px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 23px;
+            height: 23px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            color: white;
+            background: #2cad66;
+            font-size: 13px;
+            font-weight: bold;
         }
-    }
 
-    /* ==============================
-       REDUCED MOTION
-    ============================== */
-
-    @media (prefers-reduced-motion: reduce) {
-
-        *,
-        *::before,
-        *::after {
-
-            scroll-behavior:
-                auto !important;
-
-            animation-duration:
-                0.01ms !important;
-
-            transition-duration:
-                0.01ms !important;
+        .about li:hover {
+            transform: translateX(5px);
+            border-color: #a9d9bd;
+            box-shadow:
+                0 8px 20px rgba(27, 116, 65, 0.09);
         }
-    }
-</style>
-```
+
+        /* ==============================
+           ABOUT TAGLINE
+        ============================== */
+
+        .about-tagline {
+            max-width: 800px;
+            margin: 30px auto 45px;
+            padding: 18px;
+            text-align: center;
+            color: #17623b;
+            background: #eff9f2;
+            border: 1px solid #d8eddf;
+            border-radius: 15px;
+            font-size: 18px;
+        }
+
+        /* ==============================
+           TEAM SECTION
+        ============================== */
+
+        .team-intro {
+            max-width: 800px;
+            margin: 0 auto 30px;
+            text-align: center;
+            color: #5d7167;
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 900px;
+            margin: 25px auto 10px;
+        }
+
+        .team-card {
+            padding: 25px 20px;
+            text-align: center;
+            background: #f7fbf8;
+            border: 1px solid #dcece2;
+            border-radius: 20px;
+            box-shadow:
+                0 8px 25px rgba(20, 75, 45, 0.07);
+            transition:
+                transform 0.3s ease,
+                box-shadow 0.3s ease,
+                border-color 0.3s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-8px);
+            border-color: #acd9bd;
+            box-shadow:
+                0 16px 30px rgba(20, 75, 45, 0.13);
+        }
+
+        .team-avatar {
+            width: 75px;
+            height: 75px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background:
+                linear-gradient(
+                    135deg,
+                    #1d8f50,
+                    #39b96d
+                );
+            color: white;
+            font-size: 27px;
+            font-weight: 700;
+            box-shadow:
+                0 8px 20px rgba(29, 143, 80, 0.22);
+        }
+
+        .team-card h3 {
+            color: #165f3a;
+            font-size: 20px;
+            margin-bottom: 7px;
+        }
+
+        .team-role {
+            color: #2b9a5b;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .team-card p {
+            color: #60756a;
+            line-height: 1.5;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .team-contact {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .team-contact a {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 8px 11px;
+            border-radius: 10px;
+            background: white;
+            border: 1px solid #dcebe2;
+            color: #246b35;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            transition:
+                transform 0.25s ease,
+                background 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+        .team-contact a:hover {
+            transform: translateY(-3px);
+            background: #eff9f2;
+            box-shadow:
+                0 7px 15px rgba(20, 75, 45, 0.10);
+        }
+
+        /* ==============================
+           IMAGE GRID
+        ============================== */
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-top: 30px;
+        }
+
+        .grid img {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+            border-radius: 18px;
+            box-shadow:
+                0 10px 25px rgba(20, 70, 43, 0.12);
+            transition:
+                transform 0.4s ease,
+                box-shadow 0.4s ease;
+        }
+
+        .grid img:hover {
+            transform: translateY(-8px) scale(1.025);
+            box-shadow:
+                0 20px 35px rgba(20, 70, 43, 0.20);
+        }
+
+        /* ==============================
+           FAQ
+        ============================== */
+
+        .faq ul {
+            max-width: 800px;
+            margin: 30px auto 0;
+            padding: 0;
+            list-style: none;
+            display: grid;
+            gap: 15px;
+        }
+
+        .faq li {
+            padding: 21px 24px;
+            background: #f7fbf8;
+            border: 1px solid #dfede5;
+            border-radius: 16px;
+            color: #536a5e;
+            line-height: 1.6;
+            transition:
+                transform 0.25s ease,
+                background 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+        .faq li strong {
+            display: block;
+            margin-bottom: 7px;
+            color: #17623b;
+            font-size: 17px;
+        }
+
+        .faq li:hover {
+            transform: translateY(-4px);
+            background: white;
+            box-shadow:
+                0 12px 25px rgba(22, 89, 52, 0.10);
+        }
+
+        /* ==============================
+           CONTACT
+        ============================== */
+
+        .contact {
+            text-align: center;
+        }
+
+        .contact > p {
+            color: #63766c;
+            font-size: 17px;
+            margin-bottom: 28px;
+        }
+
+        .social {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social a {
+            width: 58px;
+            height: 58px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 25px;
+            border-radius: 17px;
+            background: #f2f8f4;
+            border: 1px solid #dcebe2;
+            box-shadow:
+                0 7px 18px rgba(20, 75, 45, 0.08);
+            transition:
+                transform 0.3s ease,
+                background 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        .social a:hover {
+            transform: translateY(-7px) rotate(-3deg);
+            background: white;
+            box-shadow:
+                0 14px 28px rgba(20, 75, 45, 0.16);
+        }
+
+        .social a:active {
+            transform: scale(0.88);
+        }
+
+        /* ==============================
+           MOBILE
+        ============================== */
+
+        @media (max-width: 700px) {
+
+            .logo {
+                width: 115px;
+                height: 115px;
+                margin-top: 20px;
+            }
+
+            .tabs {
+                width: calc(100% - 20px);
+                max-width: none;
+                display: flex;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                justify-content: space-between;
+                align-items: center;
+                gap: 2px;
+                padding: 5px;
+                margin-bottom: 22px;
+                scrollbar-width: none;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .tabs::-webkit-scrollbar {
+                display: none;
+            }
+
+            .tabs a {
+                flex: 0 0 auto;
+                padding: 10px 12px;
+                font-size: 13px;
+                white-space: nowrap;
+            }
+
+            .tab-content {
+                width: calc(100% - 20px);
+                padding: 28px 20px;
+                border-radius: 22px;
+            }
+
+            .hero h1 {
+                letter-spacing: -1px;
+            }
+
+            .hero > p {
+                font-size: 16px;
+            }
+
+            .buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .buttons a {
+                width: 100%;
+            }
+
+            .hero > img {
+                height: 240px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .grid img {
+                height: 220px;
+            }
+
+            .about li {
+                padding-right: 15px;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ==============================
+           VERY SMALL PHONES
+        ============================== */
+
+        @media (max-width: 380px) {
+
+            .tabs {
+                gap: 0;
+                padding: 4px;
+            }
+
+            .tabs a {
+                padding: 9px 9px;
+                font-size: 12px;
+            }
+
+            .team-card {
+                padding: 22px 15px;
+            }
+        }
+
+        /* ==============================
+           REDUCED MOTION
+        ============================== */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
 
 </head>
 
 <body>
 
-```
-<!-- LOGO -->
-
-<img
-    src="scrap-setu-logo.jpeg"
-    alt="ScrapSetu Logo"
-    class="logo"
->
-
-<!-- NAVIGATION -->
-
-<nav class="tabs">
-
-    <a
-        href="#"
-        data-tab="home"
-        class="active"
-    >
-        Home
-    </a>
-
-    <a
-        href="#"
-        data-tab="about"
-    >
-        About
-    </a>
-
-    <a
-        href="#"
-        data-tab="faq"
-    >
-        FAQ
-    </a>
-
-    <a
-        href="#"
-        data-tab="contact"
-    >
-        Contact Us
-    </a>
-
-</nav>
-
-
-<!-- ==============================
-     HOME
-============================== -->
-
-<section
-    id="home"
-    class="tab-content active hero"
->
-
-    <h1>
-        Welcome to ScrapSetu
-    </h1>
-
-    <p>
-        Connecting collectors and recyclers on a single platform
-        to make waste management simple, transparent, and rewarding.
-    </p>
-
-    <div class="buttons">
-
-        <a href="Collector/index.html">
-            Collector Portal
-        </a>
-
-        <a href="Recycler/index.html">
-            Recycler Portal
-        </a>
-
-    </div>
+    <!-- LOGO -->
 
     <img
-        src="https://img.freepik.com/premium-vector/plastics-recycling-cycle-vector-illustration_1334819-8722.jpg?w=1480"
-        alt="Recycling illustration"
+        src="scrap-setu-logo.jpeg"
+        alt="ScrapSetu Logo"
+        class="logo"
     >
 
-</section>
+    <!-- NAVIGATION -->
 
+    <nav class="tabs">
 
-<!-- ==============================
-     ABOUT
-============================== -->
-
-<section
-    id="about"
-    class="tab-content about"
->
-
-    <h2>
-        Our Idea
-    </h2>
-
-    <p>
-        ScrapSetu aims to close the loop between waste generators,
-        collectors, and recyclers. By providing a digital marketplace,
-        we enable:
-    </p>
-
-    <ul>
-
-        <li>
-            Collectors to register scrap items quickly and get fair
-            price estimates.
-        </li>
-
-        <li>
-            Recyclers to view incoming lots, schedule pickups and
-            manage their inventory.
-        </li>
-
-        <li>
-            Transparent pricing based on current market rates for
-            different materials.
-        </li>
-
-        <li>
-            Easy analytics for both parties to track volume,
-            earnings and environmental impact.
-        </li>
-
-    </ul>
-
-    <div class="grid">
-
-        <img
-            src="https://www.groundup.org.za/media/_versions/images/photographers/Masixole%20Feni/Scrap%20Collectors/MfuleniScrapyardCollectors5-MasixoleFeni-20150129_large.jpg"
-            alt="Collector with waste"
+        <a
+            href="#"
+            data-tab="home"
+            class="active"
         >
+            Home
+        </a>
 
-        <img
-            src="https://as2.ftcdn.net/v2/jpg/08/87/64/55/1000_F_887645532_8X4rgBUgQmJGoHLHUQ27fwqmhKEdm7Yg.jpg"
-            alt="Recycler processing material"
+        <a
+            href="#"
+            data-tab="about"
         >
+            About
+        </a>
+
+        <a
+            href="#"
+            data-tab="faq"
+        >
+            FAQ
+        </a>
+
+        <a
+            href="#"
+            data-tab="contact"
+        >
+            Contact Us
+        </a>
+
+    </nav>
+
+
+    <!-- ==============================
+         HOME
+    ============================== -->
+
+    <section
+        id="home"
+        class="tab-content active hero"
+    >
+
+        <h1>
+            Welcome to ScrapSetu
+        </h1>
+
+        <p>
+            Connecting collectors and recyclers on a single platform
+            to make waste management simple, transparent, and rewarding.
+        </p>
+
+        <div class="buttons">
+
+            <a href="Collector/index.html">
+                Collector Portal
+            </a>
+
+            <a href="Recycler/index.html">
+                Recycler Portal
+            </a>
+
+        </div>
 
         <img
             src="https://img.freepik.com/premium-vector/plastics-recycling-cycle-vector-illustration_1334819-8722.jpg?w=1480"
-            alt="Circular economy illustration"
+            alt="Recycling illustration"
         >
+
+    </section>
+
+
+    <!-- ==============================
+         ABOUT
+    ============================== -->
+
+    <section
+        id="about"
+        class="tab-content about"
+    >
+
+        <h2>
+            Who We Are
+        </h2>
+
+        <p>
+            <strong>ScrapSetu</strong> is a digital platform that connects
+            scrap collectors with recyclers, making the recycling process
+            simpler, more transparent, and organized.
+        </p>
+
+        <p>
+            We aim to create a digital bridge between people who collect
+            recyclable materials and businesses that process and recycle them.
+            ScrapSetu helps collectors find better opportunities while allowing
+            recyclers to discover available scrap and manage their collection
+            process efficiently.
+        </p>
+
+        <p>
+            Our platform focuses on
+            <strong>
+                fair pricing, easy connections, digital tracking,
+                and responsible waste management
+            </strong>.
+            We believe technology can make recycling more accessible while
+            supporting the people who play an important role in keeping
+            our communities cleaner.
+        </p>
+
+
+        <h2>
+            Our Mission
+        </h2>
+
+        <p>
+            Our mission is to build a smarter recycling ecosystem where
+            <strong>
+                collectors, recyclers, and recyclable materials
+            </strong>
+            are connected through one simple digital platform.
+        </p>
+
+
+        <h2>
+            What We Do
+        </h2>
+
+        <ul>
+
+            <li>
+                <strong>Connect Collectors & Recyclers</strong>
+                – Bringing both sides together on one platform.
+            </li>
+
+            <li>
+                <strong>Support Fair Pricing</strong>
+                – Helping users understand current scrap rates.
+            </li>
+
+            <li>
+                <strong>Simplify Scrap Management</strong>
+                – Making listings, pickups, and transactions easier.
+            </li>
+
+            <li>
+                <strong>Enable Digital Tracking</strong>
+                – Helping users track their activities and recycling impact.
+            </li>
+
+            <li>
+                <strong>Promote Sustainable Recycling</strong>
+                – Supporting a cleaner and more organized recycling ecosystem.
+            </li>
+
+        </ul>
+
+
+        <div class="about-tagline">
+            <strong>
+                ♻️ ScrapSetu — Connecting Waste, Creating Value.
+            </strong>
+        </div>
+
+
+        <!-- ==============================
+     TEAM MEMBERS
+============================== -->
+
+<h2>
+    Meet Our Team
+</h2>
+
+<p class="team-intro">
+    ScrapSetu is developed by a dedicated team of students who bring
+    together research, technology, design, testing, and project management
+    to build a smarter and more sustainable recycling platform.
+</p>
+
+<div class="team-grid">
+
+    <!-- MANSI AWASTHI -->
+
+    <div class="team-card">
+
+        <div class="team-avatar">
+            MA
+        </div>
+
+        <h3>
+            Mansi Awasthi
+        </h3>
+
+        <div class="team-role">
+            Researcher & AI/ML
+        </div>
+
+        <p>
+            Working on research and exploring AI/ML-based approaches
+            to improve the capabilities of ScrapSetu.
+        </p>
 
     </div>
 
-</section>
 
+    <!-- KARAN CHANDRA -->
 
-<!-- ==============================
-     FAQ
-============================== -->
+    <div class="team-card">
 
-<section
-    id="faq"
-    class="tab-content faq"
->
+        <div class="team-avatar">
+            KC
+        </div>
 
-    <h2>
-        Frequently Asked Questions
-    </h2>
+        <h3>
+            Karan Chandra
+        </h3>
 
-    <ul>
+        <div class="team-role">
+            Backend Developer
+        </div>
 
-        <li>
+        <p>
+            Responsible for backend development, API integration,
+            database connectivity, and overall technical implementation.
+        </p>
 
-            <strong>
-                How do I sign up?
-            </strong>
+        <div class="team-contact">
 
-            Click the "Collector Portal" or "Recycler Portal"
-            button on the Home tab and use the sign-up form.
+            <a
+                href="mailto:vsicskaranchandra@gmail.com"
+                title="Email Karan"
+            >
+                📧 Email
+            </a>
 
-        </li>
+            <a
+                href="https://www.linkedin.com/in/karan-chandra-050799351/"
+                target="_blank"
+                title="Karan's LinkedIn"
+            >
+                🔗 LinkedIn
+            </a>
 
-        <li>
-
-            <strong>
-                Is there any cost?
-            </strong>
-
-            Registration is free. A small commission is taken
-            on completed transactions.
-
-        </li>
-
-        <li>
-
-            <strong>
-                What materials are accepted?
-            </strong>
-
-            Plastic, paper, metal (iron, copper, aluminium, steel)
-            and e-waste.
-
-        </li>
-
-        <li>
-
-            <strong>
-                How is pricing determined?
-            </strong>
-
-            Prices are based on real-time market rates displayed
-            in the Price Board.
-
-        </li>
-
-    </ul>
-
-</section>
-
-
-<!-- ==============================
-     CONTACT
-============================== -->
-
-<section
-    id="contact"
-    class="tab-content contact"
->
-
-    <h2>
-        Contact Us
-    </h2>
-
-    <p>
-        Reach out on our social channels or send us an email.
-    </p>
-
-    <div class="social">
-
-        <a
-            href="https://twitter.com/greekygrind"
-            target="_blank"
-            title="Twitter"
-        >
-            🐦
-        </a>
-
-        <a
-            href="https://www.linkedin.com/in/karan-chandra-050799351/"
-            target="_blank"
-            title="LinkedIn"
-        >
-            🔗
-        </a>
-
-        <a
-            href="mailto:vsicskaranchandra@gmail.com"
-            title="Email"
-        >
-            ✉️
-        </a>
+        </div>
 
     </div>
 
-</section>
+
+    <!-- MAHIMA YADAV -->
+
+    <div class="team-card">
+
+        <div class="team-avatar">
+            MY
+        </div>
+
+        <h3>
+            Mahima Yadav
+        </h3>
+
+        <div class="team-role">
+            UI/UX & Design
+        </div>
+
+        <p>
+            Designing the user interface and user experience to make
+            ScrapSetu simple, attractive, and easy to use.
+        </p>
+
+    </div>
 
 
-<!-- ==============================
-     TAB SWITCHING
-============================== -->
+    <!-- MANSI SINGH YADAV -->
 
-<script>
+    <div class="team-card">
 
-    const tabs =
-        document.querySelectorAll('.tabs a');
+        <div class="team-avatar">
+            MSY
+        </div>
 
-    const contents =
-        document.querySelectorAll('.tab-content');
+        <h3>
+            Mansi Singh Yadav
+        </h3>
 
-    tabs.forEach(tab => {
+        <div class="team-role">
+            Research & Testing
+        </div>
 
-        tab.addEventListener('click', e => {
+        <p>
+            Contributing to research, testing, quality checking,
+            and improving the overall functionality of the platform.
+        </p>
 
-            e.preventDefault();
+    </div>
 
-            const target =
-                tab.dataset.tab;
 
-            /* Update active tab */
+    <!-- MANAS SINGH JADAUN -->
 
-            tabs.forEach(t => {
+    <div class="team-card">
 
-                t.classList.toggle(
-                    'active',
-                    t === tab
-                );
+        <div class="team-avatar">
+            MSJ
+        </div>
 
-            });
+        <h3>
+            Manas Singh Jadaun
+        </h3>
 
-            /* Show selected content */
+        <div class="team-role">
+            Project Manager
+        </div>
 
-            contents.forEach(c => {
+        <p>
+            Coordinating the team, managing project activities,
+            and helping ensure the successful development of ScrapSetu.
+        </p>
 
-                c.classList.toggle(
-                    'active',
-                    c.id === target
-                );
+    </div>
+
+
+    <!-- PRATAKSHYA UPADHYAYA -->
+
+    <div class="team-card">
+
+        <div class="team-avatar">
+            PU
+        </div>
+
+        <h3>
+            Pratakshya Upadhyaya
+        </h3>
+
+        <div class="team-role">
+            Database Management
+        </div>
+
+        <p>
+            Managing database structure, data organization,
+            storage, and database-related operations of ScrapSetu.
+        </p>
+
+    </div>
+
+</div>
+
+    </section>
+
+
+    <!-- ==============================
+         FAQ
+    ============================== -->
+
+    <section
+        id="faq"
+        class="tab-content faq"
+    >
+
+        <h2>
+            Frequently Asked Questions
+        </h2>
+
+        <ul>
+
+            <li>
+                <strong>
+                    How do I sign up?
+                </strong>
+
+                Click the "Collector Portal" or "Recycler Portal"
+                button on the Home tab and use the sign-up form.
+            </li>
+
+            <li>
+                <strong>
+                    Is there any cost?
+                </strong>
+
+                Registration is free. A small commission is taken
+                on completed transactions.
+            </li>
+
+            <li>
+                <strong>
+                    What materials are accepted?
+                </strong>
+
+                Plastic, paper, metal such as iron, copper, aluminium,
+                steel, and e-waste.
+            </li>
+
+            <li>
+                <strong>
+                    How is pricing determined?
+                </strong>
+
+                Prices are based on the scrap rates displayed
+                on the platform.
+            </li>
+
+        </ul>
+
+    </section>
+
+
+    <!-- ==============================
+         CONTACT
+    ============================== -->
+
+    <section
+        id="contact"
+        class="tab-content contact"
+    >
+
+        <h2>
+            Contact Us
+        </h2>
+
+        <p>
+            Reach out to us through our social channels or send us an email.
+        </p>
+
+        <div class="social">
+
+            <a
+                href="https://twitter.com/greekygrind"
+                target="_blank"
+                title="Twitter"
+            >
+                🐦
+            </a>
+
+            <a
+                href="https://www.linkedin.com/in/karan-chandra-050799351/"
+                target="_blank"
+                title="LinkedIn"
+            >
+                🔗
+            </a>
+
+            <a
+                href="mailto:vsicskaranchandra@gmail.com"
+                title="Email"
+            >
+                ✉️
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==============================
+         TAB SWITCHING
+    ============================== -->
+
+    <script>
+
+        const tabs =
+            document.querySelectorAll('.tabs a');
+
+        const contents =
+            document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+
+            tab.addEventListener('click', e => {
+
+                e.preventDefault();
+
+                const target =
+                    tab.dataset.tab;
+
+                /* Update active tab */
+
+                tabs.forEach(t => {
+
+                    t.classList.toggle(
+                        'active',
+                        t === tab
+                    );
+
+                });
+
+                /* Show selected content */
+
+                contents.forEach(c => {
+
+                    c.classList.toggle(
+                        'active',
+                        c.id === target
+                    );
+
+                });
 
             });
 
         });
 
-    });
-
-</script>
-```
+    </script>
 
 </body>
+
 </html>
