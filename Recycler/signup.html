@@ -1,27 +1,246 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>ScrapSetu - Recycler Signup</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
     <div id="signup" class="login-page">
+
         <div class="login-card">
+
             <div class="logo">♻️</div>
+
             <h1>ScrapSetu</h1>
-            <p class="portal">Recycler Portal</p>
+
+            <p class="portal">
+                Recycler Portal
+            </p>
+
             <h2>Create Recycler ID</h2>
-            <input id="signupName" type="text" placeholder="👤 Business Name">
-            <input id="signupMobile" type="text" placeholder="📱 Mobile Number">
-            <input id="signupPass" type="password" placeholder="🔒 Choose Password">
-            <input id="signupCity" type="text" placeholder="📍 City / Location">
-            <button class="login-btn" onclick="register()">Create Recycler ID →</button>
+
+
+            <input
+                id="signupName"
+                type="text"
+                placeholder="👤 Business Name"
+            >
+
+
+            <input
+                id="signupMobile"
+                type="text"
+                placeholder="📱 Mobile Number"
+            >
+
+
+            <input
+                id="signupPass"
+                type="password"
+                placeholder="🔒 Choose Password"
+            >
+
+
+            <input
+                id="signupCity"
+                type="text"
+                placeholder="📍 City / Location"
+            >
+
+
+            <button
+                class="login-btn"
+                onclick="register()">
+
+                Create Recycler ID →
+
+            </button>
+
+
             <div class="auth-toggle">
-                Already have an ID? <a href="index.html">Login</a>
+
+                Already have an ID?
+
+                <a href="index.html">
+                    Login
+                </a>
+
             </div>
+
         </div>
+
     </div>
-    <script src="script.js"></script>
+
+
+    <script>
+
+        const API_BASE_URL = "/api";
+
+
+        async function register() {
+
+            const nameVal =
+                document.getElementById("signupName").value.trim();
+
+            const mobileVal =
+                document.getElementById("signupMobile").value.trim();
+
+            const passVal =
+                document.getElementById("signupPass").value;
+
+            const cityVal =
+                document.getElementById("signupCity").value.trim();
+
+
+            // Validation
+
+            if (!nameVal ||
+                !mobileVal ||
+                !passVal ||
+                !cityVal) {
+
+                alert("Please fill in all fields.");
+
+                return;
+            }
+
+
+            if (!/^\d{10}$/.test(mobileVal)) {
+
+                alert("Please enter a valid 10-digit mobile number.");
+
+                return;
+            }
+
+
+            if (passVal.length < 6) {
+
+                alert("Password must be at least 6 characters.");
+
+                return;
+            }
+
+
+            try {
+
+                const response = await fetch(
+                    `${API_BASE_URL}/auth/register`,
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+
+                        body: JSON.stringify({
+
+                            mobile: mobileVal,
+
+                            full_name: nameVal,
+
+                            role: "recycler",
+
+                            business_name: nameVal,
+
+                            address: cityVal,
+
+                            city: cityVal,
+
+                            password: passVal
+
+                        })
+                    }
+                );
+
+
+                const data = await response.json();
+
+
+                console.log(
+                    "Registration Response:",
+                    data
+                );
+
+
+                if (!response.ok) {
+
+                    let message =
+                        data.detail ||
+                        data.message ||
+                        "Registration failed.";
+
+                    if (Array.isArray(message)) {
+
+                        message = message
+                            .map(error => error.msg || error.message)
+                            .join("\n");
+
+                    }
+
+                    alert(message);
+
+                    return;
+                }
+
+
+                // Save login information
+
+                if (data.access_token) {
+
+                    localStorage.setItem(
+                        "access_token",
+                        data.access_token
+                    );
+
+                }
+
+
+                if (data.user) {
+
+                    localStorage.setItem(
+                        "user",
+                        JSON.stringify(data.user)
+                    );
+
+                }
+
+
+                alert(
+                    "Recycler ID created successfully!"
+                );
+
+
+                // Go back to Recycler login
+
+                window.location.href = "index.html";
+
+            }
+
+
+            catch (error) {
+
+                console.error(
+                    "Registration Error:",
+                    error
+                );
+
+                alert(
+                    "Unable to connect to the server."
+                );
+
+            }
+
+        }
+
+    </script>
+
 </body>
+
 </html>
