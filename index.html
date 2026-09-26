@@ -28,14 +28,27 @@
         min-height: 100vh;
         font-family: "Segoe UI", Arial, sans-serif;
         color: #173b2b;
+
         background:
-            radial-gradient(circle at top left, rgba(55, 190, 120, 0.16), transparent 32%),
-            radial-gradient(circle at bottom right, rgba(39, 145, 91, 0.12), transparent 35%),
+            radial-gradient(
+                circle at top left,
+                rgba(55, 190, 120, 0.16),
+                transparent 32%
+            ),
+            radial-gradient(
+                circle at bottom right,
+                rgba(39, 145, 91, 0.12),
+                transparent 35%
+            ),
             #f5faf7;
+
         overflow-x: hidden;
     }
 
-    /* Background glow */
+    /* ==============================
+       BACKGROUND GLOW
+    ============================== */
+
     body::before {
         content: "";
         position: fixed;
@@ -73,13 +86,24 @@
         object-fit: contain;
         margin: 28px auto 12px;
         border-radius: 28px;
-        transition: transform 0.4s ease, filter 0.4s ease;
-        filter: drop-shadow(0 12px 22px rgba(20, 90, 52, 0.18));
+
+        transition:
+            transform 0.4s ease,
+            filter 0.4s ease;
+
+        filter:
+            drop-shadow(
+                0 12px 22px rgba(20, 90, 52, 0.18)
+            );
     }
 
     .logo:hover {
         transform: translateY(-5px) scale(1.03);
-        filter: drop-shadow(0 18px 28px rgba(20, 90, 52, 0.25));
+
+        filter:
+            drop-shadow(
+                0 18px 28px rgba(20, 90, 52, 0.25)
+            );
     }
 
     /* ==============================
@@ -89,40 +113,62 @@
     .tabs {
         width: fit-content;
         max-width: calc(100% - 30px);
+
         margin: 15px auto 35px;
         padding: 7px;
+
         display: flex;
         justify-content: center;
+        align-items: center;
+
         gap: 5px;
+
         background: rgba(255, 255, 255, 0.78);
+
         backdrop-filter: blur(18px);
         -webkit-backdrop-filter: blur(18px);
+
         border: 1px solid rgba(255, 255, 255, 0.9);
+
         border-radius: 18px;
-        box-shadow: 0 10px 35px rgba(25, 80, 50, 0.10);
+
+        box-shadow:
+            0 10px 35px rgba(25, 80, 50, 0.10);
+
         position: sticky;
         top: 15px;
+
         z-index: 100;
     }
 
     .tabs a {
         position: relative;
+
         text-decoration: none;
+
         color: #426253;
+
         font-weight: 600;
         font-size: 15px;
+
         padding: 11px 19px;
+
         border-radius: 13px;
+
         transition:
             color 0.3s ease,
             background 0.3s ease,
             transform 0.2s ease;
+
         white-space: nowrap;
     }
 
     .tabs a:hover {
         color: #137442;
-        background: rgba(36, 164, 91, 0.09);
+
+        background:
+            rgba(36, 164, 91, 0.09);
+
         transform: translateY(-2px);
     }
 
@@ -132,8 +178,16 @@
 
     .tabs a.active {
         color: white;
-        background: linear-gradient(135deg, #1d8f50, #39b96d);
-        box-shadow: 0 7px 18px rgba(31, 143, 79, 0.25);
+
+        background:
+            linear-gradient(
+                135deg,
+                #1d8f50,
+                #39b96d
+            );
+
+        box-shadow:
+            0 7px 18px rgba(31, 143, 79, 0.25);
     }
 
     /* ==============================
@@ -142,17 +196,29 @@
 
     .tab-content {
         width: min(1050px, calc(100% - 30px));
+
         margin: 0 auto 40px;
+
         padding: 45px;
-        background: rgba(255, 255, 255, 0.82);
+
+        background:
+            rgba(255, 255, 255, 0.82);
+
         backdrop-filter: blur(15px);
         -webkit-backdrop-filter: blur(15px);
-        border: 1px solid rgba(255, 255, 255, 0.9);
+
+        border:
+            1px solid rgba(255, 255, 255, 0.9);
+
         border-radius: 28px;
-        box-shadow: 0 20px 55px rgba(22, 82, 48, 0.10);
+
+        box-shadow:
+            0 20px 55px rgba(22, 82, 48, 0.10);
 
         display: none;
-        animation: pageEnter 0.5s ease;
+
+        animation:
+            pageEnter 0.5s ease;
     }
 
     .tab-content.active {
@@ -160,6 +226,7 @@
     }
 
     @keyframes pageEnter {
+
         from {
             opacity: 0;
             transform: translateY(15px);
@@ -169,6 +236,7 @@
             opacity: 1;
             transform: translateY(0);
         }
+
     }
 
     /* ==============================
@@ -180,11 +248,22 @@
     }
 
     .hero h1 {
-        font-size: clamp(2.2rem, 6vw, 4.2rem);
+        font-size:
+            clamp(2.2rem, 6vw, 4.2rem);
+
         line-height: 1.1;
+
         margin-bottom: 20px;
+
         letter-spacing: -2px;
-        background: linear-gradient(135deg, #125d38, #2cb66b);
+
+        background:
+            linear-gradient(
+                135deg,
+                #125d38,
+                #2cb66b
+            );
+
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -192,9 +271,14 @@
 
     .hero > p {
         max-width: 720px;
-        margin: 0 auto 30px;
+
+        margin:
+            0 auto 30px;
+
         color: #5b7166;
+
         font-size: 18px;
+
         line-height: 1.75;
     }
 
@@ -204,25 +288,50 @@
 
     .buttons {
         display: flex;
+
         justify-content: center;
+
         gap: 18px;
+
         flex-wrap: wrap;
-        margin: 30px 0 38px;
+
+        margin:
+            30px 0 38px;
     }
 
     .buttons a {
         position: relative;
+
         overflow: hidden;
+
         min-width: 205px;
-        padding: 15px 25px;
+
+        padding:
+            15px 25px;
+
         border-radius: 14px;
+
         text-decoration: none;
+
         color: white;
+
         font-size: 16px;
+
         font-weight: 700;
+
         letter-spacing: 0.2px;
-        background: linear-gradient(135deg, #16844a, #35b86b);
-        box-shadow: 0 10px 24px rgba(25, 137, 73, 0.25);
+
+        background:
+            linear-gradient(
+                135deg,
+                #16844a,
+                #35b86b
+            );
+
+        box-shadow:
+            0 10px 24px
+            rgba(25, 137, 73, 0.25);
+
         transition:
             transform 0.25s ease,
             box-shadow 0.25s ease,
@@ -231,25 +340,40 @@
 
     .buttons a::before {
         content: "";
+
         position: absolute;
+
         top: 0;
         left: -120%;
+
         width: 80%;
         height: 100%;
-        background: linear-gradient(
-            100deg,
-            transparent,
-            rgba(255,255,255,0.35),
-            transparent
-        );
-        transform: skewX(-20deg);
-        transition: left 0.6s ease;
+
+        background:
+            linear-gradient(
+                100deg,
+                transparent,
+                rgba(255,255,255,0.35),
+                transparent
+            );
+
+        transform:
+            skewX(-20deg);
+
+        transition:
+            left 0.6s ease;
     }
 
     .buttons a:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 16px 30px rgba(25, 137, 73, 0.32);
-        filter: brightness(1.05);
+        transform:
+            translateY(-5px);
+
+        box-shadow:
+            0 16px 30px
+            rgba(25, 137, 73, 0.32);
+
+        filter:
+            brightness(1.05);
     }
 
     .buttons a:hover::before {
@@ -257,27 +381,52 @@
     }
 
     .buttons a:active {
-        transform: translateY(1px) scale(0.97);
-        box-shadow: 0 6px 14px rgba(25, 137, 73, 0.22);
+        transform:
+            translateY(1px) scale(0.97);
+
+        box-shadow:
+            0 6px 14px
+            rgba(25, 137, 73, 0.22);
     }
 
-    /* Recycling image */
+    /* ==============================
+       HERO IMAGE
+    ============================== */
 
     .hero > img {
         display: block;
+
         width: 100%;
+
         max-width: 680px;
+
         height: 360px;
+
         object-fit: cover;
-        margin: 10px auto 0;
-        border-radius: 22px !important;
-        box-shadow: 0 18px 40px rgba(21, 76, 45, 0.16) !important;
-        transition: transform 0.45s ease, box-shadow 0.45s ease;
+
+        margin:
+            10px auto 0;
+
+        border-radius:
+            22px !important;
+
+        box-shadow:
+            0 18px 40px
+            rgba(21, 76, 45, 0.16) !important;
+
+        transition:
+            transform 0.45s ease,
+            box-shadow 0.45s ease;
     }
 
     .hero > img:hover {
-        transform: scale(1.015) translateY(-4px);
-        box-shadow: 0 25px 50px rgba(21, 76, 45, 0.21) !important;
+        transform:
+            scale(1.015)
+            translateY(-4px);
+
+        box-shadow:
+            0 25px 50px
+            rgba(21, 76, 45, 0.21) !important;
     }
 
     /* ==============================
@@ -286,17 +435,27 @@
 
     h2 {
         text-align: center;
+
         color: #165f3a;
-        font-size: clamp(1.8rem, 4vw, 2.5rem);
+
+        font-size:
+            clamp(1.8rem, 4vw, 2.5rem);
+
         margin-bottom: 22px;
     }
 
     .about > p {
         max-width: 800px;
-        margin: 0 auto 25px;
+
+        margin:
+            0 auto 25px;
+
         text-align: center;
+
         color: #5d7167;
+
         line-height: 1.7;
+
         font-size: 16px;
     }
 
@@ -306,21 +465,38 @@
 
     .about ul {
         list-style: none;
-        max-width: 800px !important;
-        margin: 25px auto 35px !important;
+
+        max-width:
+            800px !important;
+
+        margin:
+            25px auto 35px !important;
+
         padding: 0;
+
         display: grid;
+
         gap: 12px;
     }
 
     .about li {
         position: relative;
-        padding: 16px 20px 16px 48px;
-        background: #f5faf7;
-        border: 1px solid #e0eee6;
+
+        padding:
+            16px 20px 16px 48px;
+
+        background:
+            #f5faf7;
+
+        border:
+            1px solid #e0eee6;
+
         border-radius: 14px;
+
         color: #486357;
+
         line-height: 1.5;
+
         transition:
             transform 0.25s ease,
             box-shadow 0.25s ease,
@@ -329,26 +505,45 @@
 
     .about li::before {
         content: "✓";
+
         position: absolute;
+
         left: 17px;
         top: 50%;
-        transform: translateY(-50%);
+
+        transform:
+            translateY(-50%);
+
         width: 23px;
         height: 23px;
+
         display: flex;
+
         align-items: center;
         justify-content: center;
+
         border-radius: 50%;
+
         color: white;
-        background: #2cad66;
+
+        background:
+            #2cad66;
+
         font-size: 13px;
+
         font-weight: bold;
     }
 
     .about li:hover {
-        transform: translateX(5px);
-        border-color: #a9d9bd;
-        box-shadow: 0 8px 20px rgba(27, 116, 65, 0.09);
+        transform:
+            translateX(5px);
+
+        border-color:
+            #a9d9bd;
+
+        box-shadow:
+            0 8px 20px
+            rgba(27, 116, 65, 0.09);
     }
 
     /* ==============================
@@ -357,25 +552,41 @@
 
     .grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+
+        grid-template-columns:
+            repeat(3, 1fr);
+
         gap: 18px;
+
         margin-top: 30px;
     }
 
     .grid img {
         width: 100%;
+
         height: 230px;
+
         object-fit: cover;
+
         border-radius: 18px;
-        box-shadow: 0 10px 25px rgba(20, 70, 43, 0.12);
+
+        box-shadow:
+            0 10px 25px
+            rgba(20, 70, 43, 0.12);
+
         transition:
             transform 0.4s ease,
             box-shadow 0.4s ease;
     }
 
     .grid img:hover {
-        transform: translateY(-8px) scale(1.025);
-        box-shadow: 0 20px 35px rgba(20, 70, 43, 0.20);
+        transform:
+            translateY(-8px)
+            scale(1.025);
+
+        box-shadow:
+            0 20px 35px
+            rgba(20, 70, 43, 0.20);
     }
 
     /* ==============================
@@ -384,20 +595,35 @@
 
     .faq ul {
         max-width: 800px;
-        margin: 30px auto 0;
+
+        margin:
+            30px auto 0;
+
         padding: 0;
+
         list-style: none;
+
         display: grid;
+
         gap: 15px;
     }
 
     .faq li {
-        padding: 21px 24px;
-        background: #f7fbf8;
-        border: 1px solid #dfede5;
+        padding:
+            21px 24px;
+
+        background:
+            #f7fbf8;
+
+        border:
+            1px solid #dfede5;
+
         border-radius: 16px;
+
         color: #536a5e;
+
         line-height: 1.6;
+
         transition:
             transform 0.25s ease,
             background 0.25s ease,
@@ -406,15 +632,23 @@
 
     .faq li strong {
         display: block;
+
         margin-bottom: 7px;
+
         color: #17623b;
+
         font-size: 17px;
     }
 
     .faq li:hover {
-        transform: translateY(-4px);
+        transform:
+            translateY(-4px);
+
         background: white;
-        box-shadow: 0 12px 25px rgba(22, 89, 52, 0.10);
+
+        box-shadow:
+            0 12px 25px
+            rgba(22, 89, 52, 0.10);
     }
 
     /* ==============================
@@ -427,28 +661,45 @@
 
     .contact > p {
         color: #63766c;
+
         font-size: 17px;
+
         margin-bottom: 28px;
     }
 
     .social {
         display: flex;
+
         justify-content: center;
+
         gap: 15px;
     }
 
     .social a {
         width: 58px;
         height: 58px;
+
         display: flex;
+
         align-items: center;
         justify-content: center;
+
         text-decoration: none;
+
         font-size: 25px;
+
         border-radius: 17px;
-        background: #f2f8f4;
-        border: 1px solid #dcebe2;
-        box-shadow: 0 7px 18px rgba(20, 75, 45, 0.08);
+
+        background:
+            #f2f8f4;
+
+        border:
+            1px solid #dcebe2;
+
+        box-shadow:
+            0 7px 18px
+            rgba(20, 75, 45, 0.08);
+
         transition:
             transform 0.3s ease,
             background 0.3s ease,
@@ -456,13 +707,20 @@
     }
 
     .social a:hover {
-        transform: translateY(-7px) rotate(-3deg);
+        transform:
+            translateY(-7px)
+            rotate(-3deg);
+
         background: white;
-        box-shadow: 0 14px 28px rgba(20, 75, 45, 0.16);
+
+        box-shadow:
+            0 14px 28px
+            rgba(20, 75, 45, 0.16);
     }
 
     .social a:active {
-        transform: scale(0.88);
+        transform:
+            scale(0.88);
     }
 
     /* ==============================
@@ -474,16 +732,43 @@
         .logo {
             width: 115px;
             height: 115px;
+
             margin-top: 20px;
         }
 
+        /*
+           IMPORTANT:
+           Keep all navigation items
+           on ONE horizontal line.
+        */
+
         .tabs {
-            width: calc(100% - 20px);
+            width:
+                calc(100% - 20px);
+
             max-width: none;
+
+            display: flex;
+
+            flex-wrap: nowrap;
+
             overflow-x: auto;
-            justify-content: flex-start;
+
+            justify-content:
+                space-between;
+
+            align-items: center;
+
+            gap: 2px;
+
+            padding: 5px;
+
             margin-bottom: 22px;
+
             scrollbar-width: none;
+
+            -webkit-overflow-scrolling:
+                touch;
         }
 
         .tabs::-webkit-scrollbar {
@@ -491,47 +776,88 @@
         }
 
         .tabs a {
-            padding: 10px 15px;
-            font-size: 14px;
+            flex:
+                0 0 auto;
+
+            padding:
+                10px 12px;
+
+            font-size: 13px;
+
+            white-space: nowrap;
         }
 
         .tab-content {
-            width: calc(100% - 20px);
-            padding: 28px 20px;
+            width:
+                calc(100% - 20px);
+
+            padding:
+                28px 20px;
+
             border-radius: 22px;
         }
 
         .hero h1 {
-            letter-spacing: -1px;
+            letter-spacing:
+                -1px;
         }
 
         .hero > p {
-            font-size: 16px;
+            font-size:
+                16px;
         }
 
         .buttons {
-            flex-direction: column;
-            align-items: stretch;
+            flex-direction:
+                column;
+
+            align-items:
+                stretch;
         }
 
         .buttons a {
-            width: 100%;
+            width:
+                100%;
         }
 
         .hero > img {
-            height: 240px;
+            height:
+                240px;
         }
 
         .grid {
-            grid-template-columns: 1fr;
+            grid-template-columns:
+                1fr;
         }
 
         .grid img {
-            height: 220px;
+            height:
+                220px;
         }
 
         .about li {
-            padding-right: 15px;
+            padding-right:
+                15px;
+        }
+    }
+
+    /* ==============================
+       VERY SMALL PHONES
+    ============================== */
+
+    @media (max-width: 380px) {
+
+        .tabs {
+            gap: 0;
+            padding: 4px;
+        }
+
+        .tabs a {
+            padding:
+                9px 9px;
+
+            font-size:
+                12px;
         }
     }
 
@@ -540,12 +866,19 @@
     ============================== */
 
     @media (prefers-reduced-motion: reduce) {
+
         *,
         *::before,
         *::after {
-            scroll-behavior: auto !important;
-            animation-duration: 0.01ms !important;
-            transition-duration: 0.01ms !important;
+
+            scroll-behavior:
+                auto !important;
+
+            animation-duration:
+                0.01ms !important;
+
+            transition-duration:
+                0.01ms !important;
         }
     }
 </style>
@@ -556,19 +889,62 @@
 <body>
 
 ```
-<img src="scrap-setu-logo.jpeg" alt="ScrapSetu Logo" class="logo">
+<!-- LOGO -->
+
+<img
+    src="scrap-setu-logo.jpeg"
+    alt="ScrapSetu Logo"
+    class="logo"
+>
+
+<!-- NAVIGATION -->
 
 <nav class="tabs">
-    <a href="#" data-tab="home" class="active">Home</a>
-    <a href="#" data-tab="about">About</a>
-    <a href="#" data-tab="faq">FAQ</a>
-    <a href="#" data-tab="contact">Contact Us</a>
+
+    <a
+        href="#"
+        data-tab="home"
+        class="active"
+    >
+        Home
+    </a>
+
+    <a
+        href="#"
+        data-tab="about"
+    >
+        About
+    </a>
+
+    <a
+        href="#"
+        data-tab="faq"
+    >
+        FAQ
+    </a>
+
+    <a
+        href="#"
+        data-tab="contact"
+    >
+        Contact Us
+    </a>
+
 </nav>
 
-<!-- ==== HOME ==== -->
-<section id="home" class="tab-content active hero">
 
-    <h1>Welcome to ScrapSetu</h1>
+<!-- ==============================
+     HOME
+============================== -->
+
+<section
+    id="home"
+    class="tab-content active hero"
+>
+
+    <h1>
+        Welcome to ScrapSetu
+    </h1>
 
     <p>
         Connecting collectors and recyclers on a single platform
@@ -576,8 +952,15 @@
     </p>
 
     <div class="buttons">
-        <a href="Collector/index.html">Collector Portal</a>
-        <a href="Recycler/index.html">Recycler Portal</a>
+
+        <a href="Collector/index.html">
+            Collector Portal
+        </a>
+
+        <a href="Recycler/index.html">
+            Recycler Portal
+        </a>
+
     </div>
 
     <img
@@ -587,10 +970,19 @@
 
 </section>
 
-<!-- ==== ABOUT ==== -->
-<section id="about" class="tab-content about">
 
-    <h2>Our Idea</h2>
+<!-- ==============================
+     ABOUT
+============================== -->
+
+<section
+    id="about"
+    class="tab-content about"
+>
+
+    <h2>
+        Our Idea
+    </h2>
 
     <p>
         ScrapSetu aims to close the loop between waste generators,
@@ -599,6 +991,7 @@
     </p>
 
     <ul>
+
         <li>
             Collectors to register scrap items quickly and get fair
             price estimates.
@@ -618,6 +1011,7 @@
             Easy analytics for both parties to track volume,
             earnings and environmental impact.
         </li>
+
     </ul>
 
     <div class="grid">
@@ -641,45 +1035,83 @@
 
 </section>
 
-<!-- ==== FAQ ==== -->
-<section id="faq" class="tab-content faq">
 
-    <h2>Frequently Asked Questions</h2>
+<!-- ==============================
+     FAQ
+============================== -->
+
+<section
+    id="faq"
+    class="tab-content faq"
+>
+
+    <h2>
+        Frequently Asked Questions
+    </h2>
 
     <ul>
 
         <li>
-            <strong>How do I sign up?</strong>
+
+            <strong>
+                How do I sign up?
+            </strong>
+
             Click the "Collector Portal" or "Recycler Portal"
             button on the Home tab and use the sign-up form.
+
         </li>
 
         <li>
-            <strong>Is there any cost?</strong>
+
+            <strong>
+                Is there any cost?
+            </strong>
+
             Registration is free. A small commission is taken
             on completed transactions.
+
         </li>
 
         <li>
-            <strong>What materials are accepted?</strong>
+
+            <strong>
+                What materials are accepted?
+            </strong>
+
             Plastic, paper, metal (iron, copper, aluminium, steel)
             and e-waste.
+
         </li>
 
         <li>
-            <strong>How is pricing determined?</strong>
+
+            <strong>
+                How is pricing determined?
+            </strong>
+
             Prices are based on real-time market rates displayed
             in the Price Board.
+
         </li>
 
     </ul>
 
 </section>
 
-<!-- ==== CONTACT ==== -->
-<section id="contact" class="tab-content contact">
 
-    <h2>Contact Us</h2>
+<!-- ==============================
+     CONTACT
+============================== -->
+
+<section
+    id="contact"
+    class="tab-content contact"
+>
+
+    <h2>
+        Contact Us
+    </h2>
 
     <p>
         Reach out on our social channels or send us an email.
@@ -691,45 +1123,77 @@
             href="https://twitter.com/greekygrind"
             target="_blank"
             title="Twitter"
-        >🐦</a>
+        >
+            🐦
+        </a>
 
         <a
             href="https://www.linkedin.com/in/karan-chandra-050799351/"
             target="_blank"
             title="LinkedIn"
-        >🔗</a>
+        >
+            🔗
+        </a>
 
         <a
             href="mailto:vsicskaranchandra@gmail.com"
             title="Email"
-        >✉️</a>
+        >
+            ✉️
+        </a>
 
     </div>
 
 </section>
 
+
+<!-- ==============================
+     TAB SWITCHING
+============================== -->
+
 <script>
-    // Simple tab switching
-    const tabs = document.querySelectorAll('.tabs a');
-    const contents = document.querySelectorAll('.tab-content');
+
+    const tabs =
+        document.querySelectorAll('.tabs a');
+
+    const contents =
+        document.querySelectorAll('.tab-content');
 
     tabs.forEach(tab => {
+
         tab.addEventListener('click', e => {
+
             e.preventDefault();
 
-            const target = tab.dataset.tab;
+            const target =
+                tab.dataset.tab;
 
-            // Update active tab style
-            tabs.forEach(t =>
-                t.classList.toggle('active', t === tab)
-            );
+            /* Update active tab */
 
-            // Show corresponding content
-            contents.forEach(c =>
-                c.classList.toggle('active', c.id === target)
-            );
+            tabs.forEach(t => {
+
+                t.classList.toggle(
+                    'active',
+                    t === tab
+                );
+
+            });
+
+            /* Show selected content */
+
+            contents.forEach(c => {
+
+                c.classList.toggle(
+                    'active',
+                    c.id === target
+                );
+
+            });
+
         });
+
     });
+
 </script>
 ```
 
