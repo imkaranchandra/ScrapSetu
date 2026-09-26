@@ -102,11 +102,13 @@ async function register() {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({
+           body: JSON.stringify({
                 full_name: nameVal,
                 mobile: mobileVal,
                 password: passVal,
                 role: "collector",
+                business_name: "",
+                address: "",
                 city: cityVal
             })
         });
