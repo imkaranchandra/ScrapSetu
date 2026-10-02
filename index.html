@@ -4,1388 +4,1021 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ScrapSetu – Portal Selector</title>
+    <title>ScrapSetu – Digital Scrap & Circular Recycling Network</title>
+    <meta name="description" content="ScrapSetu connects scrap collectors and industrial recyclers on a single transparent digital platform for fair pricing, verified weighing, and circular waste management.">
 
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
-
-    <style>
-        /* ==============================
-           SCRAPSETU PROFESSIONAL UI
-        ============================== */
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            min-height: 100vh;
-            font-family: "Segoe UI", Arial, sans-serif;
-            color: #173b2b;
-            background:
-                radial-gradient(
-                    circle at top left,
-                    rgba(55, 190, 120, 0.16),
-                    transparent 32%
-                ),
-                radial-gradient(
-                    circle at bottom right,
-                    rgba(39, 145, 91, 0.12),
-                    transparent 35%
-                ),
-                #f5faf7;
-            overflow-x: hidden;
-        }
-
-        /* ==============================
-           BACKGROUND GLOW
-        ============================== */
-
-        body::before {
-            content: "";
-            position: fixed;
-            width: 350px;
-            height: 350px;
-            border-radius: 50%;
-            background: rgba(46, 180, 105, 0.08);
-            filter: blur(60px);
-            top: 80px;
-            right: -100px;
-            z-index: -1;
-        }
-
-        body::after {
-            content: "";
-            position: fixed;
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            background: rgba(28, 124, 76, 0.07);
-            filter: blur(60px);
-            bottom: -100px;
-            left: -80px;
-            z-index: -1;
-        }
-
-        /* ==============================
-           LOGO
-        ============================== */
-
-        .logo {
-            display: block;
-            width: 150px;
-            height: 150px;
-            object-fit: contain;
-            margin: 28px auto 12px;
-            border-radius: 28px;
-            transition:
-                transform 0.4s ease,
-                filter 0.4s ease;
-            filter:
-                drop-shadow(
-                    0 12px 22px rgba(20, 90, 52, 0.18)
-                );
-        }
-
-        .logo:hover {
-            transform: translateY(-5px) scale(1.03);
-            filter:
-                drop-shadow(
-                    0 18px 28px rgba(20, 90, 52, 0.25)
-                );
-        }
-
-        /* ==============================
-           NAVIGATION
-        ============================== */
-
-        .tabs {
-            width: fit-content;
-            max-width: calc(100% - 30px);
-            margin: 15px auto 35px;
-            padding: 7px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 5px;
-            background: rgba(255, 255, 255, 0.78);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-            border: 1px solid rgba(255, 255, 255, 0.9);
-            border-radius: 18px;
-            box-shadow:
-                0 10px 35px rgba(25, 80, 50, 0.10);
-            position: sticky;
-            top: 15px;
-            z-index: 100;
-        }
-
-        .tabs a {
-            position: relative;
-            text-decoration: none;
-            color: #426253;
-            font-weight: 600;
-            font-size: 15px;
-            padding: 11px 19px;
-            border-radius: 13px;
-            transition:
-                color 0.3s ease,
-                background 0.3s ease,
-                transform 0.2s ease;
-            white-space: nowrap;
-        }
-
-        .tabs a:hover {
-            color: #137442;
-            background: rgba(36, 164, 91, 0.09);
-            transform: translateY(-2px);
-        }
-
-        .tabs a:active {
-            transform: scale(0.94);
-        }
-
-        .tabs a.active {
-            color: white;
-            background:
-                linear-gradient(
-                    135deg,
-                    #1d8f50,
-                    #39b96d
-                );
-            box-shadow:
-                0 7px 18px rgba(31, 143, 79, 0.25);
-        }
-
-        /* ==============================
-           MAIN CONTENT
-        ============================== */
-
-        .tab-content {
-            width: min(1050px, calc(100% - 30px));
-            margin: 0 auto 40px;
-            padding: 45px;
-            background: rgba(255, 255, 255, 0.82);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.9);
-            border-radius: 28px;
-            box-shadow:
-                0 20px 55px rgba(22, 82, 48, 0.10);
-            display: none;
-            animation: pageEnter 0.5s ease;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        @keyframes pageEnter {
-            from {
-                opacity: 0;
-                transform: translateY(15px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* ==============================
-           HERO
-        ============================== */
-
-        .hero {
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: clamp(2.2rem, 6vw, 4.2rem);
-            line-height: 1.1;
-            margin-bottom: 20px;
-            letter-spacing: -2px;
-            background:
-                linear-gradient(
-                    135deg,
-                    #125d38,
-                    #2cb66b
-                );
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero > p {
-            max-width: 720px;
-            margin: 0 auto 30px;
-            color: #5b7166;
-            font-size: 18px;
-            line-height: 1.75;
-        }
-
-        /* ==============================
-           PORTAL BUTTONS
-        ============================== */
-
-        .buttons {
-            display: flex;
-            justify-content: center;
-            gap: 18px;
-            flex-wrap: wrap;
-            margin: 30px 0 38px;
-        }
-
-        .buttons a {
-            position: relative;
-            overflow: hidden;
-            min-width: 205px;
-            padding: 15px 25px;
-            border-radius: 14px;
-            text-decoration: none;
-            color: white;
-            font-size: 16px;
-            font-weight: 700;
-            letter-spacing: 0.2px;
-            background:
-                linear-gradient(
-                    135deg,
-                    #16844a,
-                    #35b86b
-                );
-            box-shadow:
-                0 10px 24px rgba(25, 137, 73, 0.25);
-            transition:
-                transform 0.25s ease,
-                box-shadow 0.25s ease,
-                filter 0.25s ease;
-        }
-
-        .buttons a::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -120%;
-            width: 80%;
-            height: 100%;
-            background:
-                linear-gradient(
-                    100deg,
-                    transparent,
-                    rgba(255,255,255,0.35),
-                    transparent
-                );
-            transform: skewX(-20deg);
-            transition: left 0.6s ease;
-        }
-
-        .buttons a:hover {
-            transform: translateY(-5px);
-            box-shadow:
-                0 16px 30px rgba(25, 137, 73, 0.32);
-            filter: brightness(1.05);
-        }
-
-        .buttons a:hover::before {
-            left: 140%;
-        }
-
-        .buttons a:active {
-            transform: translateY(1px) scale(0.97);
-            box-shadow:
-                0 6px 14px rgba(25, 137, 73, 0.22);
-        }
-
-        /* ==============================
-           HERO IMAGE
-        ============================== */
-
-        .hero > img {
-            display: block;
-            width: 100%;
-            max-width: 680px;
-            height: 360px;
-            object-fit: cover;
-            margin: 10px auto 0;
-            border-radius: 22px !important;
-            box-shadow:
-                0 18px 40px rgba(21, 76, 45, 0.16) !important;
-            transition:
-                transform 0.45s ease,
-                box-shadow 0.45s ease;
-        }
-
-        .hero > img:hover {
-            transform: scale(1.015) translateY(-4px);
-            box-shadow:
-                0 25px 50px rgba(21, 76, 45, 0.21) !important;
-        }
-
-        /* ==============================
-           HEADINGS
-        ============================== */
-
-        h2 {
-            text-align: center;
-            color: #165f3a;
-            font-size: clamp(1.8rem, 4vw, 2.5rem);
-            margin-bottom: 22px;
-        }
-
-        .about > p {
-            max-width: 800px;
-            margin: 0 auto 25px;
-            text-align: center;
-            color: #5d7167;
-            line-height: 1.7;
-            font-size: 16px;
-        }
-
-        /* ==============================
-           ABOUT LIST
-        ============================== */
-
-        .about ul {
-            list-style: none;
-            max-width: 800px !important;
-            margin: 25px auto 35px !important;
-            padding: 0;
-            display: grid;
-            gap: 12px;
-        }
-
-        .about li {
-            position: relative;
-            padding: 16px 20px 16px 48px;
-            background: #f5faf7;
-            border: 1px solid #e0eee6;
-            border-radius: 14px;
-            color: #486357;
-            line-height: 1.5;
-            transition:
-                transform 0.25s ease,
-                box-shadow 0.25s ease,
-                border-color 0.25s ease;
-        }
-
-        .about li::before {
-            content: "✓";
-            position: absolute;
-            left: 17px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 23px;
-            height: 23px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            color: white;
-            background: #2cad66;
-            font-size: 13px;
-            font-weight: bold;
-        }
-
-        .about li:hover {
-            transform: translateX(5px);
-            border-color: #a9d9bd;
-            box-shadow:
-                0 8px 20px rgba(27, 116, 65, 0.09);
-        }
-
-        /* ==============================
-           ABOUT TAGLINE
-        ============================== */
-
-        .about-tagline {
-            max-width: 800px;
-            margin: 30px auto 45px;
-            padding: 18px;
-            text-align: center;
-            color: #17623b;
-            background: #eff9f2;
-            border: 1px solid #d8eddf;
-            border-radius: 15px;
-            font-size: 18px;
-        }
-
-        /* ==============================
-           TEAM SECTION
-        ============================== */
-
-        .team-intro {
-            max-width: 800px;
-            margin: 0 auto 30px;
-            text-align: center;
-            color: #5d7167;
-            line-height: 1.7;
-            font-size: 16px;
-        }
-
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            max-width: 900px;
-            margin: 25px auto 10px;
-        }
-
-        .team-card {
-            padding: 25px 20px;
-            text-align: center;
-            background: #f7fbf8;
-            border: 1px solid #dcece2;
-            border-radius: 20px;
-            box-shadow:
-                0 8px 25px rgba(20, 75, 45, 0.07);
-            transition:
-                transform 0.3s ease,
-                box-shadow 0.3s ease,
-                border-color 0.3s ease;
-        }
-
-        .team-card:hover {
-            transform: translateY(-8px);
-            border-color: #acd9bd;
-            box-shadow:
-                0 16px 30px rgba(20, 75, 45, 0.13);
-        }
-
-        .team-avatar {
-            width: 75px;
-            height: 75px;
-            margin: 0 auto 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background:
-                linear-gradient(
-                    135deg,
-                    #1d8f50,
-                    #39b96d
-                );
-            color: white;
-            font-size: 27px;
-            font-weight: 700;
-            box-shadow:
-                0 8px 20px rgba(29, 143, 80, 0.22);
-        }
-
-        .team-card h3 {
-            color: #165f3a;
-            font-size: 20px;
-            margin-bottom: 7px;
-        }
-
-        .team-role {
-            color: #2b9a5b;
-            font-weight: 600;
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-
-        .team-card p {
-            color: #60756a;
-            line-height: 1.5;
-            font-size: 14px;
-            margin-bottom: 15px;
-        }
-
-        .team-contact {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .team-contact a {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            padding: 8px 11px;
-            border-radius: 10px;
-            background: white;
-            border: 1px solid #dcebe2;
-            color: #246b35;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 600;
-            transition:
-                transform 0.25s ease,
-                background 0.25s ease,
-                box-shadow 0.25s ease;
-        }
-
-        .team-contact a:hover {
-            transform: translateY(-3px);
-            background: #eff9f2;
-            box-shadow:
-                0 7px 15px rgba(20, 75, 45, 0.10);
-        }
-
-        /* ==============================
-           IMAGE GRID
-        ============================== */
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 18px;
-            margin-top: 30px;
-        }
-
-        .grid img {
-            width: 100%;
-            height: 230px;
-            object-fit: cover;
-            border-radius: 18px;
-            box-shadow:
-                0 10px 25px rgba(20, 70, 43, 0.12);
-            transition:
-                transform 0.4s ease,
-                box-shadow 0.4s ease;
-        }
-
-        .grid img:hover {
-            transform: translateY(-8px) scale(1.025);
-            box-shadow:
-                0 20px 35px rgba(20, 70, 43, 0.20);
-        }
-
-        /* ==============================
-           FAQ
-        ============================== */
-
-        .faq ul {
-            max-width: 800px;
-            margin: 30px auto 0;
-            padding: 0;
-            list-style: none;
-            display: grid;
-            gap: 15px;
-        }
-
-        .faq li {
-            padding: 21px 24px;
-            background: #f7fbf8;
-            border: 1px solid #dfede5;
-            border-radius: 16px;
-            color: #536a5e;
-            line-height: 1.6;
-            transition:
-                transform 0.25s ease,
-                background 0.25s ease,
-                box-shadow 0.25s ease;
-        }
-
-        .faq li strong {
-            display: block;
-            margin-bottom: 7px;
-            color: #17623b;
-            font-size: 17px;
-        }
-
-        .faq li:hover {
-            transform: translateY(-4px);
-            background: white;
-            box-shadow:
-                0 12px 25px rgba(22, 89, 52, 0.10);
-        }
-
-        /* ==============================
-           CONTACT
-        ============================== */
-
-        .contact {
-            text-align: center;
-        }
-
-        .contact > p {
-            color: #63766c;
-            font-size: 17px;
-            margin-bottom: 28px;
-        }
-
-        .social {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-
-        .social a {
-            width: 58px;
-            height: 58px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            font-size: 25px;
-            border-radius: 17px;
-            background: #f2f8f4;
-            border: 1px solid #dcebe2;
-            box-shadow:
-                0 7px 18px rgba(20, 75, 45, 0.08);
-            transition:
-                transform 0.3s ease,
-                background 0.3s ease,
-                box-shadow 0.3s ease;
-        }
-
-        .social a:hover {
-            transform: translateY(-7px) rotate(-3deg);
-            background: white;
-            box-shadow:
-                0 14px 28px rgba(20, 75, 45, 0.16);
-        }
-
-        .social a:active {
-            transform: scale(0.88);
-        }
-
-        /* ==============================
-           MOBILE
-        ============================== */
-
-        @media (max-width: 700px) {
-
-            .logo {
-                width: 115px;
-                height: 115px;
-                margin-top: 20px;
-            }
-
-            .tabs {
-                width: calc(100% - 20px);
-                max-width: none;
-                display: flex;
-                flex-wrap: nowrap;
-                overflow-x: auto;
-                justify-content: space-between;
-                align-items: center;
-                gap: 2px;
-                padding: 5px;
-                margin-bottom: 22px;
-                scrollbar-width: none;
-                -webkit-overflow-scrolling: touch;
-            }
-
-            .tabs::-webkit-scrollbar {
-                display: none;
-            }
-
-            .tabs a {
-                flex: 0 0 auto;
-                padding: 10px 12px;
-                font-size: 13px;
-                white-space: nowrap;
-            }
-
-            .tab-content {
-                width: calc(100% - 20px);
-                padding: 28px 20px;
-                border-radius: 22px;
-            }
-
-            .hero h1 {
-                letter-spacing: -1px;
-            }
-
-            .hero > p {
-                font-size: 16px;
-            }
-
-            .buttons {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .buttons a {
-                width: 100%;
-            }
-
-            .hero > img {
-                height: 240px;
-            }
-
-            .grid {
-                grid-template-columns: 1fr;
-            }
-
-            .grid img {
-                height: 220px;
-            }
-
-            .about li {
-                padding-right: 15px;
-            }
-
-            .team-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* ==============================
-           VERY SMALL PHONES
-        ============================== */
-
-        @media (max-width: 380px) {
-
-            .tabs {
-                gap: 0;
-                padding: 4px;
-            }
-
-            .tabs a {
-                padding: 9px 9px;
-                font-size: 12px;
-            }
-
-            .team-card {
-                padding: 22px 15px;
-            }
-        }
-
-        /* ==============================
-           REDUCED MOTION
-        ============================== */
-
-        @media (prefers-reduced-motion: reduce) {
-
-            *,
-            *::before,
-            *::after {
-                scroll-behavior: auto !important;
-                animation-duration: 0.01ms !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-    </style>
-
+    <link rel="icon" type="image/jpeg" href="scrap-setu-logo.jpeg">
 </head>
 
 <body>
 
-    <!-- LOGO -->
+    <!-- Ambient Glow Effects -->
+    <div class="bg-ambient-blob blob-1"></div>
+    <div class="bg-ambient-blob blob-2"></div>
 
-    <img
-        src="scrap-setu-logo.jpeg"
-        alt="ScrapSetu Logo"
-        class="logo"
-    >
+    <!-- ==============================
+         STICKY TOP NAVBAR
+    ============================== -->
+    <header class="site-header">
+        <nav class="navbar" aria-label="Main Navigation">
+            <!-- Brand Identity -->
+            <a href="#" class="brand-link" data-tab="home" title="ScrapSetu Home">
+                <img src="scrap-setu-logo.jpeg" alt="ScrapSetu Logo" class="brand-logo-img">
+                <div class="brand-text">
+                    <span class="brand-name">Scrap<span class="accent">Setu</span></span>
+                    <span class="brand-badge">Circular Scrap Network</span>
+                </div>
+            </a>
 
-    <!-- NAVIGATION -->
+            <!-- Navigation Tabs -->
+            <div class="nav-tabs" id="navTabs" role="tablist">
+                <a href="#home" class="active" data-tab="home" role="tab" aria-selected="true">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    Home
+                </a>
+                <a href="#about" data-tab="about" role="tab" aria-selected="false">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                    About Us
+                </a>
+                <a href="#rates" data-tab="rates" role="tab" aria-selected="false">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    Live Rates
+                </a>
+                <a href="#faq" data-tab="faq" role="tab" aria-selected="false">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                    FAQ
+                </a>
+                <a href="#contact" data-tab="contact" role="tab" aria-selected="false">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                    Contact
+                </a>
+            </div>
 
-    <nav class="tabs">
-
-        <a
-            href="#"
-            data-tab="home"
-            class="active"
-        >
-            Home
-        </a>
-
-        <a
-            href="#"
-            data-tab="about"
-        >
-            About
-        </a>
-
-        <a
-            href="#"
-            data-tab="faq"
-        >
-            FAQ
-        </a>
-
-        <a
-            href="#"
-            data-tab="contact"
-        >
-            Contact Us
-        </a>
-
-    </nav>
+            <!-- Header Quick Actions -->
+            <div class="nav-actions">
+                <a href="Collector/index.html" class="btn btn-sm btn-ghost-green" title="Open Collector Portal">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                    Collector Login
+                </a>
+                <a href="Recycler/index.html" class="btn btn-sm btn-primary" title="Open Recycler Portal">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/></svg>
+                    Recycler Login
+                </a>
+                <!-- Mobile Menu Hamburger -->
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation menu">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </nav>
+    </header>
 
 
     <!-- ==============================
-         HOME
+         TAB 1: HOME SECTION
     ============================== -->
+    <main class="container">
+        <section id="home" class="tab-content active hero-section" role="tabpanel">
 
-    <section
-        id="home"
-        class="tab-content active hero"
-    >
+            <!-- Hero Headline & Value Statement -->
+            <div class="glass-panel hero-wrapper">
+                <div class="live-network-badge">
+                    <span class="pulse-dot"></span>
+                    <span>Live Circular Economy Network • 100% Transparent Scrap Rates</span>
+                </div>
 
-        <h1>
-            Welcome to ScrapSetu
-        </h1>
+                <h1 class="hero-title">
+                    Digital Infrastructure for India's <br>
+                    <span class="gradient-text">Scrap & Recycling Economy</span>
+                </h1>
 
-        <p>
-            Connecting collectors and recyclers on a single platform
-            to make waste management simple, transparent, and rewarding.
-        </p>
+                <p class="hero-subtitle">
+                    Connecting local scrap collectors and aggregators with verified industrial recyclers.
+                    Enjoy guaranteed market pricing, digital scale validation, and frictionless circular supply chains.
+                </p>
 
-        <div class="buttons">
+                <!-- ==============================
+                     THE TWO MAIN PORTALS (CORE CTAs)
+                ============================== -->
+                <div class="portals-grid">
 
-            <a href="Collector/index.html">
-                Collector Portal
-            </a>
+                    <!-- PORTAL 1: COLLECTOR -->
+                    <div class="portal-card portal-card-collector">
+                        <div>
+                            <span class="portal-card-badge badge-collector">For Local Aggregators, Dealers & Pickers</span>
+                            <div class="portal-header-icon icon-collector">
+                                🚛
+                            </div>
+                            <h2 class="portal-card-title">Collector Portal</h2>
+                            <p class="portal-card-desc">
+                                Access daily mandi prices, log collection weight batches, schedule doorstep pickups, and receive instant digital payments with zero middlemen markdowns.
+                            </p>
 
-            <a href="Recycler/index.html">
-                Recycler Portal
-            </a>
+                            <ul class="portal-checklist">
+                                <li>
+                                    <span class="check-icon check-collector">✓</span>
+                                    <span>Live daily scrap mandi benchmark rates</span>
+                                </li>
+                                <li>
+                                    <span class="check-icon check-collector">✓</span>
+                                    <span>Digital weighing slip generation & ledger</span>
+                                </li>
+                                <li>
+                                    <span class="check-icon check-collector">✓</span>
+                                    <span>Same-day doorstep pickup requests & instant UPI</span>
+                                </li>
+                            </ul>
+                        </div>
 
-        </div>
+                        <div class="portal-btn-group">
+                            <a href="Collector/index.html" class="btn btn-portal-collector btn-shimmer" id="btnCollectorPortal">
+                                <span>Enter Collector Portal</span>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                            </a>
+                            <a href="Collector/signup.html" class="portal-sublink">
+                                Don't have a Collector ID? Register Free &rarr;
+                            </a>
+                        </div>
+                    </div>
 
-        <img
-            src="https://img.freepik.com/premium-vector/plastics-recycling-cycle-vector-illustration_1334819-8722.jpg?w=1480"
-            alt="Recycling illustration"
-        >
+                    <!-- PORTAL 2: RECYCLER -->
+                    <div class="portal-card portal-card-recycler">
+                        <div>
+                            <span class="portal-card-badge badge-recycler">For Processing Mills, Smelters & Foundries</span>
+                            <div class="portal-header-icon icon-recycler">
+                                🏭
+                            </div>
+                            <h2 class="portal-card-title">Recycler Portal</h2>
+                            <p class="portal-card-desc">
+                                Secure steady streams of sorted, high-grade secondary raw materials in bulk. Track incoming truck manifests, confirm lab purity, and manage circular compliance.
+                            </p>
 
-    </section>
+                            <ul class="portal-checklist">
+                                <li>
+                                    <span class="check-icon check-recycler">✓</span>
+                                    <span>Direct bulk procurement without brokerage layers</span>
+                                </li>
+                                <li>
+                                    <span class="check-icon check-recycler">✓</span>
+                                    <span>Real-time truck dispatch & weighbridge tracking</span>
+                                </li>
+                                <li>
+                                    <span class="check-icon check-recycler">✓</span>
+                                    <span>GST-compliant e-invoicing & automated documentation</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="portal-btn-group">
+                            <a href="Recycler/index.html" class="btn btn-portal-recycler btn-shimmer" id="btnRecyclerPortal">
+                                <span>Enter Recycler Portal</span>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                            </a>
+                            <a href="Recycler/signup.html" class="portal-sublink">
+                                Industrial Processor? Partner With Us &rarr;
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- LIVE RATES TICKER STRIP -->
+                <div class="rates-strip">
+                    <div class="rates-header">
+                        <div class="rates-title">
+                            <span>⚡ Today's Verified Scrap Mandi Rates</span>
+                            <span class="rates-tag">Live Market Index</span>
+                        </div>
+                        <a href="#rates" data-tab="rates" class="portal-sublink" style="text-decoration: none; font-size: 0.85rem;">
+                            View Detailed Price Matrix &rarr;
+                        </a>
+                    </div>
+
+                    <div class="rates-carousel">
+                        <div class="rate-chip">
+                            <div class="material">Copper Wire (99%)</div>
+                            <div class="price">₹725<span style="font-size: 0.75rem; font-weight: normal;">/kg</span></div>
+                            <div class="trend">▲ +2.4% Today</div>
+                        </div>
+                        <div class="rate-chip">
+                            <div class="material">Aluminium Scrap</div>
+                            <div class="price">₹165<span style="font-size: 0.75rem; font-weight: normal;">/kg</span></div>
+                            <div class="trend">▲ +1.2% Today</div>
+                        </div>
+                        <div class="rate-chip">
+                            <div class="material">Brass / Pital</div>
+                            <div class="price">₹460<span style="font-size: 0.75rem; font-weight: normal;">/kg</span></div>
+                            <div class="trend">▲ +0.8% Today</div>
+                        </div>
+                        <div class="rate-chip">
+                            <div class="material">Heavy Iron (MS)</div>
+                            <div class="price">₹38<span style="font-size: 0.75rem; font-weight: normal;">/kg</span></div>
+                            <div class="trend">▲ +1.5% Today</div>
+                        </div>
+                        <div class="rate-chip">
+                            <div class="material">PET Bottles</div>
+                            <div class="price">₹32<span style="font-size: 0.75rem; font-weight: normal;">/kg</span></div>
+                            <div class="trend">▲ +3.1% Today</div>
+                        </div>
+                        <div class="rate-chip">
+                            <div class="material">Cardboard (Raddi)</div>
+                            <div class="price">₹14.5<span style="font-size: 0.75rem; font-weight: normal;">/kg</span></div>
+                            <div class="trend">▲ +0.5% Today</div>
+                        </div>
+                        <div class="rate-chip">
+                            <div class="material">Lead / Battery</div>
+                            <div class="price">₹112<span style="font-size: 0.75rem; font-weight: normal;">/kg</span></div>
+                            <div class="trend">▲ +1.8% Today</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- INTERACTIVE SCRAP VALUE CALCULATOR -->
+                <div class="calculator-card">
+                    <div class="calc-grid">
+                        <div>
+                            <span class="rates-tag" style="background:#ffffff; margin-bottom:8px; display:inline-block;">Instant Estimate</span>
+                            <h3 style="font-family: var(--font-heading); font-size: 1.35rem; color: var(--slate-900); margin-bottom: 6px;">
+                                Quick Scrap Value Estimator
+                            </h3>
+                            <p style="font-size: 0.92rem; color: var(--slate-600); margin-bottom: 16px;">
+                                Select your recyclable commodity and quantity to discover instant estimated revenue.
+                            </p>
+
+                            <div class="calc-inputs">
+                                <div class="calc-field">
+                                    <label for="calcMaterial">Material Type</label>
+                                    <select id="calcMaterial">
+                                        <option value="725">Copper Wire (₹725/kg)</option>
+                                        <option value="165">Aluminium Scrap (₹165/kg)</option>
+                                        <option value="460">Brass / Pital (₹460/kg)</option>
+                                        <option value="38" selected>Heavy Iron MS (₹38/kg)</option>
+                                        <option value="32">PET Plastic Bottles (₹32/kg)</option>
+                                        <option value="14.5">Cardboard / Paper (₹14.5/kg)</option>
+                                        <option value="112">Lead / Inverter Battery (₹112/kg)</option>
+                                    </select>
+                                </div>
+                                <div class="calc-field">
+                                    <label for="calcWeight">Quantity (kg)</label>
+                                    <input type="number" id="calcWeight" value="150" min="1" max="100000">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="calc-result-box">
+                            <div class="calc-result-label">Estimated Payout</div>
+                            <div class="calc-result-value" id="calcResultDisplay">₹5,700</div>
+                            <p style="font-size: 0.8rem; color: var(--slate-500); margin-top: 6px; margin-bottom: 12px;">
+                                Guaranteed rate locked for 24 hours upon booking
+                            </p>
+                            <a href="Collector/index.html" class="btn btn-sm btn-primary" style="width: 100%;">
+                                Sell At This Price &rarr;
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
 
 
-    <!-- ==============================
-         ABOUT
-    ============================== -->
+            <!-- ==============================
+                 HOW IT WORKS (4 STEPS)
+            ============================== -->
+            <div class="glass-panel">
+                <div class="section-header">
+                    <span class="section-tag">Streamlined Workflow</span>
+                    <h2 class="section-title">How ScrapSetu Bridges The Gap</h2>
+                    <p class="section-desc">
+                        A seamless, 4-step digital pipeline converting grassroots recyclable collections into certified industrial inputs.
+                    </p>
+                </div>
 
-    <section
-        id="about"
-        class="tab-content about"
-    >
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <div class="step-icon">📦</div>
+                        <h3>Collect & Segregate</h3>
+                        <p>Collectors gather recyclable waste (metals, plastics, paper, batteries) and sort them into standardized grades.</p>
+                    </div>
 
-        <h2>
-            Who We Are
-        </h2>
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <div class="step-icon">📊</div>
+                        <h3>Live Rate Discovery</h3>
+                        <p>Transparent benchmark mandi rates updated in real-time ensure fair valuation without broker deductions.</p>
+                    </div>
 
-        <p>
-            <strong>ScrapSetu</strong> is a digital platform that connects
-            scrap collectors with recyclers, making the recycling process
-            simpler, more transparent, and organized.
-        </p>
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <div class="step-icon">⚖️</div>
+                        <h3>Digital Verification</h3>
+                        <p>Every batch is logged with calibrated digital weighbridge slips and assigned a QR-verified dispatch manifest.</p>
+                    </div>
 
-        <p>
-            We aim to create a digital bridge between people who collect
-            recyclable materials and businesses that process and recycle them.
-            ScrapSetu helps collectors find better opportunities while allowing
-            recyclers to discover available scrap and manage their collection
-            process efficiently.
-        </p>
-
-        <p>
-            Our platform focuses on
-            <strong>
-                fair pricing, easy connections, digital tracking,
-                and responsible waste management
-            </strong>.
-            We believe technology can make recycling more accessible while
-            supporting the people who play an important role in keeping
-            our communities cleaner.
-        </p>
-
-
-        <h2>
-            Our Mission
-        </h2>
-
-        <p>
-            Our mission is to build a smarter recycling ecosystem where
-            <strong>
-                collectors, recyclers, and recyclable materials
-            </strong>
-            are connected through one simple digital platform.
-        </p>
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <div class="step-icon">♻️</div>
+                        <h3>Instant Pay & Recycling</h3>
+                        <p>Direct electronic payout upon intake confirmation, followed by closed-loop processing into new manufacturing goods.</p>
+                    </div>
+                </div>
+            </div>
 
 
-        <h2>
-            What We Do
-        </h2>
+            <!-- ==============================
+                 WHY SCRAPSETU BENTO GRID
+            ============================== -->
+            <div class="glass-panel">
+                <div class="section-header">
+                    <span class="section-tag">Value Proposition</span>
+                    <h2 class="section-title">Why Waste Warriors & Industries Choose Us</h2>
+                    <p class="section-desc">
+                        Built from the ground up to solve informal market friction, weight fraud, and delayed payment bottlenecks.
+                    </p>
+                </div>
 
-        <ul>
+                <div class="bento-grid">
+                    <div class="bento-card bento-card-large">
+                        <div class="bento-icon-box">🛡️</div>
+                        <h3>100% Anti-Fraud Calibrated Weighing</h3>
+                        <p>
+                            Eliminate the traditional 10-20% weight shrinkage often forced by middlemen. ScrapSetu pairs with certified IoT-calibrated digital scales so that every single gram collected is accounted for and paid accurately.
+                        </p>
+                    </div>
 
-            <li>
-                <strong>Connect Collectors & Recyclers</strong>
-                – Bringing both sides together on one platform.
-            </li>
+                    <div class="bento-card">
+                        <div class="bento-icon-box">⚡</div>
+                        <h3>Instant Digital Settlement</h3>
+                        <p>
+                            Say goodbye to weeks of credit cycles. Payouts are triggered straight to UPI or bank accounts immediately upon load inspection.
+                        </p>
+                    </div>
 
-            <li>
-                <strong>Support Fair Pricing</strong>
-                – Helping users understand current scrap rates.
-            </li>
+                    <div class="bento-card">
+                        <div class="bento-icon-box">🌱</div>
+                        <h3>Certified ESG Auditing</h3>
+                        <p>
+                            Recyclers receive automated carbon offset and EPR (Extended Producer Responsibility) certificates for every verified metric ton sourced.
+                        </p>
+                    </div>
 
-            <li>
-                <strong>Simplify Scrap Management</strong>
-                – Making listings, pickups, and transactions easier.
-            </li>
+                    <div class="bento-card bento-card-large">
+                        <div class="bento-icon-box">🤝</div>
+                        <h3>Direct Connection — Zero Intermediaries</h3>
+                        <p>
+                            We cut out the 3 to 4 layers of informal commission agents. Collectors gain higher profit margins, while manufacturing mills procure consistent secondary raw materials at realistic competitive prices.
+                        </p>
+                    </div>
+                </div>
+            </div>
 
-            <li>
-                <strong>Enable Digital Tracking</strong>
-                – Helping users track their activities and recycling impact.
-            </li>
-
-            <li>
-                <strong>Promote Sustainable Recycling</strong>
-                – Supporting a cleaner and more organized recycling ecosystem.
-            </li>
-
-        </ul>
-
-
-        <div class="about-tagline">
-            <strong>
-                ♻️ ScrapSetu — Connecting Waste, Creating Value.
-            </strong>
-        </div>
+        </section>
 
 
         <!-- ==============================
-     TEAM MEMBERS
-============================== -->
-
-<h2>
-    Meet Our Team
-</h2>
-
-<p class="team-intro">
-    ScrapSetu is developed by a dedicated team of students who bring
-    together research, technology, design, testing, and project management
-    to build a smarter and more sustainable recycling platform.
-</p>
-
-<div class="team-grid">
-
-    <!-- KARAN CHANDRA -->
-
-    <div class="team-card">
-
-        <div class="team-avatar">
-            KC
-        </div>
-
-        <h3>
-            Karan Chandra
-        </h3>
-
-        <div class="team-role">
-            Backend Developer
-        </div>
-
-        <p>
-            Responsible for backend development, API integration,
-            database connectivity, and overall technical implementation.
-        </p>
-
-        <div class="team-contact">
-
-            <a
-                href="mailto:vsicskaranchandra@gmail.com"
-                title="Email Karan"
-            >
-                📧 Email
-            </a>
-
-            <a
-                href="https://www.linkedin.com/in/karan-chandra-050799351/"
-                target="_blank"
-                title="Karan's LinkedIn"
-            >
-                🔗 LinkedIn
-            </a>
-
-            <a
-                href="https://x.com/greekygrind"
-                target="_blank"
-                title="Karan's Twitter"
-            >
-                � Twitter
-            </a>
-
-
-        </div>
-
-    </div>
-
-
-    <!-- MAHIMA GUPTA -->
-
-    <div class="team-card">
-
-        <div class="team-avatar">
-            MG
-        </div>
-
-        <h3>
-            Mahima Gupta 
-        </h3>
-
-        <div class="team-role">
-            Frontend Developer
-        </div>
-
-        <p>
-            Designing the user interface and user experience to make
-            ScrapSetu simple, attractive, and easy to use.
-        </p>
-
-        <div class="team-contact">
-
-            <a
-                href="mailto:vsics.mahimagupta0108@gmail.com"
-                title="Email Mahima"
-            >
-                📧 Email
-            </a>
-
-            <a
-                href="https://www.linkedin.com/in/mahima-gupta-a4b51043a/"
-                target="_blank"
-                title="Mahima's LinkedIn"
-            >
-                🔗 LinkedIn
-            </a>
-
-        </div>
-
-    </div>
-
-
-    <!-- MANSI SINGH YADAV -->
-
-    <div class="team-card">
-
-        <div class="team-avatar">
-            MSY
-        </div>
-
-        <h3>
-            Mansi Singh Yadav
-        </h3>
-
-        <div class="team-role">
-            Research & Testing
-        </div>
-
-        <p>
-            Contributing to research, testing, quality checking,
-            and improving the overall functionality of the platform.
-        </p>
-
-        <div class="team-contact">
-
-            <a
-                href="mailto:vsics.mansiyadav.771@gmail.com"
-                title="Email Mansi"
-            >
-                📧 Email
-            </a>
-
-            <a
-                href="https://www.linkedin.com/in/mansi-singh-yadav-6bb95743a?utm_source=share_via&utm_content=profile&utm_medium=member_android"
-                target="_blank"
-                title="Mansi's LinkedIn"
-            >
-                🔗 LinkedIn
-            </a>
-
-        </div>
-
-    </div>
-
-
-
-    <!-- MANSI AWASTHI -->
-
-    <div class="team-card">
-
-        <div class="team-avatar">
-            MA
-        </div>
-
-        <h3>
-            Mansi Awasthi
-        </h3>
-
-        <div class="team-role">
-            Researcher & AI/ML
-        </div>
-
-        <p>
-            Working on research and exploring AI/ML-based approaches
-            to improve the capabilities of ScrapSetu.
-        </p>
-
-        <div class="team-contact">
-
-            <a
-                href="mailto:mansiiawasthii001@gmail.com"
-                title="Email Mansi"
-            >
-                📧 Email
-            </a>
-
-            <a
-                href="https://www.linkedin.com/in/mansi-awasthi-16586a409?utm_source=share_via&utm_content=profile&utm_medium=member_android"
-                target="_blank"
-                title="Mansi's LinkedIn"
-            >
-                🔗 LinkedIn
-            </a>
-
-        </div>
-
-    </div>
-
-
-    <!-- MANAS SINGH JADAUN -->
-
-    <div class="team-card">
-
-        <div class="team-avatar">
-            MSJ
-        </div>
-
-        <h3>
-            Manas Singh Jadaun
-        </h3>
-
-        <div class="team-role">
-            Project Manager
-        </div>
-
-        <p>
-            Coordinating the team, managing project activities,
-            and helping ensure the successful development of ScrapSetu.
-        </p>
-
-        <div class="team-contact">
-
-            <a
-                href="mailto:vsicsmanasjadaun2008@gmail.com"
-                title="Email Manas"
-            >
-                📧 Email
-            </a>
-
-            <a
-                href="https://www.linkedin.com/in/manas-singh-jadaun-037542413/"
-                target="_blank"
-                title="Manas's LinkedIn"
-            >
-                🔗 LinkedIn
-            </a>
-
-        </div>
-
-    </div>
-
-
-    <!-- PRATAKSHYA UPADHYAYA -->
-
-    <div class="team-card">
-
-        <div class="team-avatar">
-            PU
-        </div>
-
-        <h3>
-            Pratakshya Upadhyaya
-        </h3>
-
-        <div class="team-role">
-            Database Management
-        </div>
-
-        <p>
-            Managing database structure, data organization,
-            storage, and database-related operations of ScrapSetu.
-        </p>
-
-        <div class="team-contact">
-
-            <a
-                href="mailto:vsics.pratyaksha42@gmail.com"
-                title="Email Pratakshya"
-            >
-                📧 Email
-            </a>
-
-            <a
-                href="https://www.linkedin.com/in/pratyaksha-upadhyaya-09832543a?utm_source=share_via&utm_content=profile&utm_medium=member_android"
-                target="_blank"
-                title="Pratakshya's LinkedIn"
-            >
-                🔗 LinkedIn
-            </a>
-
-        </div>
-
-    </div>
-
-</div>
-
-    </section>
+             TAB 2: ABOUT US & TEAM SECTION
+        ============================== -->
+        <section id="about" class="tab-content" role="tabpanel">
+            <div class="glass-panel">
+
+                <div class="about-hero-grid">
+                    <div class="about-text">
+                        <span class="section-tag">About ScrapSetu</span>
+                        <h2>Building India's Smartest Circular Waste Highway</h2>
+                        <p>
+                            <strong>ScrapSetu</strong> is a transformative digital ecosystem created to bridge the deep chasm between grassroots scrap collectors and modern industrial processing units.
+                        </p>
+                        <p>
+                            For decades, India's waste management and scrap trading sector has remained heavily fragmented, opaque, and controlled by informal middlemen. ScrapSetu equips informal waste workers with technological dignity, fair real-time rates, and structured access to institutional buyers.
+                        </p>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <div class="stat-number">15,000+</div>
+                            <div class="stat-label">Kilograms Recycled</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">99.8%</div>
+                            <div class="stat-label">Weighing Accuracy</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">450+</div>
+                            <div class="stat-label">Active Collectors</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">100%</div>
+                            <div class="stat-label">Digital Settlement</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mission Banner -->
+                <div class="mission-banner">
+                    <h3>Our Mission</h3>
+                    <p>
+                        "To organize, modernize, and dignify India's scrap collection network through digital rate discovery, verified weight transparency, and zero-brokerage recycling connectivity."
+                    </p>
+                </div>
+
+
+                <!-- ==============================
+                     STUDENT INNOVATION TEAM
+                ============================== -->
+                <div class="section-header" style="margin-top: 50px;">
+                    <span class="section-tag">Student Innovators</span>
+                    <h2 class="section-title">Meet The ScrapSetu Engineering Team</h2>
+                    <p class="section-desc">
+                        Developed by passionate technologists combining full-stack engineering, AI/ML research, testing, and database architecture to build sustainable circular technology.
+                    </p>
+                </div>
+
+                <div class="team-grid">
+
+                    <!-- KARAN CHANDRA -->
+                    <div class="team-card">
+                        <div class="team-avatar">KC</div>
+                        <h3>Karan Chandra</h3>
+                        <span class="team-role">Backend & Core Architecture</span>
+                        <p class="team-bio">
+                            Spearheads backend microservices, REST API integration, cloud database connectivity, and technical pipeline architecture.
+                        </p>
+                        <div class="team-socials">
+                            <a href="mailto:vsicskaranchandra@gmail.com" class="team-btn-link" title="Email Karan">
+                                ✉️ Email
+                            </a>
+                            <a href="https://www.linkedin.com/in/karan-chandra-050799351/" target="_blank" rel="noopener noreferrer" class="team-btn-link" title="LinkedIn">
+                                🔗 LinkedIn
+                            </a>
+                            <a href="https://x.com/greekygrind" target="_blank" rel="noopener noreferrer" class="team-btn-link" title="Twitter / X">
+                                𝕏 Twitter
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- MAHIMA GUPTA -->
+                    <div class="team-card">
+                        <div class="team-avatar">MG</div>
+                        <h3>Mahima Gupta</h3>
+                        <span class="team-role">Frontend & UX Engineering</span>
+                        <p class="team-bio">
+                            Crafts intuitive user experiences, accessibility standards, and responsive portal interfaces for collectors and recyclers alike.
+                        </p>
+                        <div class="team-socials">
+                            <a href="mailto:vsics.mahimagupta0108@gmail.com" class="team-btn-link" title="Email Mahima">
+                                ✉️ Email
+                            </a>
+                            <a href="https://www.linkedin.com/in/mahima-gupta-a4b51043a/" target="_blank" rel="noopener noreferrer" class="team-btn-link" title="LinkedIn">
+                                🔗 LinkedIn
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- MANSI SINGH YADAV -->
+                    <div class="team-card">
+                        <div class="team-avatar">MSY</div>
+                        <h3>Mansi Singh Yadav</h3>
+                        <span class="team-role">Quality & System Testing</span>
+                        <p class="team-bio">
+                            Drives user acceptance testing, quality verification, stress-testing workflows, and edge-case resolution across all user journeys.
+                        </p>
+                        <div class="team-socials">
+                            <a href="mailto:vsics.mansiyadav.771@gmail.com" class="team-btn-link" title="Email Mansi">
+                                ✉️ Email
+                            </a>
+                            <a href="https://www.linkedin.com/in/mansi-singh-yadav-6bb95743a?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer" class="team-btn-link" title="LinkedIn">
+                                🔗 LinkedIn
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- MANSI AWASTHI -->
+                    <div class="team-card">
+                        <div class="team-avatar">MA</div>
+                        <h3>Mansi Awasthi</h3>
+                        <span class="team-role">AI / ML & Rate Prediction</span>
+                        <p class="team-bio">
+                            Researches intelligent scrap categorization models, price forecasting algorithms, and machine-learning driven waste matching.
+                        </p>
+                        <div class="team-socials">
+                            <a href="mailto:mansiiawasthii001@gmail.com" class="team-btn-link" title="Email Mansi">
+                                ✉️ Email
+                            </a>
+                            <a href="https://www.linkedin.com/in/mansi-awasthi-16586a409?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer" class="team-btn-link" title="LinkedIn">
+                                🔗 LinkedIn
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- MANAS SINGH JADAUN -->
+                    <div class="team-card">
+                        <div class="team-avatar">MSJ</div>
+                        <h3>Manas Singh Jadaun</h3>
+                        <span class="team-role">Product & Project Lead</span>
+                        <p class="team-bio">
+                            Coordinates sprints, stakeholder feedback, platform milestones, and strategic implementation across all engineering tracks.
+                        </p>
+                        <div class="team-socials">
+                            <a href="mailto:vsicsmanasjadaun2008@gmail.com" class="team-btn-link" title="Email Manas">
+                                ✉️ Email
+                            </a>
+                            <a href="https://www.linkedin.com/in/manas-singh-jadaun-037542413/" target="_blank" rel="noopener noreferrer" class="team-btn-link" title="LinkedIn">
+                                🔗 LinkedIn
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- PRATAKSHYA UPADHYAYA -->
+                    <div class="team-card">
+                        <div class="team-avatar">PU</div>
+                        <h3>Pratakshya Upadhyaya</h3>
+                        <span class="team-role">Database Management & Schema</span>
+                        <p class="team-bio">
+                            Designs database schemas, ensures data integrity, manages transaction logs, and optimizes query execution for high throughput.
+                        </p>
+                        <div class="team-socials">
+                            <a href="mailto:vsics.pratyaksha42@gmail.com" class="team-btn-link" title="Email Pratakshya">
+                                ✉️ Email
+                            </a>
+                            <a href="https://www.linkedin.com/in/pratyaksha-upadhyaya-09832543a?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer" class="team-btn-link" title="LinkedIn">
+                                🔗 LinkedIn
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ==============================
+             TAB 3: LIVE RATES MATRIX
+        ============================== -->
+        <section id="rates" class="tab-content" role="tabpanel">
+            <div class="glass-panel">
+                <div class="section-header">
+                    <span class="section-tag">Market Index</span>
+                    <h2 class="section-title">Verified Daily Scrap Mandi Rates</h2>
+                    <p class="section-desc">
+                        Aggregated from major metal exchanges, plastic reprocessing plants, and verified paper mills across North India.
+                    </p>
+                </div>
+
+                <div style="overflow-x: auto; margin-top: 24px;">
+                    <table style="width: 100%; border-collapse: separate; border-spacing: 0; background: #ffffff; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border-card); box-shadow: var(--shadow-sm);">
+                        <thead>
+                            <tr style="background: var(--slate-100); text-align: left;">
+                                <th style="padding: 16px 20px; font-family: var(--font-heading); color: var(--slate-800); font-size: 0.9rem;">Commodity Category</th>
+                                <th style="padding: 16px 20px; font-family: var(--font-heading); color: var(--slate-800); font-size: 0.9rem;">Standard Grade</th>
+                                <th style="padding: 16px 20px; font-family: var(--font-heading); color: var(--slate-800); font-size: 0.9rem;">Benchmark Rate</th>
+                                <th style="padding: 16px 20px; font-family: var(--font-heading); color: var(--slate-800); font-size: 0.9rem;">24h Trend</th>
+                                <th style="padding: 16px 20px; font-family: var(--font-heading); color: var(--slate-800); font-size: 0.9rem; text-align: right;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid var(--slate-200);">
+                                <td style="padding: 16px 20px; font-weight: 700; color: var(--slate-900);">⚡ Copper (Wire / Rod)</td>
+                                <td style="padding: 16px 20px; color: var(--slate-600); font-size: 0.9rem;">Millberry 99.9% Purity</td>
+                                <td style="padding: 16px 20px; font-weight: 800; color: var(--primary-700); font-size: 1.1rem;">₹725 / kg</td>
+                                <td style="padding: 16px 20px; color: var(--primary-600); font-weight: 700;">▲ +₹17.00 (+2.4%)</td>
+                                <td style="padding: 16px 20px; text-align: right;"><a href="Collector/index.html" class="btn btn-sm btn-ghost-green">Sell Now</a></td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid var(--slate-200);">
+                                <td style="padding: 16px 20px; font-weight: 700; color: var(--slate-900);">🔩 Aluminium (Utensils & Section)</td>
+                                <td style="padding: 16px 20px; color: var(--slate-600); font-size: 0.9rem;">Clean Extrusion 6063</td>
+                                <td style="padding: 16px 20px; font-weight: 800; color: var(--primary-700); font-size: 1.1rem;">₹165 / kg</td>
+                                <td style="padding: 16px 20px; color: var(--primary-600); font-weight: 700;">▲ +₹2.00 (+1.2%)</td>
+                                <td style="padding: 16px 20px; text-align: right;"><a href="Collector/index.html" class="btn btn-sm btn-ghost-green">Sell Now</a></td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid var(--slate-200);">
+                                <td style="padding: 16px 20px; font-weight: 700; color: var(--slate-900);">🔔 Brass / Pital</td>
+                                <td style="padding: 16px 20px; color: var(--slate-600); font-size: 0.9rem;">Honey Scrap (Clean)</td>
+                                <td style="padding: 16px 20px; font-weight: 800; color: var(--primary-700); font-size: 1.1rem;">₹460 / kg</td>
+                                <td style="padding: 16px 20px; color: var(--primary-600); font-weight: 700;">▲ +₹3.50 (+0.8%)</td>
+                                <td style="padding: 16px 20px; text-align: right;"><a href="Collector/index.html" class="btn btn-sm btn-ghost-green">Sell Now</a></td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid var(--slate-200);">
+                                <td style="padding: 16px 20px; font-weight: 700; color: var(--slate-900);">🏗️ Heavy Melting Steel (Iron)</td>
+                                <td style="padding: 16px 20px; color: var(--slate-600); font-size: 0.9rem;">HMS 1 & 2 Industrial</td>
+                                <td style="padding: 16px 20px; font-weight: 800; color: var(--primary-700); font-size: 1.1rem;">₹38 / kg</td>
+                                <td style="padding: 16px 20px; color: var(--primary-600); font-weight: 700;">▲ +₹0.60 (+1.5%)</td>
+                                <td style="padding: 16px 20px; text-align: right;"><a href="Collector/index.html" class="btn btn-sm btn-ghost-green">Sell Now</a></td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid var(--slate-200);">
+                                <td style="padding: 16px 20px; font-weight: 700; color: var(--slate-900);">🧴 PET Plastic Bottles</td>
+                                <td style="padding: 16px 20px; color: var(--slate-600); font-size: 0.9rem;">Clear Baled Bottling</td>
+                                <td style="padding: 16px 20px; font-weight: 800; color: var(--primary-700); font-size: 1.1rem;">₹32 / kg</td>
+                                <td style="padding: 16px 20px; color: var(--primary-600); font-weight: 700;">▲ +₹1.00 (+3.2%)</td>
+                                <td style="padding: 16px 20px; text-align: right;"><a href="Collector/index.html" class="btn btn-sm btn-ghost-green">Sell Now</a></td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid var(--slate-200);">
+                                <td style="padding: 16px 20px; font-weight: 700; color: var(--slate-900);">📦 Old Corrugated Cardboard (OCC)</td>
+                                <td style="padding: 16px 20px; color: var(--slate-600); font-size: 0.9rem;">Dry Box & Kraft Packaging</td>
+                                <td style="padding: 16px 20px; font-weight: 800; color: var(--primary-700); font-size: 1.1rem;">₹14.50 / kg</td>
+                                <td style="padding: 16px 20px; color: var(--primary-600); font-weight: 700;">▲ +₹0.10 (+0.5%)</td>
+                                <td style="padding: 16px 20px; text-align: right;"><a href="Collector/index.html" class="btn btn-sm btn-ghost-green">Sell Now</a></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 16px 20px; font-weight: 700; color: var(--slate-900);">🔋 Lead Inverter / Auto Batteries</td>
+                                <td style="padding: 16px 20px; color: var(--slate-600); font-size: 0.9rem;">Drained Automotive Core</td>
+                                <td style="padding: 16px 20px; font-weight: 800; color: var(--primary-700); font-size: 1.1rem;">₹112 / kg</td>
+                                <td style="padding: 16px 20px; color: var(--primary-600); font-weight: 700;">▲ +₹2.00 (+1.8%)</td>
+                                <td style="padding: 16px 20px; text-align: right;"><a href="Collector/index.html" class="btn btn-sm btn-ghost-green">Sell Now</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="margin-top: 24px; text-align: center;">
+                    <a href="Collector/signup.html" class="btn btn-primary btn-shimmer">
+                        Register As A Certified Collector For Guaranteed Rates &rarr;
+                    </a>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==============================
+             TAB 4: INTERACTIVE FAQ SECTION
+        ============================== -->
+        <section id="faq" class="tab-content" role="tabpanel">
+            <div class="glass-panel">
+                <div class="section-header">
+                    <span class="section-tag">Help & Clarity</span>
+                    <h2 class="section-title">Frequently Asked Questions</h2>
+                    <p class="section-desc">
+                        Everything you need to know about joining ScrapSetu as a collector, aggregator, or recycling plant.
+                    </p>
+                </div>
+
+                <div class="faq-container">
+
+                    <!-- QUESTION 1 -->
+                    <div class="faq-item open">
+                        <button class="faq-trigger" aria-expanded="true">
+                            <span>How do I create an account on ScrapSetu?</span>
+                            <span class="faq-chevron">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            Creating an account is quick and free. Click on either the <strong>Collector Portal</strong> or <strong>Recycler Portal</strong> buttons on the home tab, then choose "Sign Up". Provide your mobile number, verify via OTP, choose your city, and your digital scrap ID is instantly activated.
+                        </div>
+                    </div>
+
+                    <!-- QUESTION 2 -->
+                    <div class="faq-item">
+                        <button class="faq-trigger" aria-expanded="false">
+                            <span>Is there any registration cost or hidden membership fee?</span>
+                            <span class="faq-chevron">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            No. Registration and account maintenance are 100% free for both scrap collectors and recycling facilities. ScrapSetu operates on a nominal micro-transaction fee deducted only when a verified trade is successfully settled.
+                        </div>
+                    </div>
+
+                    <!-- QUESTION 3 -->
+                    <div class="faq-item">
+                        <button class="faq-trigger" aria-expanded="false">
+                            <span>What materials and scrap categories are accepted?</span>
+                            <span class="faq-chevron">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            We accept all major categories: ferrous metals (Iron, Steel, Cast Iron), non-ferrous metals (Copper, Aluminium, Brass, Lead, Zinc), plastics (HDPE, LDPE, PET bottles, PP), paper (Old corrugated cardboard, newspaper, office files), and lead-acid battery scrap.
+                        </div>
+                    </div>
+
+                    <!-- QUESTION 4 -->
+                    <div class="faq-item">
+                        <button class="faq-trigger" aria-expanded="false">
+                            <span>How are the daily scrap prices calculated?</span>
+                            <span class="faq-chevron">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            Prices are algorithmically indexed against regional mandi trading benchmarks, MCX commodity rates, and verified industrial smelter purchase contracts. Rates are refreshed daily to ensure fair and transparent remuneration.
+                        </div>
+                    </div>
+
+                    <!-- QUESTION 5 -->
+                    <div class="faq-item">
+                        <button class="faq-trigger" aria-expanded="false">
+                            <span>How does weight verification and payment work?</span>
+                            <span class="faq-chevron">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            All weigh-ins take place on calibrated digital scales or certified weighbridges. A digital receipt with time, location, and weight is generated automatically. Payouts are dispatched immediately to the collector's registered UPI ID or bank account.
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==============================
+             TAB 5: CONTACT & SUPPORT SECTION
+        ============================== -->
+        <section id="contact" class="tab-content" role="tabpanel">
+            <div class="glass-panel">
+                <div class="section-header">
+                    <span class="section-tag">Get In Touch</span>
+                    <h2 class="section-title">Connect With The ScrapSetu Team</h2>
+                    <p class="section-desc">
+                        Have queries about integration, bulk recycling agreements, or academic partnerships? Send us a message.
+                    </p>
+                </div>
+
+                <div class="contact-grid">
+                    <!-- Contact Cards -->
+                    <div class="contact-info-cards">
+                        <div class="contact-info-card">
+                            <div class="contact-icon-box">✉️</div>
+                            <div class="contact-details">
+                                <h4>Official Email</h4>
+                                <a href="mailto:vsicskaranchandra@gmail.com">vsicskaranchandra@gmail.com</a>
+                                <p style="font-size: 0.8rem; color: var(--slate-400); margin-top: 2px;">Typical response time: &lt; 24 hours</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-info-card">
+                            <div class="contact-icon-box">𝕏</div>
+                            <div class="contact-details">
+                                <h4>Follow on X / Twitter</h4>
+                                <a href="https://x.com/scrap_setu" target="_blank" rel="noopener noreferrer">@scrap_setu</a>
+                                <p style="font-size: 0.8rem; color: var(--slate-400); margin-top: 2px;">Daily market insights & updates</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-info-card">
+                            <div class="contact-icon-box">🔗</div>
+                            <div class="contact-details">
+                                <h4>Professional Network</h4>
+                                <a href="https://www.linkedin.com/in/karan-chandra-050799351/" target="_blank" rel="noopener noreferrer">Connect on LinkedIn</a>
+                                <p style="font-size: 0.8rem; color: var(--slate-400); margin-top: 2px;">Partnerships & enterprise tie-ups</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-info-card">
+                            <div class="contact-icon-box">📍</div>
+                            <div class="contact-details">
+                                <h4>Institutional Center</h4>
+                                <p>VSICS Innovation & Research Hub, Kanpur, Uttar Pradesh, India</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Quick Form -->
+                    <div class="contact-form-box">
+                        <h3>Send A Direct Message</h3>
+                        <p style="font-size: 0.92rem; color: var(--slate-600); margin-bottom: 20px;">
+                            Fill out the form below and our coordinators will reach out promptly.
+                        </p>
+
+                        <form id="contactForm" onsubmit="handleContactSubmit(event)">
+                            <div class="form-group">
+                                <label for="contactName">Your Full Name</label>
+                                <input type="text" id="contactName" class="form-control" placeholder="e.g. Rahul Sharma" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="contactRole">I am a...</label>
+                                <select id="contactRole" class="form-control">
+                                    <option value="collector">Scrap Collector / Aggregator</option>
+                                    <option value="recycler">Industrial Recycler / Smelter</option>
+                                    <option value="partner">Corporate / ESG Partner</option>
+                                    <option value="student">Student / Academic Researcher</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="contactEmail">Email Address or Phone Number</label>
+                                <input type="text" id="contactEmail" class="form-control" placeholder="you@domain.com or 10-digit mobile" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="contactMessage">How can we assist you?</label>
+                                <textarea id="contactMessage" class="form-control" placeholder="Tell us about your scrap collection volume, processing unit, or query..." required></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-shimmer" style="width: 100%;">
+                                Submit Inquiry &rarr;
+                            </button>
+
+                            <div id="contactSuccessMsg" style="display: none; margin-top: 14px; padding: 12px; border-radius: var(--radius-md); background: var(--primary-100); color: var(--primary-800); font-size: 0.9rem; font-weight: 600; text-align: center;">
+                                ✓ Thank you! Your message has been received. Our team will contact you shortly.
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
 
 
     <!-- ==============================
-         FAQ
+         SITE FOOTER
     ============================== -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <img src="scrap-setu-logo.jpeg" alt="ScrapSetu Logo" style="width: 42px; height: 42px; border-radius: 12px; object-fit: cover;">
+                        <span style="font-family: var(--font-heading); font-size: 1.4rem; font-weight: 800; color: #ffffff;">Scrap<span style="color: var(--primary-400);">Setu</span></span>
+                    </div>
+                    <p>
+                        India's smart, transparent bridge connecting grassroots scrap collectors with industrial recyclers. Championing circular economy principles and digital fairness.
+                    </p>
+                </div>
 
-    <section
-        id="faq"
-        class="tab-content faq"
-    >
+                <div class="footer-col">
+                    <h4>Direct Portals</h4>
+                    <ul class="footer-links">
+                        <li><a href="Collector/index.html">Collector Login</a></li>
+                        <li><a href="Collector/signup.html">Collector Registration</a></li>
+                        <li><a href="Recycler/index.html">Recycler Login</a></li>
+                        <li><a href="Recycler/signup.html">Recycler Partnership</a></li>
+                    </ul>
+                </div>
 
-        <h2>
-            Frequently Asked Questions
-        </h2>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home" data-tab="home">Home</a></li>
+                        <li><a href="#about" data-tab="about">About ScrapSetu</a></li>
+                        <li><a href="#rates" data-tab="rates">Live Scrap Rates</a></li>
+                        <li><a href="#faq" data-tab="faq">FAQ</a></li>
+                        <li><a href="#contact" data-tab="contact">Contact Us</a></li>
+                    </ul>
+                </div>
 
-        <ul>
+                <div class="footer-col">
+                    <h4>Student Innovation</h4>
+                    <p style="font-size: 0.88rem; color: var(--slate-400); line-height: 1.6;">
+                        Proudly designed, architected, and engineered by the VSICS Computer Science Student Team (Karan Chandra, Mahima Gupta, Mansi Singh Yadav, Mansi Awasthi, Manas Singh Jadaun, Pratakshya Upadhyaya).
+                    </p>
+                </div>
+            </div>
 
-            <li>
-                <strong>
-                    How do I sign up?
-                </strong>
-
-                Click the "Collector Portal" or "Recycler Portal"
-                button on the Home tab and use the sign-up form.
-            </li>
-
-            <li>
-                <strong>
-                    Is there any cost?
-                </strong>
-
-                Registration is free. A small commission is taken
-                on completed transactions.
-            </li>
-
-            <li>
-                <strong>
-                    What materials are accepted?
-                </strong>
-
-                Plastic, paper, metal such as iron, copper, aluminium,
-                steel, and e-waste.
-            </li>
-
-            <li>
-                <strong>
-                    How is pricing determined?
-                </strong>
-
-                Prices are based on the scrap rates displayed
-                on the platform.
-            </li>
-
-        </ul>
-
-    </section>
-
-
-    <!-- ==============================
-         CONTACT
-    ============================== -->
-
-    <section
-        id="contact"
-        class="tab-content contact"
-    >
-
-        <h2>
-            Contact Us
-        </h2>
-
-        <p>
-            Reach out to us through our social channels or send us an email.
-        </p>
-
-        <div class="social">
-
-            <a
-                href="https://x.com/scrap_setu"
-                target="_blank"
-                title="Twitter"
-            >
-                🐦
-            </a>
-
-            <a
-                href="https://www.linkedin.com/in/karan-chandra-050799351/"
-                target="_blank"
-                title="LinkedIn"
-            >
-                🔗
-            </a>
-
-            <a
-                href="mailto:vsicskaranchandra@gmail.com"
-                title="Email"
-            >
-                ✉️
-            </a>
-
+            <div class="footer-bottom">
+                <div>
+                    &copy; 2026 ScrapSetu. All rights reserved. Connecting Waste, Creating Value.
+                </div>
+                <div style="display: flex; gap: 16px;">
+                    <a href="https://x.com/scrap_setu" target="_blank" rel="noopener noreferrer" style="color: var(--slate-400); text-decoration: none;">𝕏 Twitter</a>
+                    <a href="https://www.linkedin.com/in/karan-chandra-050799351/" target="_blank" rel="noopener noreferrer" style="color: var(--slate-400); text-decoration: none;">LinkedIn</a>
+                    <a href="mailto:vsicskaranchandra@gmail.com" style="color: var(--slate-400); text-decoration: none;">Support Email</a>
+                </div>
+            </div>
         </div>
-
-    </section>
+    </footer>
 
 
     <!-- ==============================
-         TAB SWITCHING
+         INTERACTIVE JAVASCRIPT
     ============================== -->
-
     <script>
+        // -------------------------------------------------------------
+        // 1. Tab Switching & Deep Linking
+        // -------------------------------------------------------------
+        const tabLinks = document.querySelectorAll('[data-tab]');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navTabs = document.getElementById('navTabs');
 
-        const tabs =
-            document.querySelectorAll('.tabs a');
+        function activateTab(tabId) {
+            if (!tabId) return;
 
-        const contents =
-            document.querySelectorAll('.tab-content');
-
-        tabs.forEach(tab => {
-
-            tab.addEventListener('click', e => {
-
-                e.preventDefault();
-
-                const target =
-                    tab.dataset.tab;
-
-                /* Update active tab */
-
-                tabs.forEach(t => {
-
-                    t.classList.toggle(
-                        'active',
-                        t === tab
-                    );
-
-                });
-
-                /* Show selected content */
-
-                contents.forEach(c => {
-
-                    c.classList.toggle(
-                        'active',
-                        c.id === target
-                    );
-
-                });
-
+            // Update Tab Link States
+            tabLinks.forEach(link => {
+                if (link.dataset.tab === tabId) {
+                    link.classList.add('active');
+                    link.setAttribute('aria-selected', 'true');
+                } else {
+                    link.classList.remove('active');
+                    link.setAttribute('aria-selected', 'false');
+                }
             });
 
+            // Update Tab Content States
+            tabContents.forEach(content => {
+                if (content.id === tabId) {
+                    content.classList.add('active');
+                } else {
+                    content.classList.remove('active');
+                }
+            });
+
+            // Close mobile menu if open
+            if (navTabs) {
+                navTabs.classList.remove('mobile-open');
+            }
+
+            // Smooth scroll to top of content
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        tabLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetTab = link.dataset.tab;
+                activateTab(targetTab);
+                window.location.hash = targetTab;
+            });
         });
 
+        // Handle URL Hash on Load
+        window.addEventListener('DOMContentLoaded', () => {
+            const hash = window.location.hash.replace('#', '');
+            if (hash && document.getElementById(hash)) {
+                activateTab(hash);
+            }
+        });
+
+        // Mobile Nav Toggle
+        if (mobileToggle && navTabs) {
+            mobileToggle.addEventListener('click', () => {
+                navTabs.classList.toggle('mobile-open');
+            });
+        }
+
+        // -------------------------------------------------------------
+        // 2. Interactive Scrap Value Calculator
+        // -------------------------------------------------------------
+        const calcMaterial = document.getElementById('calcMaterial');
+        const calcWeight = document.getElementById('calcWeight');
+        const calcResultDisplay = document.getElementById('calcResultDisplay');
+
+        function updateScrapCalculation() {
+            if (!calcMaterial || !calcWeight || !calcResultDisplay) return;
+            const ratePerKg = parseFloat(calcMaterial.value) || 0;
+            const weight = parseFloat(calcWeight.value) || 0;
+            const total = Math.round(ratePerKg * weight);
+            calcResultDisplay.textContent = '₹' + total.toLocaleString('en-IN');
+        }
+
+        if (calcMaterial && calcWeight) {
+            calcMaterial.addEventListener('change', updateScrapCalculation);
+            calcWeight.addEventListener('input', updateScrapCalculation);
+            updateScrapCalculation();
+        }
+
+        // -------------------------------------------------------------
+        // 3. Interactive FAQ Accordion
+        // -------------------------------------------------------------
+        const faqTriggers = document.querySelectorAll('.faq-trigger');
+
+        faqTriggers.forEach(trigger => {
+            trigger.addEventListener('click', () => {
+                const parentItem = trigger.closest('.faq-item');
+                const isOpen = parentItem.classList.contains('open');
+
+                // Close other items
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.classList.remove('open');
+                    const btn = item.querySelector('.faq-trigger');
+                    if (btn) btn.setAttribute('aria-expanded', 'false');
+                });
+
+                // Toggle selected item
+                if (!isOpen) {
+                    parentItem.classList.add('open');
+                    trigger.setAttribute('aria-expanded', 'true');
+                }
+            });
+        });
+
+        // -------------------------------------------------------------
+        // 4. Contact Form Simulated Submission
+        // -------------------------------------------------------------
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            const successMsg = document.getElementById('contactSuccessMsg');
+            const submitBtn = event.target.querySelector('button[type="submit"]');
+
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Submitting...';
+            }
+
+            setTimeout(() => {
+                if (successMsg) successMsg.style.display = 'block';
+                if (submitBtn) {
+                    submitBtn.style.display = 'none';
+                }
+                event.target.reset();
+            }, 750);
+        }
     </script>
 
 </body>
-
 </html>
