@@ -782,12 +782,12 @@
                         <form id="contactForm" onsubmit="handleContactSubmit(event)">
                             <div class="form-group">
                                 <label for="contactName">Your Full Name</label>
-                                <input type="text" id="contactName" class="form-control" placeholder="e.g. Rahul Sharma" required>
+                                <input type="text" id="contactName" name="name" class="form-control" placeholder="e.g. Rahul Sharma" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="contactRole">I am a...</label>
-                                <select id="contactRole" class="form-control">
+                                <select id="contactRole" name="role" class="form-control">
                                     <option value="collector">Scrap Collector / Aggregator</option>
                                     <option value="recycler">Industrial Recycler / Smelter</option>
                                     <option value="partner">Corporate / ESG Partner</option>
@@ -797,20 +797,24 @@
 
                             <div class="form-group">
                                 <label for="contactEmail">Email Address or Phone Number</label>
-                                <input type="text" id="contactEmail" class="form-control" placeholder="you@domain.com or 10-digit mobile" required>
+                                <input type="text" id="contactEmail" name="contact" class="form-control" placeholder="you@domain.com or 10-digit mobile" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="contactMessage">How can we assist you?</label>
-                                <textarea id="contactMessage" class="form-control" placeholder="Tell us about your scrap collection volume, processing unit, or query..." required></textarea>
+                                <textarea id="contactMessage" name="message" class="form-control" placeholder="Tell us about your scrap collection volume, processing unit, or query..." required></textarea>
                             </div>
 
                             <button type="submit" class="btn btn-primary btn-shimmer" style="width: 100%;">
                                 Submit Inquiry &rarr;
                             </button>
 
-                            <div id="contactSuccessMsg" style="display: none; margin-top: 14px; padding: 12px; border-radius: var(--radius-md); background: var(--primary-100); color: var(--primary-800); font-size: 0.9rem; font-weight: 600; text-align: center;">
-                                ✓ Thank you! Your message has been received. Our team will contact you shortly.
+                            <div id="contactSuccessMsg" style="display: none; margin-top: 14px; padding: 14px; border-radius: var(--radius-md); background: #d1fae5; color: #065f46; font-size: 0.92rem; font-weight: 600; text-align: center; border: 1px solid #a7f3d0; line-height: 1.5;">
+                                ✓ <strong>Enquiry Dispatched!</strong><br>
+                                Your message has been sent directly to the ScrapSetu team at <code>vsicskaranchandra@gmail.com</code>.
+                            </div>
+
+                            <div id="contactErrorMsg" style="display: none; margin-top: 14px; padding: 12px; border-radius: var(--radius-md); background: #fee2e2; color: #991b1b; font-size: 0.88rem; text-align: center; border: 1px solid #fecaca;">
                             </div>
                         </form>
                     </div>
@@ -998,25 +1002,71 @@
         });
 
         // -------------------------------------------------------------
-        // 4. Contact Form Simulated Submission
+        // 4. Contact Form Direct Email Delivery
         // -------------------------------------------------------------
-        function handleContactSubmit(event) {
+        async function handleContactSubmit(event) {
             event.preventDefault();
             const successMsg = document.getElementById('contactSuccessMsg');
+            const errorMsg = document.getElementById('contactErrorMsg');
             const submitBtn = event.target.querySelector('button[type="submit"]');
+
+            const name = document.getElementById('contactName').value.trim();
+            const role = document.getElementById('contactRole').value;
+            const contact = document.getElementById('contactEmail').value.trim();
+            const message = document.getElementById('contactMessage').value.trim();
 
             if (submitBtn) {
                 submitBtn.disabled = true;
-                submitBtn.textContent = 'Submitting...';
+                submitBtn.textContent = 'Sending to Team...';
             }
+            if (errorMsg) errorMsg.style.display = 'none';
 
-            setTimeout(() => {
-                if (successMsg) successMsg.style.display = 'block';
-                if (submitBtn) {
-                    submitBtn.style.display = 'none';
+            try {
+                const response = await fetch('https://formsubmit.co/ajax/vsicskaranchandra@gmail.com', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        _subject: `New ScrapSetu Inquiry: ${name} (${role})`,
+                        _template: 'table',
+                        _captcha: 'false',
+                        Name: name,
+                        Role: role,
+                        Contact: contact,
+                        Message: message
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok || data.success === "true" || data.success === true) {
+                    if (successMsg) {
+                        successMsg.style.display = 'block';
+                    }
+                    if (submitBtn) submitBtn.style.display = 'none';
+                    event.target.reset();
+                } else {
+                    throw new Error(data.message || 'Delivery error');
                 }
-                event.target.reset();
-            }, 750);
+            } catch (err) {
+                console.error('Submission error:', err);
+                if (errorMsg) {
+                    errorMsg.innerHTML = `
+                        Could not connect to automated email gateway.
+                        <br>
+                        <a href="mailto:vsicskaranchandra@gmail.com?subject=${encodeURIComponent('ScrapSetu Inquiry - ' + name)}&body=${encodeURIComponent('Name: ' + name + '\nRole: ' + role + '\nContact: ' + contact + '\n\nMessage:\n' + message)}" style="color: #991b1b; font-weight: bold; text-decoration: underline;">
+                            Click here to email us directly from your mail app &rarr;
+                        </a>
+                    `;
+                    errorMsg.style.display = 'block';
+                }
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Retry Submission →';
+                }
+            }
         }
     </script>
 
