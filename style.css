@@ -1511,54 +1511,70 @@ textarea.form-control {
     grid-template-columns: 1fr;
     max-width: 600px;
   }
-  
+
   .steps-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   .bento-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .bento-card-large {
     grid-column: span 1;
   }
-  
+
   .about-hero-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .team-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   .contact-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .footer-grid {
     grid-template-columns: 1fr 1fr;
   }
-  
+
   .calc-grid {
     grid-template-columns: 1fr;
   }
 }
 
+/* ---- Tablet / large phone ---- */
 @media (max-width: 768px) {
   .site-header {
     width: calc(100% - 20px);
     margin-top: 10px;
   }
-  
+
   .navbar {
     padding: 8px 14px;
+    flex-wrap: nowrap;          /* keep brand + toggle on one line */
+    gap: 8px;
   }
-  
+
+  /* Hide desktop nav tabs and login buttons; only show hamburger */
   .nav-tabs {
     display: none;
   }
-  
+
+  .nav-actions .btn-ghost-green,
+  .nav-actions .btn-primary {
+    display: none;             /* hide login buttons on mobile */
+  }
+
+  .mobile-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Mobile drawer menu */
   .nav-tabs.mobile-open {
     display: flex;
     flex-direction: column;
@@ -1573,61 +1589,330 @@ textarea.form-control {
     border: 1px solid var(--border-card);
     z-index: 100;
   }
-  
+
   .nav-tabs.mobile-open a {
     width: 100%;
     justify-content: center;
   }
-  
-  .mobile-toggle {
-    display: block;
-  }
-  
-  .glass-panel {
-    padding: 24px 18px;
-    border-radius: var(--radius-lg);
-  }
-  
-  .hero-wrapper {
-    padding: 30px 12px 20px;
-  }
-  
-  .hero-title {
-    font-size: 2.2rem;
-  }
-  
-  .rates-strip {
-    padding: 18px;
-  }
-  
-  .team-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .steps-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .footer-grid {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
-}
 
-@media (max-width: 480px) {
+  /* Glass panels */
+  .glass-panel {
+    padding: 22px 16px;
+    border-radius: var(--radius-lg);
+    margin-bottom: 24px;
+  }
+
+  /* Hero */
+  .hero-wrapper {
+    padding: 28px 12px 20px;
+    text-align: center;
+  }
+
+  .hero-title {
+    font-size: clamp(1.7rem, 7vw, 2.4rem);
+    letter-spacing: -0.5px;
+    word-break: break-word;
+  }
+
+  .hero-subtitle {
+    font-size: 0.97rem;
+  }
+
+  /* Live badge — allow wrapping on very small screens */
+  .live-network-badge {
+    font-size: 0.78rem;
+    text-align: center;
+    white-space: normal;
+    max-width: 100%;
+    word-break: break-word;
+  }
+
+  /* Portals grid */
+  .portals-grid {
+    gap: 18px;
+    max-width: 100%;
+    margin: 20px auto 30px;
+  }
+
   .portal-card {
     padding: 24px 18px;
   }
-  
+
+  .portal-card-title {
+    font-size: 1.4rem;
+  }
+
+  /* Portal badge text wraps gracefully */
+  .portal-card-badge {
+    white-space: normal;
+    word-break: break-word;
+    line-height: 1.4;
+  }
+
+  /* Rates strip */
+  .rates-strip {
+    padding: 16px;
+    margin: 20px 0 24px;
+  }
+
+  .rates-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .rates-title {
+    font-size: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .rates-carousel {
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 10px;
+  }
+
+  /* Calculator */
+  .calculator-card {
+    padding: 20px 16px;
+    margin: 20px 0;
+  }
+
+  .calc-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .calc-inputs {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .calc-field {
+    min-width: unset;
+    width: 100%;
+  }
+
+  /* Steps */
+  .steps-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .step-card {
+    padding: 24px 16px;
+  }
+
+  /* Bento */
+  .bento-card {
+    padding: 22px 18px;
+  }
+
+  /* About */
+  .about-text h2 {
+    font-size: 1.7rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .stat-number {
+    font-size: 1.5rem;
+  }
+
+  /* Mission banner */
+  .mission-banner {
+    padding: 24px 20px;
+  }
+
+  .mission-banner h3 {
+    font-size: 1.3rem;
+  }
+
+  .mission-banner p {
+    font-size: 0.96rem;
+  }
+
+  /* Team */
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* FAQ */
+  .faq-trigger {
+    font-size: 0.97rem;
+    padding: 16px 18px;
+  }
+
+  .faq-answer {
+    padding: 0 18px;
+  }
+
+  .faq-item.open .faq-answer {
+    padding: 0 18px 18px;
+  }
+
+  /* Contact */
+  .contact-form-box {
+    padding: 22px 16px;
+  }
+
+  .contact-info-card {
+    padding: 16px;
+    gap: 12px;
+  }
+
+  /* Footer */
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .site-footer {
+    padding: 40px 0 24px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+  }
+
+  /* Section headers */
+  .section-title {
+    font-size: clamp(1.5rem, 5.5vw, 2rem);
+  }
+
+  .section-desc {
+    font-size: 0.95rem;
+  }
+}
+
+/* ---- Small phone (≤ 480px) ---- */
+@media (max-width: 480px) {
+  .container {
+    width: calc(100% - 24px);
+  }
+
+  .glass-panel {
+    padding: 18px 14px;
+  }
+
+  .hero-title {
+    font-size: clamp(1.5rem, 8vw, 1.9rem);
+    letter-spacing: -0.3px;
+  }
+
+  .hero-subtitle {
+    font-size: 0.92rem;
+  }
+
+  .live-network-badge span:last-child {
+    font-size: 0.74rem;
+  }
+
+  .portal-card {
+    padding: 20px 14px;
+  }
+
   .portal-header-icon {
     width: 52px;
     height: 52px;
     font-size: 1.6rem;
   }
-  
+
+  .portal-card-title {
+    font-size: 1.25rem;
+  }
+
+  .portal-card-desc {
+    font-size: 0.9rem;
+  }
+
   .btn-portal-collector,
   .btn-portal-recycler {
-    padding: 12px 18px;
-    font-size: 0.95rem;
+    padding: 12px 16px;
+    font-size: 0.92rem;
+  }
+
+  .rates-carousel {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .rate-chip {
+    padding: 10px 8px;
+  }
+
+  .rate-chip .price {
+    font-size: 1rem;
+  }
+
+  .calc-result-value {
+    font-size: 1.6rem;
+  }
+
+  .brand-name {
+    font-size: 1.1rem;
+  }
+
+  .brand-badge {
+    display: none;  /* too crowded on tiny screens */
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section-header {
+    margin-bottom: 24px;
+  }
+
+  .mission-banner {
+    padding: 20px 16px;
+  }
+
+  .faq-trigger {
+    font-size: 0.9rem;
+    padding: 14px 16px;
+  }
+
+  .contact-form-box {
+    padding: 18px 14px;
+  }
+
+  .footer-grid {
+    gap: 20px;
+  }
+
+  /* Prevent table overflow on rates tab */
+  .rates-table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
 }
+
+/* ---- Extra tiny (≤ 360px) ---- */
+@media (max-width: 360px) {
+  .hero-title {
+    font-size: 1.4rem;
+  }
+
+  .portal-card-title {
+    font-size: 1.15rem;
+  }
+
+  .btn-portal-collector,
+  .btn-portal-recycler {
+    font-size: 0.85rem;
+    padding: 11px 12px;
+  }
+
+  .rates-carousel {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+}
+
+
+
