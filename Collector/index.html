@@ -5,8 +5,7 @@
 
     <title>ScrapSetu - Collector</title>
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="style.css">
 
@@ -16,587 +15,525 @@
 <body>
 
 
-<!-- ================= LOGIN ================= -->
+    <!-- ================= LOGIN ================= -->
 
-<div id="login" class="login-page">
+    <div id="login" class="login-page">
 
-    <div class="login-card">
+        <div class="login-card">
 
-        <div class="logo">
-            ♻️
+            <div class="logo">
+                ♻️
+            </div>
+
+            <h1>ScrapSetu</h1>
+
+            <p class="portal">
+                Collector Portal
+            </p>
+
+            <!-- LOGIN FORM -->
+            <div id="loginForm">
+                <input id="mobile" type="text" placeholder="📱 Mobile Number">
+
+                <input id="pass" type="password" placeholder="🔒 Password">
+
+                <button class="login-btn" onclick="login()">
+                    Login →
+                </button>
+
+                <div class="auth-toggle">
+                    Don't have an ID? <a href="signup.html">Sign Up</a>
+                </div>
+
+                <p class="login-note">
+                    Connect • Collect • Recycle
+                </p>
+
+            </div>
+
+            <!-- SIGNUP FORM -->
+            <div id="signupForm" class="hide">
+                <input id="signupName" type="text" placeholder="👤 Full Name">
+
+                <input id="signupMobile" type="text" placeholder="📱 Mobile Number">
+
+                <input id="signupPass" type="password" placeholder="🔒 Choose Password">
+
+                <input id="signupCity" type="text" placeholder="📍 City / Location">
+
+                <button class="login-btn" onclick="register()">
+                    Create Collector ID →
+                </button>
+
+                <div class="auth-toggle">
+                    Already have an ID? <a onclick="showLogin()">Login</a>
+                </div>
+
+                <p class="login-note">
+                    Join the ScrapSetu Network
+                </p>
+            </div>
+
         </div>
 
-        <h1>ScrapSetu</h1>
+    </div>
 
-        <p class="portal">
-            Collector Portal
-        </p>
 
-        <!-- LOGIN FORM -->
-        <div id="loginForm">
-            <input
-                id="mobile"
-                type="text"
-                placeholder="📱 Mobile Number"
-            >
 
-            <input
-                id="pass"
-                type="password"
-                placeholder="🔒 Password"
-            >
+    <!-- ================= APP ================= -->
 
-            <button
-                class="login-btn"
-                onclick="login()">
-                Login →
+    <div id="app" class="hide">
+
+
+        <!-- HEADER -->
+
+        <header>
+
+            <div class="brand">
+
+                <div class="brand-icon">
+                    ♻️
+                </div>
+
+                <div>
+                    <b>ScrapSetu</b>
+                    <small>Collector</small>
+                </div>
+
+            </div>
+
+
+            <button class="logout-btn" onclick="logout()">
+
+                Logout
+
             </button>
 
-            <div class="auth-toggle">
-                Don't have an ID? <a href="signup.html">Sign Up</a>
-            </div>
+        </header>
 
-            <p class="login-note">
-                Connect • Collect • Recycle
-            </p>
 
-            <p style="font-size:12px; color:#6b7280; margin-top:6px; text-align:center;">
-                <b>Default Login:</b> 9336864092 &bull; karancollector
-            </p>
-        </div>
 
-        <!-- SIGNUP FORM -->
-        <div id="signupForm" class="hide">
-            <input
-                id="signupName"
-                type="text"
-                placeholder="👤 Full Name"
-            >
+        <!-- MAIN -->
 
-            <input
-                id="signupMobile"
-                type="text"
-                placeholder="📱 Mobile Number"
-            >
+        <main>
 
-            <input
-                id="signupPass"
-                type="password"
-                placeholder="🔒 Choose Password"
-            >
 
-            <input
-                id="signupCity"
-                type="text"
-                placeholder="📍 City / Location"
-            >
+            <!-- WELCOME -->
 
-            <button
-                class="login-btn"
-                onclick="register()">
-                Create Collector ID →
-            </button>
+            <section class="welcome">
 
-            <div class="auth-toggle">
-                Already have an ID? <a onclick="showLogin()">Login</a>
-            </div>
+                <div>
 
-            <p class="login-note">
-                Join the ScrapSetu Network
-            </p>
-        </div>
+                    <p class="small-title">
+                        COLLECTOR DASHBOARD
+                    </p>
 
-    </div>
+                    <h2>
+                        Welcome back! 👋
+                    </h2>
 
-</div>
+                    <p>
+                        Manage your scrap collections easily.
+                    </p>
 
+                </div>
 
 
-<!-- ================= APP ================= -->
+                <div class="welcome-icon">
+                    ♻️
+                </div>
 
-<div id="app" class="hide">
+            </section>
 
 
-<!-- HEADER -->
 
-<header>
+            <!-- DASHBOARD -->
 
-    <div class="brand">
+            <div class="grid">
 
-        <div class="brand-icon">
-            ♻️
-        </div>
 
-        <div>
-            <b>ScrapSetu</b>
-            <small>Collector</small>
-        </div>
+                <!-- ADD SCRAP -->
 
-    </div>
+                <div class="card add-card" onclick="openModal('addModal')">
 
+                    <div class="card-icon green">
+                        📷
+                    </div>
 
-    <button
-        class="logout-btn"
-        onclick="logout()">
+                    <div class="card-content">
 
-        Logout
+                        <h3>Add Scrap</h3>
 
-    </button>
+                        <p>
+                            Add scrap and calculate
+                            estimated value
+                        </p>
 
-</header>
+                    </div>
 
-
-
-<!-- MAIN -->
-
-<main>
-
-
-<!-- WELCOME -->
-
-<section class="welcome">
-
-    <div>
-
-        <p class="small-title">
-            COLLECTOR DASHBOARD
-        </p>
-
-        <h2>
-            Welcome back! 👋
-        </h2>
-
-        <p>
-            Manage your scrap collections easily.
-        </p>
-
-    </div>
-
-
-    <div class="welcome-icon">
-        ♻️
-    </div>
-
-</section>
-
-
-
-<!-- DASHBOARD -->
-
-<div class="grid">
-
-
-    <!-- ADD SCRAP -->
-
-    <div
-        class="card add-card"
-        onclick="openModal('addModal')">
-
-        <div class="card-icon green">
-            📷
-        </div>
-
-        <div class="card-content">
-
-            <h3>Add Scrap</h3>
-
-            <p>
-                Add scrap and calculate
-                estimated value
-            </p>
-
-        </div>
-
-        <span class="arrow">
-            →
-        </span>
-
-    </div>
-
-
-
-    <!-- PRICES -->
-
-    <div
-        class="card"
-        onclick="openModal('priceModal')">
-
-        <div class="card-icon yellow">
-            💰
-        </div>
-
-        <h3>Price Board</h3>
-
-        <p>
-            Check today's scrap rates
-        </p>
-
-        <span class="arrow">
-            →
-        </span>
-
-    </div>
-
-
-
-    <!-- HISTORY -->
-
-    <div
-        class="card"
-        onclick="openModal('historyModal')">
-
-        <div class="card-icon blue">
-            📦
-        </div>
-
-        <h3>My Collections</h3>
-
-        <p>
-            View your collection history
-        </p>
-
-        <span class="arrow">
-            →
-        </span>
-
-    </div>
-
-
-
-    <!-- PROFILE -->
-
-    <div
-        class="card"
-        onclick="openModal('profileModal')">
-
-        <div class="card-icon purple">
-            👤
-        </div>
-
-        <h3>My Profile</h3>
-
-        <p>
-            View collector information
-        </p>
-
-        <span class="arrow">
-            →
-        </span>
-
-    </div>
-
-
-</div>
-
-</main>
-
-
-
-<!-- ================= ADD SCRAP MODAL ================= -->
-
-<div id="addModal" class="modal">
-
-    <div class="modal-box">
-
-        <button
-            class="close"
-            onclick="closeModal('addModal')">
-            ×
-        </button>
-
-
-        <div class="modal-heading">
-
-            <div class="modal-icon green">
-                📷
-            </div>
-
-            <div>
-                <h2>Add Scrap</h2>
-
-                <p>
-                    Enter your scrap details
-                </p>
-            </div>
-
-        </div>
-
-
-        <label>
-            Upload Scrap Photo
-        </label>
-
-        <input
-            type="file"
-            accept="image/*"
-        >
-
-
-        <label>
-            Select Material
-        </label>
-
-        <select
-            id="material"
-            onchange="calc()">
-
-            <option value="">
-                Select material
-            </option>
-
-            <option>Plastic</option>
-
-            <option>Paper</option>
-
-            <option>Iron</option>
-
-            <option>Copper</option>
-
-            <option>Aluminium</option>
-
-            <option>Steel</option>
-
-            <option>E-Waste</option>
-
-        </select>
-
-
-        <label>
-            Weight
-        </label>
-
-        <div class="weight-box">
-
-            <input
-                id="weight"
-                type="number"
-                min="0"
-                placeholder="Enter weight"
-                oninput="calc()"
-            >
-
-            <span>KG</span>
-
-        </div>
-
-
-        <div class="price-box">
-
-            <span>
-                Estimated Value
-            </span>
-
-            <h2 id="price">
-                ₹0
-            </h2>
-
-        </div>
-
-
-        <button
-            class="submit-btn"
-            onclick="add()">
-
-            ♻️ Submit Scrap
-
-        </button>
-
-    </div>
-
-</div>
-
-
-
-<!-- ================= PRICE MODAL ================= -->
-
-<div id="priceModal" class="modal">
-
-    <div class="modal-box">
-
-        <button
-            class="close"
-            onclick="closeModal('priceModal')">
-            ×
-        </button>
-
-
-        <div class="modal-heading">
-
-            <div class="modal-icon yellow">
-                💰
-            </div>
-
-            <div>
-
-                <h2>Price Board</h2>
-
-                <p>
-                    Current scrap rates
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="prices">
-
-            <div class="price-row">
-                <span>Plastic</span>
-                <b>₹20/kg</b>
-            </div>
-
-            <div class="price-row">
-                <span>Paper</span>
-                <b>₹15/kg</b>
-            </div>
-
-            <div class="price-row">
-                <span>Iron</span>
-                <b>₹35/kg</b>
-            </div>
-
-            <div class="price-row">
-                <span>Copper</span>
-                <b>₹600/kg</b>
-            </div>
-
-            <div class="price-row">
-                <span>Aluminium</span>
-                <b>₹120/kg</b>
-            </div>
-
-            <div class="price-row">
-                <span>Steel</span>
-                <b>₹45/kg</b>
-            </div>
-
-            <div class="price-row">
-                <span>E-Waste</span>
-                <b>₹80/kg</b>
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-
-<!-- ================= HISTORY MODAL ================= -->
-
-<div id="historyModal" class="modal">
-
-    <div class="modal-box">
-
-        <button
-            class="close"
-            onclick="closeModal('historyModal')">
-            ×
-        </button>
-
-
-        <div class="modal-heading">
-
-            <div class="modal-icon blue">
-                📦
-            </div>
-
-            <div>
-
-                <h2>My Collections</h2>
-
-                <p>
-                    Your scrap collection history
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div id="list">
-
-            <div class="empty">
-                📦 No collections yet.
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-
-<!-- ================= PROFILE MODAL ================= -->
-
-<div id="profileModal" class="modal">
-
-    <div class="modal-box">
-
-        <button
-            class="close"
-            onclick="closeModal('profileModal')">
-            ×
-        </button>
-
-
-        <div class="modal-heading">
-
-            <div class="modal-icon purple">
-                👤
-            </div>
-
-            <div>
-
-                <h2>My Profile</h2>
-
-                <p>
-                    Collector information
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="profile-card">
-
-            <div class="profile-avatar">
-                👤
-            </div>
-
-            <div class="profile-info">
-
-                <h3>
-                    Scrap Collector
-                </h3>
-
-                <p>
-                    <b>Role:</b>
-                    Collector
-                </p>
-
-                <p>
-                    <b>Status:</b>
-                    <span class="active">
-                        ● Active
+                    <span class="arrow">
+                        →
                     </span>
-                </p>
+
+                </div>
+
+
+
+                <!-- PRICES -->
+
+                <div class="card" onclick="openModal('priceModal')">
+
+                    <div class="card-icon yellow">
+                        💰
+                    </div>
+
+                    <h3>Price Board</h3>
+
+                    <p>
+                        Check today's scrap rates
+                    </p>
+
+                    <span class="arrow">
+                        →
+                    </span>
+
+                </div>
+
+
+
+                <!-- HISTORY -->
+
+                <div class="card" onclick="openModal('historyModal')">
+
+                    <div class="card-icon blue">
+                        📦
+                    </div>
+
+                    <h3>My Collections</h3>
+
+                    <p>
+                        View your collection history
+                    </p>
+
+                    <span class="arrow">
+                        →
+                    </span>
+
+                </div>
+
+
+
+                <!-- PROFILE -->
+
+                <div class="card" onclick="openModal('profileModal')">
+
+                    <div class="card-icon purple">
+                        👤
+                    </div>
+
+                    <h3>My Profile</h3>
+
+                    <p>
+                        View collector information
+                    </p>
+
+                    <span class="arrow">
+                        →
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </main>
+
+
+
+        <!-- ================= ADD SCRAP MODAL ================= -->
+
+        <div id="addModal" class="modal">
+
+            <div class="modal-box">
+
+                <button class="close" onclick="closeModal('addModal')">
+                    ×
+                </button>
+
+
+                <div class="modal-heading">
+
+                    <div class="modal-icon green">
+                        📷
+                    </div>
+
+                    <div>
+                        <h2>Add Scrap</h2>
+
+                        <p>
+                            Enter your scrap details
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <label>
+                    Upload Scrap Photo
+                </label>
+
+                <input type="file" accept="image/*">
+
+
+                <label>
+                    Select Material
+                </label>
+
+                <select id="material" onchange="calc()">
+
+                    <option value="">
+                        Select material
+                    </option>
+
+                    <option>Plastic</option>
+
+                    <option>Paper</option>
+
+                    <option>Iron</option>
+
+                    <option>Copper</option>
+
+                    <option>Aluminium</option>
+
+                    <option>Steel</option>
+
+                    <option>E-Waste</option>
+
+                </select>
+
+
+                <label>
+                    Weight
+                </label>
+
+                <div class="weight-box">
+
+                    <input id="weight" type="number" min="0" placeholder="Enter weight" oninput="calc()">
+
+                    <span>KG</span>
+
+                </div>
+
+
+                <div class="price-box">
+
+                    <span>
+                        Estimated Value
+                    </span>
+
+                    <h2 id="price">
+                        ₹0
+                    </h2>
+
+                </div>
+
+
+                <button class="submit-btn" onclick="add()">
+
+                    ♻️ Submit Scrap
+
+                </button>
 
             </div>
 
         </div>
 
-    </div>
-
-</div>
 
 
+        <!-- ================= PRICE MODAL ================= -->
 
-<script src="script.js"></script>
+        <div id="priceModal" class="modal">
+
+            <div class="modal-box">
+
+                <button class="close" onclick="closeModal('priceModal')">
+                    ×
+                </button>
+
+
+                <div class="modal-heading">
+
+                    <div class="modal-icon yellow">
+                        💰
+                    </div>
+
+                    <div>
+
+                        <h2>Price Board</h2>
+
+                        <p>
+                            Current scrap rates
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="prices">
+
+                    <div class="price-row">
+                        <span>Plastic</span>
+                        <b>₹20/kg</b>
+                    </div>
+
+                    <div class="price-row">
+                        <span>Paper</span>
+                        <b>₹15/kg</b>
+                    </div>
+
+                    <div class="price-row">
+                        <span>Iron</span>
+                        <b>₹35/kg</b>
+                    </div>
+
+                    <div class="price-row">
+                        <span>Copper</span>
+                        <b>₹600/kg</b>
+                    </div>
+
+                    <div class="price-row">
+                        <span>Aluminium</span>
+                        <b>₹120/kg</b>
+                    </div>
+
+                    <div class="price-row">
+                        <span>Steel</span>
+                        <b>₹45/kg</b>
+                    </div>
+
+                    <div class="price-row">
+                        <span>E-Waste</span>
+                        <b>₹80/kg</b>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================= HISTORY MODAL ================= -->
+
+        <div id="historyModal" class="modal">
+
+            <div class="modal-box">
+
+                <button class="close" onclick="closeModal('historyModal')">
+                    ×
+                </button>
+
+
+                <div class="modal-heading">
+
+                    <div class="modal-icon blue">
+                        📦
+                    </div>
+
+                    <div>
+
+                        <h2>My Collections</h2>
+
+                        <p>
+                            Your scrap collection history
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div id="list">
+
+                    <div class="empty">
+                        📦 No collections yet.
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================= PROFILE MODAL ================= -->
+
+        <div id="profileModal" class="modal">
+
+            <div class="modal-box">
+
+                <button class="close" onclick="closeModal('profileModal')">
+                    ×
+                </button>
+
+
+                <div class="modal-heading">
+
+                    <div class="modal-icon purple">
+                        👤
+                    </div>
+
+                    <div>
+
+                        <h2>My Profile</h2>
+
+                        <p>
+                            Collector information
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="profile-card">
+
+                    <div class="profile-avatar">
+                        👤
+                    </div>
+
+                    <div class="profile-info">
+
+                        <h3>
+                            Scrap Collector
+                        </h3>
+
+                        <p>
+                            <b>Role:</b>
+                            Collector
+                        </p>
+
+                        <p>
+                            <b>Status:</b>
+                            <span class="active">
+                                ● Active
+                            </span>
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <script src="script.js"></script>
 
 </body>
 
